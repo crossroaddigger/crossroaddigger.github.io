@@ -1284,7 +1284,7 @@ function showBook(i,scroll=true){bookOpen=i;const b=BOOKS[i];
 document.getElementById("books").addEventListener("click",e=>{const b=e.target.closest(".book");if(b)showBook(+b.dataset.i)});
 document.getElementById("bookcard").addEventListener("click",e=>{const b=e.target.closest("button[data-a]");if(!b)return;const g=document.getElementById("gq");g.value=b.dataset.a;g.dispatchEvent(new Event("input"));g.focus();scrollTo({top:0,behavior:"smooth"})});
 const VIEWS=["hit-parade","jukebox","bibliotheque","vinyles","salle","daily-mix","lecture","stats"];
-function current(){const h=location.hash.slice(1);return VIEWS.includes(h)?h:"hit-parade"}
+function current(){const h=location.hash.slice(1);return VIEWS.includes(h)?h:"jukebox"}
 const drawn={};
 function route(){const v=current();VIEWS.forEach(x=>document.getElementById("v-"+x).hidden=x!==v);
   document.querySelectorAll("nav.views a").forEach(a=>a.dataset.v===v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
