@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://crossroaddigger.github.io/sitemap.xml
