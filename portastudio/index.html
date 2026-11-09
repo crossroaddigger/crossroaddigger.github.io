@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Compagnon Portastudio 424</title>
+<meta name="description" content="Guide pratique en français du TASCAM Portastudio 424 MKIII : enregistrement, overdub, punch in/out, ping-pong, mixdown, routage des pistes, cassettes, entretien des têtes, dépannage et métronome.">
+<meta name="keywords" content="Tascam 424 MKIII, Portastudio, mode d'emploi, 4 pistes cassette, ping-pong, punch in, dbx, home studio">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://crossroaddigger.github.io/portastudio/">
+<meta property="og:url" content="https://crossroaddigger.github.io/portastudio/">
+<meta property="og:title" content="Compagnon Portastudio 424">
+<meta property="og:description" content="Le mode d'emploi du TASCAM 424 MKIII réécrit pas à pas, avec carte des commandes, routage, dépannage et métronome.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#3c4a57">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='36' rx='5' fill='%233c4a57'/%3E%3Crect x='14' y='22' width='36' height='14' rx='3' fill='%23120806'/%3E%3Ccircle cx='23' cy='29' r='4' fill='%23ff6a3d'/%3E%3Ccircle cx='41' cy='29' r='4' fill='%23ff6a3d'/%3E%3C/svg%3E">
+<style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: une colonne façon façade du 424 — ardoise bleutée, boutons colorés comme les potards (rouge TRIM, bleu EQ, violet MID, vert EFFECT), afficheur fluorescent rouge-orangé */
+:root{
+  --bg:#e6e9ec; --panel:#f5f6f7; --ink:#1b232b; --muted:#56616c; --line:#c5ccd3;
+  --slate:#3c4a57; --slate-ink:#eef2f5; --vfd:#d9431f; --trim:#d33b36; --eq:#3f7fc4; --mid:#7b55b8; --fx:#2e9a85;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a20; --panel:#1d252d; --ink:#e7ecf0; --muted:#98a5b1; --line:#323d48;
+  --slate:#8fa3b5; --slate-ink:#10161b; --vfd:#ff6a3d; --trim:#f0605a; --eq:#6aa6e6; --mid:#a283dc; --fx:#4cc4ac; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a20; --panel:#1d252d; --ink:#e7ecf0; --muted:#98a5b1; --line:#323d48;
+  --slate:#8fa3b5; --slate-ink:#10161b; --vfd:#ff6a3d; --trim:#f0605a; --eq:#6aa6e6; --mid:#a283dc; --fx:#4cc4ac; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto}
+header{padding-block:22px 10px}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.14em;font-size:14px;color:var(--muted);text-transform:uppercase}
+h1{font-family:var(--display);font-style:italic;font-weight:700;font-size:46px;line-height:1;margin:4px 0 6px;letter-spacing:.02em;text-wrap:balance}
+h1 em{font-size:.5em;font-style:italic;color:var(--vfd);margin-left:4px;vertical-align:super}
+h1 small{display:block;font-style:normal;font-size:20px;font-weight:500;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.sub{color:var(--muted);margin:0;max-width:60ch}
+.counter{display:inline-flex;gap:10px;align-items:center;margin-top:12px;background:#120806;color:#ff6a3d;font-family:var(--mono);font-weight:700;padding:6px 12px;border-radius:6px;font-size:14px;letter-spacing:.12em}
+.counter b{font-size:20px;text-shadow:0 0 8px rgba(255,106,61,.6)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--slate);color:var(--slate-ink);border-color:var(--slate)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--vfd);outline-offset:2px}
+section{padding-top:18px}
+h2{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.03em;margin:0 0 4px;text-transform:uppercase}
+.lead{color:var(--muted);margin:0 0 14px;max-width:62ch}
+.search{width:100%;font:inherit;padding:11px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);margin-bottom:12px}
+.k{font-family:var(--mono);font-weight:700;font-size:.78em;background:var(--slate);color:var(--slate-ink);padding:2px 6px;border-radius:4px;white-space:nowrap;letter-spacing:.02em}
+.k.r{background:var(--trim);color:#fff}
+.sw{font-family:var(--mono);font-size:.8em;border:1px solid var(--line);padding:1px 5px;border-radius:3px;white-space:nowrap}
+
+.guide{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+.guide summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:center}
+.guide summary::-webkit-details-marker{display:none}
+.guide .tag{font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);flex:0 0 auto;min-width:74px}
+.guide .gt{font-weight:700;flex:1;min-width:0}
+.guide .done{width:10px;height:10px;border-radius:50%;background:var(--line);flex:0 0 auto}
+.guide.is-done .done{background:var(--fx)}
+.guide[open] summary{border-bottom:1px solid var(--line)}
+.guide .body{padding:12px 16px 16px}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+ol.steps li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:13px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink)}
+ol.steps li>span{min-width:0}
+.note{margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--eq);background:color-mix(in srgb,var(--eq) 10%,transparent);border-radius:0 6px 6px 0;font-size:15px}
+.note.warn{border-color:var(--trim);background:color-mix(in srgb,var(--trim) 9%,transparent)}
+.mark{margin-top:12px;font:inherit;font-weight:600;font-size:14px;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+
+.face{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:8px;grid-template-columns:repeat(6,1fr)}
+.zone{font:inherit;text-align:left;cursor:pointer;border:1px dashed var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:10px;min-width:0}
+.zone b{display:block;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+.zone i{font-style:normal;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.zone[aria-pressed="true"]{border:1.5px solid var(--vfd);background:color-mix(in srgb,var(--vfd) 7%,transparent)}
+.knobs{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.knobs span{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.z-ch{grid-column:span 2;grid-row:span 2}.z-56{grid-column:span 1;grid-row:span 2}.z-78{grid-column:span 1;grid-row:span 2}
+.z-cas{grid-column:span 2}.z-rf{grid-column:span 2}
+.z-vfd{grid-column:span 2}.z-loc{grid-column:span 2}.z-tp{grid-column:span 2}.z-rear{grid-column:span 6}
+.detail{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.detail h3{font-family:var(--display);font-size:22px;margin:0 0 8px;letter-spacing:.04em;text-transform:uppercase}
+dl.ctl{margin:0;display:grid;gap:8px}
+dl.ctl div{display:grid;grid-template-columns:minmax(120px,34%) 1fr;gap:10px}
+dl.ctl dt,dl.ctl dd{min-width:0}
+dl.ctl dd{margin:0}
+@media (max-width:520px){
+  .face{grid-template-columns:repeat(2,1fr)}
+  .z-ch,.z-rear,.z-cas,.z-rf{grid-column:span 2}.z-56,.z-78,.z-vfd,.z-loc,.z-tp{grid-column:span 1}
+  .z-ch,.z-56,.z-78{grid-row:auto}.z-tp{grid-column:span 2}
+  dl.ctl div{grid-template-columns:1fr;gap:2px}
+}
+
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:14px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px}
+h3.sub{font-family:var(--display);font-size:19px;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
+
+.routes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.route{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.route b{display:block;font-family:var(--display);font-size:22px}
+.route span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.route.l b{color:var(--eq)}.route.r b{color:var(--trim)}
+@media (max-width:420px){.routes{grid-template-columns:repeat(2,1fr)}}
+
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:12px;margin-bottom:14px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font:inherit;font-weight:600;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--slate);color:var(--slate-ink);border-color:var(--slate)}
+.out{font-family:var(--mono);font-size:15px}
+.out b{font-size:26px;color:var(--vfd);font-variant-numeric:tabular-nums}
+
+.metro{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:16px}
+.lcd{background:#120806;color:#ff6a3d;border-radius:8px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.bpm{font-family:var(--mono);font-size:54px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 0 10px rgba(255,106,61,.5)}
+.bpm small{font-size:14px;margin-left:6px;opacity:.7}
+.beats{display:flex;gap:6px;flex-wrap:wrap}
+.beats i{width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;opacity:.45}
+.beats i.on{background:#ff6a3d;opacity:1}
+.beats i.on.first{background:#ffd2c2;border-color:#ffd2c2}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row label{font-weight:600;min-width:70px}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--vfd)}
+.btn{font:inherit;font-weight:700;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn.big{background:var(--slate);color:var(--slate-ink);border-color:var(--slate);min-width:120px}
+.btn.big.playing{background:var(--trim);border-color:var(--trim);color:#fff}
+.step{font:inherit;font-weight:700;width:42px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.empty{color:var(--muted);padding:12px 0}
+footer{margin-top:28px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px 0;font-size:14px}
+.topbar a{color:var(--muted);text-decoration:none;font-weight:600}
+.topbar a:hover{color:var(--ink)}
+.bmc{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;background:#ffdd00;color:#1b1a14;border-radius:999px;padding:8px 14px;border:1px solid #e6c600}
+.bmc:hover{filter:brightness(.96)}
+.bmc-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.support{margin-top:28px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.support p{margin:0;max-width:52ch;min-width:0}
+@media (max-width:520px){.bmc-float .lbl{display:none}.bmc-float{padding:10px 12px}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<div class="topbar"><a href="/">← Mellow Box</a><a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div>
+<header>
+  <div class="brand">Tascam · Multitrack Cassette</div>
+  <h1>Portastudio 424<em>mkIII</em><small>Compagnon de poche</small></h1>
+  <p class="sub">Le mode d'emploi du 4-pistes à cassette, réécrit pas à pas : enregistrement, overdub, punch, ping-pong, mixdown, entretien des têtes, plus un métronome et un calcul de durée de cassette.</p>
+  <div class="counter" aria-hidden="true">COUNTER <b>0000</b> · dbx</div>
+</header>
+
+<nav role="tablist" aria-label="Sections">
+  <button role="tab" data-tab="guides" aria-selected="true">Guides</button>
+  <button role="tab" data-tab="panneau" aria-selected="false">Panneau</button>
+  <button role="tab" data-tab="routage" aria-selected="false">Routage</button>
+  <button role="tab" data-tab="cassette" aria-selected="false">Cassette</button>
+  <button role="tab" data-tab="depannage" aria-selected="false">Dépannage</button>
+  <button role="tab" data-tab="metronome" aria-selected="false">Métronome</button>
+</nav>
+
+<section id="guides" role="tabpanel">
+  <h2>Du premier son à la cassette master</h2>
+  <p class="lead">Dans l'ordre d'une session. Touchez une étape pour l'ouvrir, puis marquez-la comme faite : votre progression reste sur cet appareil.</p>
+  <input class="search" id="q" type="search" placeholder="Chercher : punch, ping-pong, nettoyage, effet…" aria-label="Chercher dans les guides">
+  <div id="glist"></div>
+  <p class="empty" id="gempty" hidden>Aucun guide ne correspond. Essayez un autre mot (ex. « piste », « tête », « mix »).</p>
+</section>
+
+<section id="panneau" role="tabpanel" hidden>
+  <h2>La façade</h2>
+  <p class="lead">Disposition simplifiée du 424 MKIII. Touchez une zone pour savoir ce que fait chaque commande.</p>
+  <div class="face" id="face">
+    <button class="zone z-ch" data-z="ch"><b>Voies 1–4</b><i>TRIM · INPUT · EQ · EFFECT · PAN · fader</i>
+      <div class="knobs" aria-hidden="true"><span style="--c:var(--trim)"></span><span style="--c:var(--eq)"></span><span style="--c:var(--mid)"></span><span style="--c:var(--eq)"></span><span style="--c:var(--fx)"></span><span style="--c:var(--fx)"></span></div></button>
+    <button class="zone z-56" data-z="v56"><b>Voies 5–6</b><i>INPUT 1/3/5 · 2/4/6</i></button>
+    <button class="zone z-78" data-z="v78"><b>7–8 & écoute</b><i>LEVEL · ASSIGN · MONITOR · MASTER</i></button>
+    <button class="zone z-cas" data-z="cas"><b>Cassette</b><i>dbx · TAPE SPEED</i></button>
+    <button class="zone z-rf" data-z="rf"><b>Record Function</b><i>DIRECT · SAFE · BUSS × 4</i></button>
+    <button class="zone z-vfd" data-z="vfd"><b>Afficheur</b><i>vumètres · compteur</i></button>
+    <button class="zone z-loc" data-z="loc"><b>Repérage</b><i>REHEARSAL · AUTO PUNCH · LOC · RTZ</i></button>
+    <button class="zone z-tp" data-z="tp"><b>Transport & pitch</b><i>REW · F FWD · STOP · PLAY · RECORD</i></button>
+    <button class="zone z-rear" data-z="rear"><b>Arrière & avant</b><i>entrées · LINE / MONITOR OUT · EFFECT SEND · TAPE OUT · PHONES</i></button>
+  </div>
+  <div class="detail" id="zdetail"></div>
+</section>
+
+<section id="routage" role="tabpanel" hidden>
+  <h2>Qui va sur quelle piste</h2>
+  <p class="lead">La règle à retenir sur le 424 : le PAN choisit le bus, le sélecteur RECORD FUNCTION choisit la piste.</p>
+  <div class="routes">
+    <div class="route l"><b>Piste 1</b><span>BUSS L · PAN gauche</span></div>
+    <div class="route r"><b>Piste 2</b><span>BUSS R · PAN droite</span></div>
+    <div class="route l"><b>Piste 3</b><span>BUSS L · PAN gauche</span></div>
+    <div class="route r"><b>Piste 4</b><span>BUSS R · PAN droite</span></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Position RECORD FUNCTION</th><th>Ce que la piste enregistre</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sw">SAFE</span> (centre)</td><td>Rien. Piste protégée, le vumètre montre la lecture.</td></tr>
+      <tr><td><span class="sw">BUSS L / BUSS R</span></td><td>Le mélange de toutes les voies envoyées de ce côté par leur PAN, après le fader MASTER.</td></tr>
+      <tr><td><span class="sw">DIRECT</span></td><td>Uniquement la voie de même numéro (voie 3 → piste 3). Niveau réglé au fader de la voie ; le MASTER n'agit pas.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Combinaisons utiles</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Objectif</th><th>Réglage</th></tr></thead>
+    <tbody>
+      <tr><td>Plusieurs sources sur une piste</td><td>Toutes les voies PAN du même côté, la piste en BUSS de ce côté.</td></tr>
+      <tr><td>Un mix stéréo sur deux pistes</td><td>Une piste impaire + une paire en BUSS : 1&amp;2, 1&amp;4 ou 2&amp;3. Pistes 1 et 3 en BUSS = deux fois le même côté.</td></tr>
+      <tr><td>3 ou 4 pistes à la fois</td><td>Pistes en DIRECT, une source par voie de même numéro.</td></tr>
+      <tr><td>Mélanger DIRECT et BUSS</td><td>Tournez le PAN des voies DIRECT vers le côté opposé au bus utilisé, pour éviter qu'elles fuient sur la piste BUSS.</td></tr>
+      <tr><td>Entendre les pistes déjà enregistrées</td><td>Bouton EFFECT 2/TAPE CUE de la voie, sélecteur sur TAPE CUE (pas le mix principal).</td></tr>
+      <tr><td>Réécouter / mixer</td><td>INPUT des voies 1–4 sur TAPE.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="cassette" role="tabpanel" hidden>
+  <h2>Cassettes et durées</h2>
+  <p class="lead">Le 424 enregistre les 4 pistes dans un seul sens : n'utilisez qu'une face de la cassette.</p>
+  <div class="calc">
+    <div class="row"><label>Cassette</label><div class="seg" id="len"><button data-v="46">C-46</button><button data-v="60" aria-pressed="true">C-60</button><button data-v="90">C-90</button></div></div>
+    <div class="row"><label>Vitesse</label><div class="seg" id="spd"><button data-v="high" aria-pressed="true">HIGH · 9,5 cm/s</button><button data-v="normal">NORMAL · 4,8 cm/s</button></div></div>
+    <div class="out" aria-live="polite">Durée utile environ <b id="dur">15 min</b> · <span id="bw">40 Hz–16 kHz</span></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Conseil</th><th>Pourquoi</th></tr></thead>
+    <tbody>
+      <tr><td>Type II (chrome, high bias), toujours la même marque</td><td>Le réglage de l'appareil est prévu pour ; TDK SA et Maxell XL-II sont recommandées.</td></tr>
+      <tr><td>Pas de C-120</td><td>Bande trop fine, problèmes d'enroulement.</td></tr>
+      <tr><td>La plus courte qui suffit</td><td>Bande plus épaisse, rembobinages plus rapides.</td></tr>
+      <tr><td>Vitesse HIGH pour la qualité</td><td>Plus d'aigus et moins de souffle ; NORMAL pour les maquettes longues.</td></tr>
+      <tr><td>dbx sur ON</td><td>Réduction de bruit. SYNC = dbx coupé sur la piste 4 (code de synchro), OFF pour lire une cassette ordinaire.</td></tr>
+      <tr><td>Cassette finie : cassez les deux languettes</td><td>Protège contre l'effacement.</td></tr>
+      <tr><td>Une cassette 4 pistes ne se lit pas sur un lecteur normal</td><td>Il faut d'abord la mixer en stéréo.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Caractéristiques</h3>
+  <div class="tbl"><table><tbody>
+    <tr><td>Vitesses</td><td class="num">9,5 / 4,8 cm/s ±1 %</td></tr>
+    <tr><td>Pitch</td><td class="num">±12 %</td></tr>
+    <tr><td>Bande passante HIGH / NORMAL</td><td class="num">40 Hz–16 kHz / 40 Hz–10 kHz (±3 dB)</td></tr>
+    <tr><td>Rapport signal/bruit (dbx, pondéré A)</td><td class="num">95 dB HIGH · 93 dB NORMAL</td></tr>
+    <tr><td>Pleurage et scintillement</td><td class="num">0,05 % HIGH · 0,06 % NORMAL</td></tr>
+    <tr><td>EQ HIGH / MID / LOW</td><td class="num">10 kHz ±10 dB · 250 Hz–5 kHz ±12 dB · 100 Hz ±10 dB</td></tr>
+    <tr><td>Rembobinage C-60</td><td class="num">≈ 120 s</td></tr>
+    <tr><td>Alimentation</td><td class="num">PS-424MKIII · 230 V/50 Hz (Europe) · 22 W</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="depannage" role="tabpanel" hidden>
+  <h2>Ça ne marche pas ?</h2>
+  <p class="lead">Les cas listés dans le manuel et ce qu'il faut vérifier.</p>
+  <div id="tlist"></div>
+</section>
+
+<section id="metronome" role="tabpanel" hidden>
+  <h2>Métronome</h2>
+  <p class="lead">Le 424 n'a pas de clic intégré. Écoutez celui-ci au casque pendant la prise, ou enregistrez-le d'abord sur une piste (souvent la 4) pour caler les suivantes. Le premier temps est accentué.</p>
+  <div class="metro">
+    <div class="lcd" aria-live="polite">
+      <div class="bpm"><span id="bpmv">96</span><small>BPM</small></div>
+      <div class="beats" id="beats"></div>
+    </div>
+    <div class="row">
+      <label for="bpm">Tempo</label>
+      <button class="step" id="minus" aria-label="Moins 1 BPM">−</button>
+      <input type="range" id="bpm" min="30" max="250" value="96">
+      <button class="step" id="plus" aria-label="Plus 1 BPM">+</button>
+    </div>
+    <div class="row">
+      <label for="beat">Temps</label>
+      <input type="range" id="beat" min="1" max="12" value="4">
+      <span class="k" id="beatv">4</span>
+    </div>
+    <div class="row">
+      <button class="btn big" id="play">Démarrer</button>
+      <button class="btn" id="tap">Tap tempo</button>
+    </div>
+  </div>
+</section>
+
+<div class="support"><p>Ce guide vous a fait gagner du temps sur votre 424 ? Un café m'aide à continuer d'en écrire d'autres.</p><a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div>
+<footer>Réalisé d'après le mode d'emploi officiel du TASCAM Portastudio 424 MKIII. En cas de doute, le manuel fait foi.</footer>
+</div>
+<a class="bmc bmc-float" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener" aria-label="Buy me a coffee">☕<span class="lbl">Buy me a coffee</span></a>
+
+<script>
+const K=s=>`<span class="k">${s}</span>`, KR=s=>`<span class="k r">${s}</span>`, S=s=>`<span class="sw">${s}</span>`;
+const GUIDES=[
+ {id:"setup",tag:"Départ",t:"Brancher un micro et régler le niveau",kw:"micro trim niveau casque monitor brancher",steps:[
+  `Branchez le micro sur l'entrée MIC/LINE 1 (XLR ou jack, pas les deux).`,
+  `Voie 1 : ${S("INPUT")} sur MIC/LINE, ${K("TRIM")} tout à gauche, EQ au centre. Les autres sélecteurs sur OFF.`,
+  `${K("PAN")} 1 tout à gauche, fader 1 sur 7, ${K("MASTER")} sur 7.`,
+  `${S("MONITOR SELECT · LINE OUT")} sur L-R. Parlez et montez le TRIM jusqu'à ce que le vumètre tourne autour de 0.`,
+  `Casque sur ${K("PHONES")}, montez ${K("MONITOR LEVEL")}.`],
+  note:`Mettez sur OFF le sélecteur INPUT des voies inutilisées : c'est la première source de souffle.`},
+ {id:"rec1",tag:"Prise",t:"Enregistrer la piste 1",kw:"enregistrer record piste 1 cassette compteur",steps:[
+  `Insérez une cassette Type II (C-90 maximum), ${K("PLAY")} environ 5 s pour passer l'amorce, puis ${K("STOP")}.`,
+  `${K("COUNTER RESET")} pour mettre le compteur à 0000.`,
+  `${S("RECORD FUNCTION")} piste 1 sur BUSS L : le voyant REC 1 clignote.`,
+  `Maintenez ${KR("RECORD")} et appuyez sur ${K("PLAY")} : REC 1 reste allumé, ça enregistre.`,
+  `${K("STOP")}, puis remettez la piste 1 sur SAFE.`]},
+ {id:"cue",tag:"Écoute",t:"Réécouter une piste (TAPE CUE)",kw:"écouter réécouter tape cue lecture",steps:[
+  `Sélecteur ${S("EFFECT 2/TAPE CUE")} sur TAPE CUE, ${S("LINE OUT")} sur MONO.`,
+  `${K("RTZ")} pour revenir à 0000, puis ${K("PLAY")}.`,
+  `Montez le bouton EFFECT 2/TAPE CUE de la voie 1 pour entendre la piste 1.`,
+  `${K("STOP")}.`],
+  note:`Appuyer sur ${K("PLAY")} pendant le retour RTZ lance la lecture dès que le compteur atteint 0000.`},
+ {id:"over",tag:"Prise",t:"Ajouter une piste (overdub)",kw:"overdub superposer piste 2 3 4 voix",steps:[
+  `Gardez le micro sur la voie 1, mais ${K("PAN")} tout à droite (bus R → piste 2). ${S("LINE OUT")} sur MONO.`,
+  `${K("RTZ")} pour revenir au début.`,
+  `Piste 2 sur BUSS R. Parlez, réglez le ${K("TRIM")} : vumètre 2 jamais au-dessus de +6.`,
+  `${KR("RECORD")} + ${K("PLAY")}. Équilibrez l'ancienne piste au casque avec le seul TAPE CUE de la voie 1.`,
+  `${K("STOP")}, piste 2 sur SAFE.`],
+  note:`Même logique pour la suite : PAN à gauche + piste 3 en BUSS L, PAN à droite + piste 4 en BUSS R.`},
+ {id:"direct",tag:"Prise",t:"Enregistrer 3 ou 4 sources à la fois",kw:"direct groupe batterie plusieurs pistes simultané",steps:[
+  `Une source par voie : voie 1 → piste 1, voie 2 → piste 2, etc.`,
+  `Pistes concernées en ${S("DIRECT")}.`,
+  `Réglez le niveau d'enregistrement au fader de chaque voie ; le MASTER n'agit pas en DIRECT.`,
+  `Si vous combinez avec des pistes en BUSS, tournez le PAN des voies DIRECT vers le côté opposé pour éviter les fuites.`,
+  `${KR("RECORD")} + ${K("PLAY")}, puis ${K("STOP")} et tout repasser sur SAFE.`]},
+ {id:"punch",tag:"Correction",t:"Corriger un passage (punch manuel)",kw:"punch in out corriger remplacer pédale",steps:[
+  `Piste à corriger en BUSS (voyant REC clignotant), toutes les autres en SAFE.`,
+  `Placez la bande un peu avant le passage, ${K("PLAY")}.`,
+  `Juste avant l'erreur, ${KR("RECORD")} : vous enregistrez (punch in).`,
+  `À la fin du passage, ${K("PLAY")} : retour en lecture (punch out).`,
+  `${K("STOP")}.`],
+  note:`Avec une pédale RC-30P sur REMOTE PUNCH IN/OUT, la pédale remplace RECORD puis PLAY : les mains restent sur l'instrument.`},
+ {id:"auto",tag:"Correction",t:"Répéter puis punch automatique",kw:"rehearsal auto punch répétition automatique",steps:[
+  `Préparez la piste comme pour un punch manuel. TAPE CUE sur TAPE CUE, ${S("EFFECT/CUE")} sur EFFECT 2/CUE pour bien entendre.`,
+  `Placez la bande quelques secondes avant le punch, appuyez sur ${K("REHEARSAL")} : RHSL clignote.`,
+  `${K("PLAY")} enregistre le point START. Au point d'entrée ${KR("RECORD")} (IN s'affiche), au point de sortie ${K("PLAY")} (OUT s'affiche).`,
+  `La bande joue environ 3 s puis revient à START. ${K("PLAY")} pour répéter autant que voulu : rien n'est enregistré.`,
+  `Prêt ? ${K("AUTO PUNCH")} puis ${K("PLAY")} : entrée, sortie, retour et arrêt se font seuls.`,
+  `${K("PLAY")} pour réécouter. ${K("CLEAR")} pour effacer les points et sortir du mode.`],
+  warn:`REHEARSAL actif empêche l'enregistrement normal. ${K("CLEAR")} pour en sortir.`},
+ {id:"bounce",tag:"Pistes",t:"Ping-pong : regrouper 3 pistes sur 1",kw:"bounce ping-pong regrouper libérer pistes",steps:[
+  `Voies 1 à 3 : ${S("INPUT")} sur TAPE, ${K("PAN")} tout à droite, faders entre 7 et 8.`,
+  `${K("MASTER")} entre 7 et 8, ${S("LINE OUT")} sur MONO.`,
+  `Piste 4 sur BUSS R. ${K("PLAY")} et réglez les faders 1–3 : vumètre 4 jamais au-dessus de +6.`,
+  `Retour au début, ${KR("RECORD")} + ${K("PLAY")}.`,
+  `${K("STOP")}, piste 4 sur SAFE. Les pistes 1 à 3 sont libres pour de nouvelles prises.`],
+  note:`Vous pouvez ajouter une source live pendant le ping-pong par les voies 5, 6, 7 ou 8. Larsen ? Baissez le niveau ou l'EQ HIGH.`},
+ {id:"fx",tag:"Effets",t:"Ajouter une réverb (départ/retour)",kw:"effet reverb départ retour send return",steps:[
+  `Sortie ${K("EFFECT 1 SEND")} (arrière) vers l'entrée de l'effet.`,
+  `Sorties de l'effet vers ${S("STEREO INPUT 7/8")}. Sur l'effet, mix à 100 % d'effet.`,
+  `Sur chaque voie, bouton ${K("EFFECT 1")} vers 2 h.`,
+  `Dosez le retour avec ${K("LEVEL")} de 7-8. ASSIGN sur L-R pour l'enregistrer, sur MON pour l'entendre seulement au casque.`],
+  note:`Si un retour d'effet passe par une voie mono, tournez à fond à gauche les boutons EFFECT de cette voie pour éviter le larsen.`},
+ {id:"mix",tag:"Final",t:"Mixer vers un enregistreur stéréo",kw:"mixdown mix final stéréo enregistreur ordinateur",steps:[
+  `${K("LINE OUTPUT L/R")} vers les entrées ligne de l'enregistreur (deck, interface audio…).`,
+  `${K("MASTER")} entre 7 et 8, ${S("LINE OUT")} sur L-R, tous les ${S("INPUT")} 1–4 sur TAPE.`,
+  `${K("PLAY")} et réglez faders, PAN et EQ. Les voies 5–6 restent libres pour une source live.`,
+  `Ajustez le MASTER : vumètres autour de 0, crêtes sous +6.`,
+  `Mettez l'enregistreur en pause d'enregistrement et réglez son niveau d'entrée.`,
+  `Rembobinez le 424, lancez l'enregistreur, puis ${K("PLAY")} sur le 424. Arrêtez les deux et vérifiez.`]},
+ {id:"loc",tag:"Repérage",t:"Mémoriser des points et boucler",kw:"memo loc repeat boucle repère rtz",steps:[
+  `À l'endroit voulu : ${K("MEMO IN")} puis ${K("LOC 1")} (ou ${K("LOC 2")}).`,
+  `Appui bref sur ${K("LOC 1")} / ${K("LOC 2")} : la bande y va. Maintenu 0,5 s : le compteur affiche le point.`,
+  `${K("REPEAT")} boucle entre LOC 1 (début) et LOC 2 (fin), séparés d'au moins 0003.`,
+  `${K("RTZ")} revient à 0000.`],
+  note:`Les points sont perdus à l'éjection de la cassette ou à l'extinction.`},
+ {id:"clean",tag:"Entretien",t:"Nettoyer les têtes",kw:"nettoyage têtes entretien cleaning galet cabestan",steps:[
+  `Sans cassette, porte ouverte, maintenez ${K("STOP")} + ${K("REHEARSAL")} et allumez avec ${K("POWER")} : « Cleaning » s'affiche.`,
+  `${K("PLAY")} sort le bloc de têtes (retour seul au bout de 3 min).`,
+  `Coton-tige et liquide de nettoyage sur les têtes et les guides, jusqu'à ce que le coton ressorte propre. Essuyez l'excédent.`,
+  `Galet presseur avec un nettoyant caoutchouc, cabestan avec le liquide de têtes.`,
+  `${K("STOP")} rentre les têtes, puis ${K("STOP")} + ${K("COUNTER RESET")} pour quitter le mode.`],
+  note:`À faire toutes les 6 heures d'utilisation, et avant et après chaque session. Démagnétisez de temps en temps : démagnétiseur allumé à 1 m, approché lentement, passé sur les pièces métalliques, éloigné avant de l'éteindre.`}
+];
+
+const TROUBLE=[
+ {t:"Les anciennes pistes s'enregistrent avec la nouvelle",a:`Vous écoutez les pistes par le mix principal. Écoutez-les par ${S("TAPE CUE")}, pas en mettant leur INPUT sur TAPE.`},
+ {t:"Enregistrement bruyant",a:`Mettez sur OFF les INPUT des voies inutilisées. Montez le niveau de la source plutôt que les faders et le MASTER. Vérifiez que dbx est sur ON.`},
+ {t:"Lecture sourde ou faible",a:`Nettoyez les têtes (onglet Guides → Entretien).`},
+ {t:"Rien ne s'enregistre",a:`RECORD FUNCTION sur SAFE, languette de la cassette cassée, ou REHEARSAL encore actif (${K("CLEAR")}).`},
+ {t:"La mauvaise piste a été enregistrée",a:`Vérifiez le PAN : gauche = pistes 1 et 3, droite = pistes 2 et 4.`},
+ {t:"Le son est trop aigu ou trop grave en lecture",a:`${K("PITCH CONTROL")} n'est pas au même réglage qu'à l'enregistrement. Remettez-le au centre « 0 ». Vérifiez aussi TAPE SPEED.`},
+ {t:"Les touches de transport ne répondent pas",a:`Vérifiez l'alimentation et qu'une cassette est bien chargée.`},
+ {t:"La bande ne défile pas",a:`Une pause est peut-être engagée.`},
+ {t:"Larsen pendant un ping-pong",a:`Baissez les niveaux ou l'EQ HIGH.`},
+ {t:"Une cassette du commerce sonne mal",a:`Mettez dbx sur OFF pour les cassettes Dolby B. Coupez la lecture des pistes 3–4 pour ne pas entendre l'autre face à l'envers.`}
+];
+
+const ZONES={
+ ch:["Voies 1 à 4",[["TRIM","Gain du préampli : à gauche LINE, à droite MIC."],["INPUT","MIC/LINE (entrée), OFF, TAPE (lecture de la piste de même numéro)."],["EQ HIGH","Aigus ±10 dB à 10 kHz."],["EQ MID","Fréquence de 250 Hz à 5 kHz (bouton violet) et gain ±12 dB."],["EQ LOW","Graves ±10 dB à 100 Hz."],["EFFECT 1","Départ effet après fader."],["EFFECT 2/TAPE CUE","Départ effet 2, ou niveau de la piste au casque si le sélecteur est sur TAPE CUE."],["PAN","Gauche → pistes 1 et 3, droite → pistes 2 et 4."],["Fader","Niveau de la voie vers le MASTER (vers 7 en usage normal)."]]],
+ v56:["Voies 5 et 6",[["INPUT 5","Choisit l'entrée 1, 3 ou 5."],["INPUT 6","Choisit l'entrée 2, 4 ou 6."],["Usage","Ajouter des sources live pendant un ping-pong ou un mixdown."]]],
+ v78:["Voies 7–8, écoute & master",[["LEVEL 7-8","Niveau des entrées stéréo (souvent un retour d'effet)."],["ASSIGN","L-R (dans le mix), OFF, MON (casque seulement)."],["Entrée 7 seule","Un signal branché seulement en 7 part des deux côtés."],["LINE OUT","L-R, MONO ou OFF : ce que vous entendez et envoyez."],["EFFECT/CUE","Écouter EFFECT 1, EFFECT 2/CUE ou rien."],["MONITOR LEVEL","Volume casque et moniteurs."],["MASTER","Niveau du mix stéréo ; travaillez entre 7 et 8."]]],
+ cas:["Cassette",[["Compartiment","Une seule face utilisée, les 4 pistes dans le même sens."],["dbx NR","ON (normal), SYNC (dbx coupé sur la piste 4), OFF (cassettes ordinaires)."],["TAPE SPEED","HIGH 9,5 cm/s (qualité) ou NORMAL 4,8 cm/s (durée)."]]],
+ rf:["Record Function 1 à 4",[["DIRECT","La piste enregistre la voie de même numéro."],["SAFE","Protégée, n'enregistre pas."],["BUSS","Piste 1/3 : bus L ; piste 2/4 : bus R."],["Voyant REC","Clignote = prête ; fixe = enregistre."]]],
+ vfd:["Afficheur",[["Vumètres 1–4","Niveau d'enregistrement en record, de lecture en SAFE. Visez 0, crêtes ≤ +6."],["Vumètres L/R","Sortie du mix."],["Compteur","4 chiffres, mis à zéro avec COUNTER RESET."],["Témoins","RHSL, AUTO, IN, OUT, REPEAT, MEMO 1/2, dbx."]]],
+ loc:["Repérage",[["REHEARSAL","Répéter un punch sans enregistrer."],["AUTO PUNCH","Exécute le punch répété."],["CLEAR","Annule REHEARSAL/AUTO PUNCH et leurs points."],["COUNTER RESET","Compteur à 0000."],["MEMO IN + LOC 1/2","Mémorise la position."],["LOC 1 / LOC 2","Aller au point ; maintenu, l'affiche."],["REPEAT","Boucle entre LOC 1 et LOC 2."],["RTZ","Retour à 0000."]]],
+ tp:["Transport & pitch",[["REW / F FWD","Rembobinage / avance rapide."],["STOP","Arrêt."],["PLAY","Lecture ; pendant l'enregistrement, punch out."],["RECORD","Avec PLAY : enregistrer. Seul en lecture : punch in."],["PITCH CONTROL","Vitesse ±12 %. Au centre « 0 » sauf effet voulu : il agit aussi en enregistrement."]]],
+ rear:["Arrière & avant",[["MIC/LINE 1–6","XLR ou jack par voie, pas les deux à la fois."],["STEREO INPUT 7/8","Entrées ligne stéréo, idéales pour les retours d'effet."],["SUB INPUT L/R","Va directement au MASTER."],["LINE OUTPUT L/R","Vers l'enregistreur de mixage."],["MONITOR OUTPUT L/R","Vers les enceintes."],["EFFECT 1 SEND","Départ effet 1."],["EFFECT 2 SEND / TAPE CUE OUT","Départ effet 2 ou retour casque des musiciens."],["TAPE OUTPUT 1–4","Sortie directe de chaque piste (pour numériser piste par piste)."],["REMOTE PUNCH IN/OUT","Pédale RC-30P."],["PHONES (avant)","Casque."],["POWER","Adaptateur PS-424MKIII uniquement."]]]
+};
+
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let done=store.get("p424-done",{});
+
+const tabs=[...document.querySelectorAll("nav button")], valid=tabs.map(b=>b.dataset.tab);
+function show(id,fromClick){tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
+  document.querySelectorAll("section[role=tabpanel]").forEach(s=>s.hidden=s.id!==id);
+  if(fromClick&&location.hash!=="#"+id) history.replaceState(null,"","#"+id); store.set("p424-tab",id)}
+tabs.forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab,true)));
+const h0=location.hash.slice(1), t0=store.get("p424-tab","guides"); show(valid.includes(h0)?h0:(valid.includes(t0)?t0:"guides"));
+addEventListener("hashchange",()=>{const h=location.hash.slice(1); if(valid.includes(h)) show(h)});
+
+const glist=document.getElementById("glist");
+glist.innerHTML=GUIDES.map(g=>`<details class="guide${done[g.id]?" is-done":""}" id="g-${g.id}" data-kw="${(g.t+" "+g.kw+" "+g.tag).toLowerCase()}">
+  <summary><span class="tag">${g.tag}</span><span class="gt">${g.t}</span><span class="done" aria-hidden="true"></span></summary>
+  <div class="body"><ol class="steps">${g.steps.map(s=>`<li><span>${s}</span></li>`).join("")}</ol>
+  ${g.note?`<p class="note">${g.note}</p>`:""}${g.warn?`<p class="note warn">${g.warn}</p>`:""}
+  <button class="mark" data-id="${g.id}">${done[g.id]?"Marquer comme à refaire":"Marquer comme fait"}</button></div></details>`).join("");
+glist.addEventListener("click",e=>{const b=e.target.closest(".mark"); if(!b) return; const id=b.dataset.id;
+  done[id]=!done[id]; store.set("p424-done",done);
+  document.getElementById("g-"+id).classList.toggle("is-done",!!done[id]);
+  b.textContent=done[id]?"Marquer comme à refaire":"Marquer comme fait"});
+document.getElementById("q").addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase(); let n=0;
+  document.querySelectorAll("#glist .guide").forEach(d=>{const m=!q||d.dataset.kw.includes(q)||d.textContent.toLowerCase().includes(q); d.hidden=!m; if(m)n++; if(q&&m) d.open=true});
+  document.getElementById("gempty").hidden=n>0});
+document.getElementById("g-setup").open=true;
+
+const zd=document.getElementById("zdetail");
+function zone(z){document.querySelectorAll(".zone").forEach(b=>b.setAttribute("aria-pressed",b.dataset.z===z));
+  const [t,rows]=ZONES[z]; zd.innerHTML=`<h3>${t}</h3><dl class="ctl">${rows.map(([k,v])=>`<div><dt>${K(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`}
+document.getElementById("face").addEventListener("click",e=>{const b=e.target.closest(".zone"); if(b) zone(b.dataset.z)});
+zone("rf");
+
+document.getElementById("tlist").innerHTML=TROUBLE.map(x=>`<details class="guide"><summary><span class="gt">${x.t}</span></summary><div class="body"><p style="margin:0">${x.a}</p></div></details>`).join("");
+
+// Calcul durée (une face) : C-60 = 15 min HIGH / 30 min NORMAL
+let len=60,spd="high";
+function calc(){const m=(len/4)*(spd==="high"?1:2); document.getElementById("dur").textContent=(Number.isInteger(m)?m:m.toFixed(1).replace(".",","))+" min";
+  document.getElementById("bw").textContent=spd==="high"?"40 Hz–16 kHz":"40 Hz–10 kHz"}
+function seg(id,set){const el=document.getElementById(id); el.addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return;
+  el.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b)); set(b.dataset.v); calc()});
+  el.querySelectorAll("button").forEach(x=>{if(!x.hasAttribute("aria-pressed")) x.setAttribute("aria-pressed","false")})}
+seg("len",v=>len=+v); seg("spd",v=>spd=v); calc();
+
+const bpmI=document.getElementById("bpm"),beatI=document.getElementById("beat"),bpmV=document.getElementById("bpmv"),beatV=document.getElementById("beatv"),beatsEl=document.getElementById("beats"),playB=document.getElementById("play");
+let ctx=null,timer=null,next=0,count=0,taps=[];
+const saved=store.get("p424-metro",{bpm:96,beat:4}); bpmI.value=saved.bpm; beatI.value=saved.beat;
+function drawBeats(a){const n=+beatI.value; beatsEl.innerHTML=Array.from({length:n},(_,i)=>`<i class="${i===a?"on":""}${i===0?" first":""}"></i>`).join("")}
+function sync(){bpmV.textContent=bpmI.value; beatV.textContent=beatI.value; drawBeats(-1); store.set("p424-metro",{bpm:+bpmI.value,beat:+beatI.value})}
+bpmI.oninput=sync; beatI.oninput=sync;
+document.getElementById("minus").onclick=()=>{bpmI.value=Math.max(30,+bpmI.value-1);sync()};
+document.getElementById("plus").onclick=()=>{bpmI.value=Math.min(250,+bpmI.value+1);sync()};
+function click(t,acc){const o=ctx.createOscillator(),g=ctx.createGain(); o.frequency.value=acc?1600:1000;
+  g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(acc?0.9:0.5,t+0.002); g.gain.exponentialRampToValueAtTime(0.0001,t+0.05);
+  o.connect(g).connect(ctx.destination); o.start(t); o.stop(t+0.06)}
+function sched(){while(next<ctx.currentTime+0.1){const n=+beatI.value,b=count%n; click(next,b===0&&n>1);
+  setTimeout(()=>drawBeats(b),Math.max(0,(next-ctx.currentTime)*1000)); next+=60/+bpmI.value; count++}}
+playB.onclick=()=>{if(timer){clearInterval(timer);timer=null;playB.textContent="Démarrer";playB.classList.remove("playing");drawBeats(-1);return}
+  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)(); ctx.resume()}catch(e){playB.textContent="Son indisponible";return}
+  count=0; next=ctx.currentTime+0.05; timer=setInterval(sched,25); playB.textContent="Arrêter"; playB.classList.add("playing")};
+document.getElementById("tap").onclick=()=>{const now=performance.now(); taps=taps.filter(t=>now-t<2500); taps.push(now);
+  if(taps.length>1){const d=(taps[taps.length-1]-taps[0])/(taps.length-1); bpmI.value=Math.min(250,Math.max(30,Math.round(60000/d))); sync()}};
+sync();
+</script>
+
+</body>
+</html>
