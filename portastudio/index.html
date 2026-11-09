@@ -1,17 +1,19 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Compagnon Portastudio 424</title>
-<meta name="description" content="Guide pratique en français du TASCAM Portastudio 424 MKIII : enregistrement, overdub, punch in/out, ping-pong, mixdown, routage des pistes, cassettes, entretien des têtes, dépannage et métronome.">
-<meta name="keywords" content="Tascam 424 MKIII, Portastudio, mode d'emploi, 4 pistes cassette, ping-pong, punch in, dbx, home studio">
+<title>Portastudio 424 Companion</title>
+<meta name="description" content="A practical guide to the TASCAM Portastudio 424 MKIII cassette 4-track in 7 languages: recording, overdubs, punch in/out, ping-pong, mixdown, track routing, tapes, head cleaning, troubleshooting and a metronome.">
+<meta name="keywords" content="Tascam 424 MKIII, Portastudio, manual, mode d'emploi, handleiding, Bedienungsanleitung, manual de usuario, manuale, 4-track cassette, ping-pong, punch in, dbx">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://crossroaddigger.github.io/portastudio/">
 <meta property="og:url" content="https://crossroaddigger.github.io/portastudio/">
-<meta property="og:title" content="Compagnon Portastudio 424">
-<meta property="og:description" content="Le mode d'emploi du TASCAM 424 MKIII réécrit pas à pas, avec carte des commandes, routage, dépannage et métronome.">
+<meta property="og:title" content="Portastudio 424 Companion">
+<meta property="og:description" content="The TASCAM 424 MKIII manual rewritten step by step, in English, French, Dutch, German, Spanish, Italian and Portuguese.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://crossroaddigger.github.io/portastudio/424mkiii.jpg">
+<meta property="og:image:width" content="1600"><meta property="og:image:height" content="1240">
 <meta name="theme-color" content="#3c4a57">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='36' rx='5' fill='%233c4a57'/%3E%3Crect x='14' y='22' width='36' height='14' rx='3' fill='%23120806'/%3E%3Ccircle cx='23' cy='29' r='4' fill='%23ff6a3d'/%3E%3Ccircle cx='41' cy='29' r='4' fill='%23ff6a3d'/%3E%3C/svg%3E">
 <style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
@@ -144,314 +146,226 @@ footer{margin-top:28px;color:var(--muted);font-size:14px;border-top:1px solid va
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px 0;font-size:14px}
 .topbar a{color:var(--muted);text-decoration:none;font-weight:600}
 .topbar a:hover{color:var(--ink)}
+.topbar .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.langsel select{font:inherit;font-size:14px;font-weight:600;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#app[aria-busy="true"]{min-height:80vh}
+.hero{margin:16px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--slate)}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:1600/1240;max-width:100%}
+.hero figcaption{font-size:13px;color:var(--muted);background:var(--panel);padding:8px 12px;border-top:1px solid var(--line)}
 .bmc{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;background:#ffdd00;color:#1b1a14;border-radius:999px;padding:8px 14px;border:1px solid #e6c600}
 .bmc:hover{filter:brightness(.96)}
 .bmc-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .support{margin-top:28px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .support p{margin:0;max-width:52ch;min-width:0}
 @media (max-width:520px){.bmc-float .lbl{display:none}.bmc-float{padding:10px 12px}}
+.topbar a{white-space:nowrap}
+@media (max-width:520px){.topbar .right .bmc{display:none}}
 </style>
 
 </head>
 <body>
-<div class="wrap">
-<div class="topbar"><a href="/">← Mellow Box</a><a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div>
+<div class="wrap" id="app" aria-busy="true">
+<div class="topbar"><a href="/" id="back">← Mellow Box</a>
+  <div class="right"><label class="langsel"><span class="sr" id="langlbl">Language</span><select id="lang"></select></label>
+  <a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div></div>
 <header>
-  <div class="brand">Tascam · Multitrack Cassette</div>
-  <h1>Portastudio 424<em>mkIII</em><small>Compagnon de poche</small></h1>
-  <p class="sub">Le mode d'emploi du 4-pistes à cassette, réécrit pas à pas : enregistrement, overdub, punch, ping-pong, mixdown, entretien des têtes, plus un métronome et un calcul de durée de cassette.</p>
+  <div class="brand" data-t="brand"></div>
+  <h1>Portastudio 424<em>mkIII</em><small data-t="kicker"></small></h1>
+  <p class="sub" data-t="intro"></p>
   <div class="counter" aria-hidden="true">COUNTER <b>0000</b> · dbx</div>
+  <figure class="hero"><picture><source srcset="424mkiii.webp" type="image/webp"><img id="photo" src="424mkiii.jpg" width="1600" height="1240" alt="TASCAM Portastudio 424 MKIII" fetchpriority="high"></picture><figcaption data-t="photoCap"></figcaption></figure>
 </header>
 
-<nav role="tablist" aria-label="Sections">
-  <button role="tab" data-tab="guides" aria-selected="true">Guides</button>
-  <button role="tab" data-tab="panneau" aria-selected="false">Panneau</button>
-  <button role="tab" data-tab="routage" aria-selected="false">Routage</button>
-  <button role="tab" data-tab="cassette" aria-selected="false">Cassette</button>
-  <button role="tab" data-tab="depannage" aria-selected="false">Dépannage</button>
-  <button role="tab" data-tab="metronome" aria-selected="false">Métronome</button>
+<nav role="tablist" id="tabs">
+  <button role="tab" data-tab="guides" aria-selected="true"></button>
+  <button role="tab" data-tab="panneau" aria-selected="false"></button>
+  <button role="tab" data-tab="routage" aria-selected="false"></button>
+  <button role="tab" data-tab="cassette" aria-selected="false"></button>
+  <button role="tab" data-tab="depannage" aria-selected="false"></button>
+  <button role="tab" data-tab="metronome" aria-selected="false"></button>
 </nav>
 
 <section id="guides" role="tabpanel">
-  <h2>Du premier son à la cassette master</h2>
-  <p class="lead">Dans l'ordre d'une session. Touchez une étape pour l'ouvrir, puis marquez-la comme faite : votre progression reste sur cet appareil.</p>
-  <input class="search" id="q" type="search" placeholder="Chercher : punch, ping-pong, nettoyage, effet…" aria-label="Chercher dans les guides">
+  <h2 data-t="guidesH"></h2>
+  <p class="lead" data-t="guidesLead"></p>
+  <input class="search" id="q" type="search">
   <div id="glist"></div>
-  <p class="empty" id="gempty" hidden>Aucun guide ne correspond. Essayez un autre mot (ex. « piste », « tête », « mix »).</p>
+  <p class="empty" id="gempty" data-t="searchEmpty" hidden></p>
 </section>
 
 <section id="panneau" role="tabpanel" hidden>
-  <h2>La façade</h2>
-  <p class="lead">Disposition simplifiée du 424 MKIII. Touchez une zone pour savoir ce que fait chaque commande.</p>
+  <h2 data-t="panelH"></h2>
+  <p class="lead" data-t="panelLead"></p>
   <div class="face" id="face">
-    <button class="zone z-ch" data-z="ch"><b>Voies 1–4</b><i>TRIM · INPUT · EQ · EFFECT · PAN · fader</i>
+    <button class="zone z-ch" data-z="ch"><b></b><i>TRIM · INPUT · EQ · EFFECT · PAN · fader</i>
       <div class="knobs" aria-hidden="true"><span style="--c:var(--trim)"></span><span style="--c:var(--eq)"></span><span style="--c:var(--mid)"></span><span style="--c:var(--eq)"></span><span style="--c:var(--fx)"></span><span style="--c:var(--fx)"></span></div></button>
-    <button class="zone z-56" data-z="v56"><b>Voies 5–6</b><i>INPUT 1/3/5 · 2/4/6</i></button>
-    <button class="zone z-78" data-z="v78"><b>7–8 & écoute</b><i>LEVEL · ASSIGN · MONITOR · MASTER</i></button>
-    <button class="zone z-cas" data-z="cas"><b>Cassette</b><i>dbx · TAPE SPEED</i></button>
-    <button class="zone z-rf" data-z="rf"><b>Record Function</b><i>DIRECT · SAFE · BUSS × 4</i></button>
-    <button class="zone z-vfd" data-z="vfd"><b>Afficheur</b><i>vumètres · compteur</i></button>
-    <button class="zone z-loc" data-z="loc"><b>Repérage</b><i>REHEARSAL · AUTO PUNCH · LOC · RTZ</i></button>
-    <button class="zone z-tp" data-z="tp"><b>Transport & pitch</b><i>REW · F FWD · STOP · PLAY · RECORD</i></button>
-    <button class="zone z-rear" data-z="rear"><b>Arrière & avant</b><i>entrées · LINE / MONITOR OUT · EFFECT SEND · TAPE OUT · PHONES</i></button>
+    <button class="zone z-56" data-z="v56"><b></b><i>INPUT 1/3/5 · 2/4/6</i></button>
+    <button class="zone z-78" data-z="v78"><b></b><i>LEVEL · ASSIGN · MONITOR · MASTER</i></button>
+    <button class="zone z-cas" data-z="cas"><b></b><i>dbx · TAPE SPEED</i></button>
+    <button class="zone z-rf" data-z="rf"><b></b><i>DIRECT · SAFE · BUSS × 4</i></button>
+    <button class="zone z-vfd" data-z="vfd"><b></b><i>METER · COUNTER</i></button>
+    <button class="zone z-loc" data-z="loc"><b></b><i>REHEARSAL · AUTO PUNCH · LOC · RTZ</i></button>
+    <button class="zone z-tp" data-z="tp"><b></b><i>REW · F FWD · STOP · PLAY · RECORD</i></button>
+    <button class="zone z-rear" data-z="rear"><b></b><i>INPUT · LINE / MONITOR OUT · EFFECT SEND · TAPE OUT · PHONES</i></button>
   </div>
   <div class="detail" id="zdetail"></div>
 </section>
 
 <section id="routage" role="tabpanel" hidden>
-  <h2>Qui va sur quelle piste</h2>
-  <p class="lead">La règle à retenir sur le 424 : le PAN choisit le bus, le sélecteur RECORD FUNCTION choisit la piste.</p>
-  <div class="routes">
-    <div class="route l"><b>Piste 1</b><span>BUSS L · PAN gauche</span></div>
-    <div class="route r"><b>Piste 2</b><span>BUSS R · PAN droite</span></div>
-    <div class="route l"><b>Piste 3</b><span>BUSS L · PAN gauche</span></div>
-    <div class="route r"><b>Piste 4</b><span>BUSS R · PAN droite</span></div>
-  </div>
-  <div class="tbl"><table>
-    <thead><tr><th>Position RECORD FUNCTION</th><th>Ce que la piste enregistre</th></tr></thead>
-    <tbody>
-      <tr><td><span class="sw">SAFE</span> (centre)</td><td>Rien. Piste protégée, le vumètre montre la lecture.</td></tr>
-      <tr><td><span class="sw">BUSS L / BUSS R</span></td><td>Le mélange de toutes les voies envoyées de ce côté par leur PAN, après le fader MASTER.</td></tr>
-      <tr><td><span class="sw">DIRECT</span></td><td>Uniquement la voie de même numéro (voie 3 → piste 3). Niveau réglé au fader de la voie ; le MASTER n'agit pas.</td></tr>
-    </tbody>
-  </table></div>
-  <h3 class="sub">Combinaisons utiles</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>Objectif</th><th>Réglage</th></tr></thead>
-    <tbody>
-      <tr><td>Plusieurs sources sur une piste</td><td>Toutes les voies PAN du même côté, la piste en BUSS de ce côté.</td></tr>
-      <tr><td>Un mix stéréo sur deux pistes</td><td>Une piste impaire + une paire en BUSS : 1&amp;2, 1&amp;4 ou 2&amp;3. Pistes 1 et 3 en BUSS = deux fois le même côté.</td></tr>
-      <tr><td>3 ou 4 pistes à la fois</td><td>Pistes en DIRECT, une source par voie de même numéro.</td></tr>
-      <tr><td>Mélanger DIRECT et BUSS</td><td>Tournez le PAN des voies DIRECT vers le côté opposé au bus utilisé, pour éviter qu'elles fuient sur la piste BUSS.</td></tr>
-      <tr><td>Entendre les pistes déjà enregistrées</td><td>Bouton EFFECT 2/TAPE CUE de la voie, sélecteur sur TAPE CUE (pas le mix principal).</td></tr>
-      <tr><td>Réécouter / mixer</td><td>INPUT des voies 1–4 sur TAPE.</td></tr>
-    </tbody>
-  </table></div>
+  <h2 data-t="routeH"></h2>
+  <p class="lead" data-t="routeLead"></p>
+  <div class="routes" id="routes"></div>
+  <div class="tbl"><table id="rftable"></table></div>
+  <h3 class="sub" data-t="combosH"></h3>
+  <div class="tbl"><table id="combos"></table></div>
 </section>
 
 <section id="cassette" role="tabpanel" hidden>
-  <h2>Cassettes et durées</h2>
-  <p class="lead">Le 424 enregistre les 4 pistes dans un seul sens : n'utilisez qu'une face de la cassette.</p>
+  <h2 data-t="casH"></h2>
+  <p class="lead" data-t="casLead"></p>
   <div class="calc">
-    <div class="row"><label>Cassette</label><div class="seg" id="len"><button data-v="46">C-46</button><button data-v="60" aria-pressed="true">C-60</button><button data-v="90">C-90</button></div></div>
-    <div class="row"><label>Vitesse</label><div class="seg" id="spd"><button data-v="high" aria-pressed="true">HIGH · 9,5 cm/s</button><button data-v="normal">NORMAL · 4,8 cm/s</button></div></div>
-    <div class="out" aria-live="polite">Durée utile environ <b id="dur">15 min</b> · <span id="bw">40 Hz–16 kHz</span></div>
+    <div class="row"><label data-t="calcTape"></label><div class="seg" id="len"><button data-v="46" aria-pressed="false">C-46</button><button data-v="60" aria-pressed="true">C-60</button><button data-v="90" aria-pressed="false">C-90</button></div></div>
+    <div class="row"><label data-t="calcSpeed"></label><div class="seg" id="spd"><button data-v="high" aria-pressed="true"></button><button data-v="normal" aria-pressed="false"></button></div></div>
+    <div class="out" aria-live="polite"><span data-t="calcOut"></span> <b id="dur"></b> · <span id="bw"></span></div>
   </div>
-  <div class="tbl"><table>
-    <thead><tr><th>Conseil</th><th>Pourquoi</th></tr></thead>
-    <tbody>
-      <tr><td>Type II (chrome, high bias), toujours la même marque</td><td>Le réglage de l'appareil est prévu pour ; TDK SA et Maxell XL-II sont recommandées.</td></tr>
-      <tr><td>Pas de C-120</td><td>Bande trop fine, problèmes d'enroulement.</td></tr>
-      <tr><td>La plus courte qui suffit</td><td>Bande plus épaisse, rembobinages plus rapides.</td></tr>
-      <tr><td>Vitesse HIGH pour la qualité</td><td>Plus d'aigus et moins de souffle ; NORMAL pour les maquettes longues.</td></tr>
-      <tr><td>dbx sur ON</td><td>Réduction de bruit. SYNC = dbx coupé sur la piste 4 (code de synchro), OFF pour lire une cassette ordinaire.</td></tr>
-      <tr><td>Cassette finie : cassez les deux languettes</td><td>Protège contre l'effacement.</td></tr>
-      <tr><td>Une cassette 4 pistes ne se lit pas sur un lecteur normal</td><td>Il faut d'abord la mixer en stéréo.</td></tr>
-    </tbody>
-  </table></div>
-  <h3 class="sub">Caractéristiques</h3>
-  <div class="tbl"><table><tbody>
-    <tr><td>Vitesses</td><td class="num">9,5 / 4,8 cm/s ±1 %</td></tr>
-    <tr><td>Pitch</td><td class="num">±12 %</td></tr>
-    <tr><td>Bande passante HIGH / NORMAL</td><td class="num">40 Hz–16 kHz / 40 Hz–10 kHz (±3 dB)</td></tr>
-    <tr><td>Rapport signal/bruit (dbx, pondéré A)</td><td class="num">95 dB HIGH · 93 dB NORMAL</td></tr>
-    <tr><td>Pleurage et scintillement</td><td class="num">0,05 % HIGH · 0,06 % NORMAL</td></tr>
-    <tr><td>EQ HIGH / MID / LOW</td><td class="num">10 kHz ±10 dB · 250 Hz–5 kHz ±12 dB · 100 Hz ±10 dB</td></tr>
-    <tr><td>Rembobinage C-60</td><td class="num">≈ 120 s</td></tr>
-    <tr><td>Alimentation</td><td class="num">PS-424MKIII · 230 V/50 Hz (Europe) · 22 W</td></tr>
-  </tbody></table></div>
+  <div class="tbl"><table id="tips"></table></div>
+  <h3 class="sub" data-t="specsH"></h3>
+  <div class="tbl"><table id="specs"></table></div>
 </section>
 
 <section id="depannage" role="tabpanel" hidden>
-  <h2>Ça ne marche pas ?</h2>
-  <p class="lead">Les cas listés dans le manuel et ce qu'il faut vérifier.</p>
+  <h2 data-t="troubleH"></h2>
+  <p class="lead" data-t="troubleLead"></p>
   <div id="tlist"></div>
 </section>
 
 <section id="metronome" role="tabpanel" hidden>
-  <h2>Métronome</h2>
-  <p class="lead">Le 424 n'a pas de clic intégré. Écoutez celui-ci au casque pendant la prise, ou enregistrez-le d'abord sur une piste (souvent la 4) pour caler les suivantes. Le premier temps est accentué.</p>
+  <h2 data-t="metroH"></h2>
+  <p class="lead" data-t="metroLead"></p>
   <div class="metro">
     <div class="lcd" aria-live="polite">
       <div class="bpm"><span id="bpmv">96</span><small>BPM</small></div>
       <div class="beats" id="beats"></div>
     </div>
     <div class="row">
-      <label for="bpm">Tempo</label>
-      <button class="step" id="minus" aria-label="Moins 1 BPM">−</button>
+      <label for="bpm" data-t="tempo"></label>
+      <button class="step" id="minus">−</button>
       <input type="range" id="bpm" min="30" max="250" value="96">
-      <button class="step" id="plus" aria-label="Plus 1 BPM">+</button>
+      <button class="step" id="plus">+</button>
     </div>
     <div class="row">
-      <label for="beat">Temps</label>
+      <label for="beat" data-t="beats"></label>
       <input type="range" id="beat" min="1" max="12" value="4">
       <span class="k" id="beatv">4</span>
     </div>
     <div class="row">
-      <button class="btn big" id="play">Démarrer</button>
-      <button class="btn" id="tap">Tap tempo</button>
+      <button class="btn big" id="play"></button>
+      <button class="btn" id="tap" data-t="tap"></button>
     </div>
   </div>
 </section>
 
-<div class="support"><p>Ce guide vous a fait gagner du temps sur votre 424 ? Un café m'aide à continuer d'en écrire d'autres.</p><a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div>
-<footer>Réalisé d'après le mode d'emploi officiel du TASCAM Portastudio 424 MKIII. En cas de doute, le manuel fait foi.</footer>
+<div class="support"><p data-t="support"></p><a class="bmc" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener">☕ Buy me a coffee</a></div>
+<footer data-t="footer"></footer>
 </div>
 <a class="bmc bmc-float" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener" aria-label="Buy me a coffee">☕<span class="lbl">Buy me a coffee</span></a>
 
 <script>
+/* Helpers used by the language files (lang/xx.js) */
 const K=s=>`<span class="k">${s}</span>`, KR=s=>`<span class="k r">${s}</span>`, S=s=>`<span class="sw">${s}</span>`;
-const GUIDES=[
- {id:"setup",tag:"Départ",t:"Brancher un micro et régler le niveau",kw:"micro trim niveau casque monitor brancher",steps:[
-  `Branchez le micro sur l'entrée MIC/LINE 1 (XLR ou jack, pas les deux).`,
-  `Voie 1 : ${S("INPUT")} sur MIC/LINE, ${K("TRIM")} tout à gauche, EQ au centre. Les autres sélecteurs sur OFF.`,
-  `${K("PAN")} 1 tout à gauche, fader 1 sur 7, ${K("MASTER")} sur 7.`,
-  `${S("MONITOR SELECT · LINE OUT")} sur L-R. Parlez et montez le TRIM jusqu'à ce que le vumètre tourne autour de 0.`,
-  `Casque sur ${K("PHONES")}, montez ${K("MONITOR LEVEL")}.`],
-  note:`Mettez sur OFF le sélecteur INPUT des voies inutilisées : c'est la première source de souffle.`},
- {id:"rec1",tag:"Prise",t:"Enregistrer la piste 1",kw:"enregistrer record piste 1 cassette compteur",steps:[
-  `Insérez une cassette Type II (C-90 maximum), ${K("PLAY")} environ 5 s pour passer l'amorce, puis ${K("STOP")}.`,
-  `${K("COUNTER RESET")} pour mettre le compteur à 0000.`,
-  `${S("RECORD FUNCTION")} piste 1 sur BUSS L : le voyant REC 1 clignote.`,
-  `Maintenez ${KR("RECORD")} et appuyez sur ${K("PLAY")} : REC 1 reste allumé, ça enregistre.`,
-  `${K("STOP")}, puis remettez la piste 1 sur SAFE.`]},
- {id:"cue",tag:"Écoute",t:"Réécouter une piste (TAPE CUE)",kw:"écouter réécouter tape cue lecture",steps:[
-  `Sélecteur ${S("EFFECT 2/TAPE CUE")} sur TAPE CUE, ${S("LINE OUT")} sur MONO.`,
-  `${K("RTZ")} pour revenir à 0000, puis ${K("PLAY")}.`,
-  `Montez le bouton EFFECT 2/TAPE CUE de la voie 1 pour entendre la piste 1.`,
-  `${K("STOP")}.`],
-  note:`Appuyer sur ${K("PLAY")} pendant le retour RTZ lance la lecture dès que le compteur atteint 0000.`},
- {id:"over",tag:"Prise",t:"Ajouter une piste (overdub)",kw:"overdub superposer piste 2 3 4 voix",steps:[
-  `Gardez le micro sur la voie 1, mais ${K("PAN")} tout à droite (bus R → piste 2). ${S("LINE OUT")} sur MONO.`,
-  `${K("RTZ")} pour revenir au début.`,
-  `Piste 2 sur BUSS R. Parlez, réglez le ${K("TRIM")} : vumètre 2 jamais au-dessus de +6.`,
-  `${KR("RECORD")} + ${K("PLAY")}. Équilibrez l'ancienne piste au casque avec le seul TAPE CUE de la voie 1.`,
-  `${K("STOP")}, piste 2 sur SAFE.`],
-  note:`Même logique pour la suite : PAN à gauche + piste 3 en BUSS L, PAN à droite + piste 4 en BUSS R.`},
- {id:"direct",tag:"Prise",t:"Enregistrer 3 ou 4 sources à la fois",kw:"direct groupe batterie plusieurs pistes simultané",steps:[
-  `Une source par voie : voie 1 → piste 1, voie 2 → piste 2, etc.`,
-  `Pistes concernées en ${S("DIRECT")}.`,
-  `Réglez le niveau d'enregistrement au fader de chaque voie ; le MASTER n'agit pas en DIRECT.`,
-  `Si vous combinez avec des pistes en BUSS, tournez le PAN des voies DIRECT vers le côté opposé pour éviter les fuites.`,
-  `${KR("RECORD")} + ${K("PLAY")}, puis ${K("STOP")} et tout repasser sur SAFE.`]},
- {id:"punch",tag:"Correction",t:"Corriger un passage (punch manuel)",kw:"punch in out corriger remplacer pédale",steps:[
-  `Piste à corriger en BUSS (voyant REC clignotant), toutes les autres en SAFE.`,
-  `Placez la bande un peu avant le passage, ${K("PLAY")}.`,
-  `Juste avant l'erreur, ${KR("RECORD")} : vous enregistrez (punch in).`,
-  `À la fin du passage, ${K("PLAY")} : retour en lecture (punch out).`,
-  `${K("STOP")}.`],
-  note:`Avec une pédale RC-30P sur REMOTE PUNCH IN/OUT, la pédale remplace RECORD puis PLAY : les mains restent sur l'instrument.`},
- {id:"auto",tag:"Correction",t:"Répéter puis punch automatique",kw:"rehearsal auto punch répétition automatique",steps:[
-  `Préparez la piste comme pour un punch manuel. TAPE CUE sur TAPE CUE, ${S("EFFECT/CUE")} sur EFFECT 2/CUE pour bien entendre.`,
-  `Placez la bande quelques secondes avant le punch, appuyez sur ${K("REHEARSAL")} : RHSL clignote.`,
-  `${K("PLAY")} enregistre le point START. Au point d'entrée ${KR("RECORD")} (IN s'affiche), au point de sortie ${K("PLAY")} (OUT s'affiche).`,
-  `La bande joue environ 3 s puis revient à START. ${K("PLAY")} pour répéter autant que voulu : rien n'est enregistré.`,
-  `Prêt ? ${K("AUTO PUNCH")} puis ${K("PLAY")} : entrée, sortie, retour et arrêt se font seuls.`,
-  `${K("PLAY")} pour réécouter. ${K("CLEAR")} pour effacer les points et sortir du mode.`],
-  warn:`REHEARSAL actif empêche l'enregistrement normal. ${K("CLEAR")} pour en sortir.`},
- {id:"bounce",tag:"Pistes",t:"Ping-pong : regrouper 3 pistes sur 1",kw:"bounce ping-pong regrouper libérer pistes",steps:[
-  `Voies 1 à 3 : ${S("INPUT")} sur TAPE, ${K("PAN")} tout à droite, faders entre 7 et 8.`,
-  `${K("MASTER")} entre 7 et 8, ${S("LINE OUT")} sur MONO.`,
-  `Piste 4 sur BUSS R. ${K("PLAY")} et réglez les faders 1–3 : vumètre 4 jamais au-dessus de +6.`,
-  `Retour au début, ${KR("RECORD")} + ${K("PLAY")}.`,
-  `${K("STOP")}, piste 4 sur SAFE. Les pistes 1 à 3 sont libres pour de nouvelles prises.`],
-  note:`Vous pouvez ajouter une source live pendant le ping-pong par les voies 5, 6, 7 ou 8. Larsen ? Baissez le niveau ou l'EQ HIGH.`},
- {id:"fx",tag:"Effets",t:"Ajouter une réverb (départ/retour)",kw:"effet reverb départ retour send return",steps:[
-  `Sortie ${K("EFFECT 1 SEND")} (arrière) vers l'entrée de l'effet.`,
-  `Sorties de l'effet vers ${S("STEREO INPUT 7/8")}. Sur l'effet, mix à 100 % d'effet.`,
-  `Sur chaque voie, bouton ${K("EFFECT 1")} vers 2 h.`,
-  `Dosez le retour avec ${K("LEVEL")} de 7-8. ASSIGN sur L-R pour l'enregistrer, sur MON pour l'entendre seulement au casque.`],
-  note:`Si un retour d'effet passe par une voie mono, tournez à fond à gauche les boutons EFFECT de cette voie pour éviter le larsen.`},
- {id:"mix",tag:"Final",t:"Mixer vers un enregistreur stéréo",kw:"mixdown mix final stéréo enregistreur ordinateur",steps:[
-  `${K("LINE OUTPUT L/R")} vers les entrées ligne de l'enregistreur (deck, interface audio…).`,
-  `${K("MASTER")} entre 7 et 8, ${S("LINE OUT")} sur L-R, tous les ${S("INPUT")} 1–4 sur TAPE.`,
-  `${K("PLAY")} et réglez faders, PAN et EQ. Les voies 5–6 restent libres pour une source live.`,
-  `Ajustez le MASTER : vumètres autour de 0, crêtes sous +6.`,
-  `Mettez l'enregistreur en pause d'enregistrement et réglez son niveau d'entrée.`,
-  `Rembobinez le 424, lancez l'enregistreur, puis ${K("PLAY")} sur le 424. Arrêtez les deux et vérifiez.`]},
- {id:"loc",tag:"Repérage",t:"Mémoriser des points et boucler",kw:"memo loc repeat boucle repère rtz",steps:[
-  `À l'endroit voulu : ${K("MEMO IN")} puis ${K("LOC 1")} (ou ${K("LOC 2")}).`,
-  `Appui bref sur ${K("LOC 1")} / ${K("LOC 2")} : la bande y va. Maintenu 0,5 s : le compteur affiche le point.`,
-  `${K("REPEAT")} boucle entre LOC 1 (début) et LOC 2 (fin), séparés d'au moins 0003.`,
-  `${K("RTZ")} revient à 0000.`],
-  note:`Les points sont perdus à l'éjection de la cassette ou à l'extinction.`},
- {id:"clean",tag:"Entretien",t:"Nettoyer les têtes",kw:"nettoyage têtes entretien cleaning galet cabestan",steps:[
-  `Sans cassette, porte ouverte, maintenez ${K("STOP")} + ${K("REHEARSAL")} et allumez avec ${K("POWER")} : « Cleaning » s'affiche.`,
-  `${K("PLAY")} sort le bloc de têtes (retour seul au bout de 3 min).`,
-  `Coton-tige et liquide de nettoyage sur les têtes et les guides, jusqu'à ce que le coton ressorte propre. Essuyez l'excédent.`,
-  `Galet presseur avec un nettoyant caoutchouc, cabestan avec le liquide de têtes.`,
-  `${K("STOP")} rentre les têtes, puis ${K("STOP")} + ${K("COUNTER RESET")} pour quitter le mode.`],
-  note:`À faire toutes les 6 heures d'utilisation, et avant et après chaque session. Démagnétisez de temps en temps : démagnétiseur allumé à 1 m, approché lentement, passé sur les pièces métalliques, éloigné avant de l'éteindre.`}
-];
-
-const TROUBLE=[
- {t:"Les anciennes pistes s'enregistrent avec la nouvelle",a:`Vous écoutez les pistes par le mix principal. Écoutez-les par ${S("TAPE CUE")}, pas en mettant leur INPUT sur TAPE.`},
- {t:"Enregistrement bruyant",a:`Mettez sur OFF les INPUT des voies inutilisées. Montez le niveau de la source plutôt que les faders et le MASTER. Vérifiez que dbx est sur ON.`},
- {t:"Lecture sourde ou faible",a:`Nettoyez les têtes (onglet Guides → Entretien).`},
- {t:"Rien ne s'enregistre",a:`RECORD FUNCTION sur SAFE, languette de la cassette cassée, ou REHEARSAL encore actif (${K("CLEAR")}).`},
- {t:"La mauvaise piste a été enregistrée",a:`Vérifiez le PAN : gauche = pistes 1 et 3, droite = pistes 2 et 4.`},
- {t:"Le son est trop aigu ou trop grave en lecture",a:`${K("PITCH CONTROL")} n'est pas au même réglage qu'à l'enregistrement. Remettez-le au centre « 0 ». Vérifiez aussi TAPE SPEED.`},
- {t:"Les touches de transport ne répondent pas",a:`Vérifiez l'alimentation et qu'une cassette est bien chargée.`},
- {t:"La bande ne défile pas",a:`Une pause est peut-être engagée.`},
- {t:"Larsen pendant un ping-pong",a:`Baissez les niveaux ou l'EQ HIGH.`},
- {t:"Une cassette du commerce sonne mal",a:`Mettez dbx sur OFF pour les cassettes Dolby B. Coupez la lecture des pistes 3–4 pour ne pas entendre l'autre face à l'envers.`}
-];
-
-const ZONES={
- ch:["Voies 1 à 4",[["TRIM","Gain du préampli : à gauche LINE, à droite MIC."],["INPUT","MIC/LINE (entrée), OFF, TAPE (lecture de la piste de même numéro)."],["EQ HIGH","Aigus ±10 dB à 10 kHz."],["EQ MID","Fréquence de 250 Hz à 5 kHz (bouton violet) et gain ±12 dB."],["EQ LOW","Graves ±10 dB à 100 Hz."],["EFFECT 1","Départ effet après fader."],["EFFECT 2/TAPE CUE","Départ effet 2, ou niveau de la piste au casque si le sélecteur est sur TAPE CUE."],["PAN","Gauche → pistes 1 et 3, droite → pistes 2 et 4."],["Fader","Niveau de la voie vers le MASTER (vers 7 en usage normal)."]]],
- v56:["Voies 5 et 6",[["INPUT 5","Choisit l'entrée 1, 3 ou 5."],["INPUT 6","Choisit l'entrée 2, 4 ou 6."],["Usage","Ajouter des sources live pendant un ping-pong ou un mixdown."]]],
- v78:["Voies 7–8, écoute & master",[["LEVEL 7-8","Niveau des entrées stéréo (souvent un retour d'effet)."],["ASSIGN","L-R (dans le mix), OFF, MON (casque seulement)."],["Entrée 7 seule","Un signal branché seulement en 7 part des deux côtés."],["LINE OUT","L-R, MONO ou OFF : ce que vous entendez et envoyez."],["EFFECT/CUE","Écouter EFFECT 1, EFFECT 2/CUE ou rien."],["MONITOR LEVEL","Volume casque et moniteurs."],["MASTER","Niveau du mix stéréo ; travaillez entre 7 et 8."]]],
- cas:["Cassette",[["Compartiment","Une seule face utilisée, les 4 pistes dans le même sens."],["dbx NR","ON (normal), SYNC (dbx coupé sur la piste 4), OFF (cassettes ordinaires)."],["TAPE SPEED","HIGH 9,5 cm/s (qualité) ou NORMAL 4,8 cm/s (durée)."]]],
- rf:["Record Function 1 à 4",[["DIRECT","La piste enregistre la voie de même numéro."],["SAFE","Protégée, n'enregistre pas."],["BUSS","Piste 1/3 : bus L ; piste 2/4 : bus R."],["Voyant REC","Clignote = prête ; fixe = enregistre."]]],
- vfd:["Afficheur",[["Vumètres 1–4","Niveau d'enregistrement en record, de lecture en SAFE. Visez 0, crêtes ≤ +6."],["Vumètres L/R","Sortie du mix."],["Compteur","4 chiffres, mis à zéro avec COUNTER RESET."],["Témoins","RHSL, AUTO, IN, OUT, REPEAT, MEMO 1/2, dbx."]]],
- loc:["Repérage",[["REHEARSAL","Répéter un punch sans enregistrer."],["AUTO PUNCH","Exécute le punch répété."],["CLEAR","Annule REHEARSAL/AUTO PUNCH et leurs points."],["COUNTER RESET","Compteur à 0000."],["MEMO IN + LOC 1/2","Mémorise la position."],["LOC 1 / LOC 2","Aller au point ; maintenu, l'affiche."],["REPEAT","Boucle entre LOC 1 et LOC 2."],["RTZ","Retour à 0000."]]],
- tp:["Transport & pitch",[["REW / F FWD","Rembobinage / avance rapide."],["STOP","Arrêt."],["PLAY","Lecture ; pendant l'enregistrement, punch out."],["RECORD","Avec PLAY : enregistrer. Seul en lecture : punch in."],["PITCH CONTROL","Vitesse ±12 %. Au centre « 0 » sauf effet voulu : il agit aussi en enregistrement."]]],
- rear:["Arrière & avant",[["MIC/LINE 1–6","XLR ou jack par voie, pas les deux à la fois."],["STEREO INPUT 7/8","Entrées ligne stéréo, idéales pour les retours d'effet."],["SUB INPUT L/R","Va directement au MASTER."],["LINE OUTPUT L/R","Vers l'enregistreur de mixage."],["MONITOR OUTPUT L/R","Vers les enceintes."],["EFFECT 1 SEND","Départ effet 1."],["EFFECT 2 SEND / TAPE CUE OUT","Départ effet 2 ou retour casque des musiciens."],["TAPE OUTPUT 1–4","Sortie directe de chaque piste (pour numériser piste par piste)."],["REMOTE PUNCH IN/OUT","Pédale RC-30P."],["PHONES (avant)","Casque."],["POWER","Adaptateur PS-424MKIII uniquement."]]]
-};
-
+window.P424=window.P424||{};
+const LANGS={en:"English",fr:"Français",nl:"Nederlands",de:"Deutsch",es:"Español",it:"Italiano",pt:"Português"};
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let done=store.get("p424-done",{});
+/* Same language key as the Mellow Box homepage, so a choice made there carries over */
+let LANG=(()=>{let q=null,s=null;try{q=new URLSearchParams(location.search).get("lang")}catch(e){}
+  try{s=localStorage.getItem("mb-lang")}catch(e){}
+  if(q&&LANGS[q])return q; if(s&&LANGS[s])return s;
+  for(const l of (navigator.languages||[navigator.language||""])){const k=String(l||"").slice(0,2).toLowerCase();if(LANGS[k])return k}
+  return "en"})();
+let T=null, done=store.get("p424-done",{});
 
-const tabs=[...document.querySelectorAll("nav button")], valid=tabs.map(b=>b.dataset.tab);
+function loadLang(l){return new Promise(res=>{if(P424[l])return res(P424[l]);
+  const sc=document.createElement("script");sc.src="lang/"+l+".js?v=1";sc.onload=()=>res(P424[l]);sc.onerror=()=>res(null);document.head.appendChild(sc)})}
+
+/* ---- tabs ---- */
+const tabs=[...document.querySelectorAll("#tabs button")], valid=tabs.map(b=>b.dataset.tab);
 function show(id,fromClick){tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
   document.querySelectorAll("section[role=tabpanel]").forEach(s=>s.hidden=s.id!==id);
-  if(fromClick&&location.hash!=="#"+id) history.replaceState(null,"","#"+id); store.set("p424-tab",id)}
+  if(fromClick&&location.hash!=="#"+id) history.replaceState(null,"",location.pathname+location.search+"#"+id); store.set("p424-tab",id)}
 tabs.forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab,true)));
-const h0=location.hash.slice(1), t0=store.get("p424-tab","guides"); show(valid.includes(h0)?h0:(valid.includes(t0)?t0:"guides"));
 addEventListener("hashchange",()=>{const h=location.hash.slice(1); if(valid.includes(h)) show(h)});
 
+/* ---- render everything from T ---- */
+const rows=(head,list,fmt)=>(head?`<thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead>`:"")+`<tbody>${list.map(r=>`<tr>${r.map((c,i)=>`<td${fmt&&fmt[i]?` class="${fmt[i]}"`:""}>${c}</td>`).join("")}</tr>`).join("")}</tbody>`;
+function render(){
+  const u=T.ui;
+  document.documentElement.lang=LANG; document.title=u.title;
+  document.querySelector('meta[name="description"]').content=u.meta;
+  document.querySelectorAll("[data-t]").forEach(e=>{const v=u[e.dataset.t]; if(v!=null) e.innerHTML=v});
+  document.getElementById("langlbl").textContent=u.language;
+  document.getElementById("photo").alt=u.photoAlt;
+  document.getElementById("lang").setAttribute("aria-label",u.language);
+  document.getElementById("tabs").setAttribute("aria-label",u.sections);
+  tabs.forEach(b=>b.textContent=u.tabs[b.dataset.tab]);
+  const q=document.getElementById("q"); q.placeholder=u.searchPh; q.setAttribute("aria-label",u.searchPh); q.value="";
+  document.getElementById("gempty").hidden=true;
+  // guides
+  const gl=document.getElementById("glist"), wasOpen=[...gl.querySelectorAll("details[open]")].map(d=>d.id);
+  gl.innerHTML=T.guides.map(g=>`<details class="guide${done[g.id]?" is-done":""}" id="g-${g.id}" data-kw="${(g.t+" "+g.kw+" "+g.tag).toLowerCase().replace(/"/g,"")}">
+    <summary><span class="tag">${g.tag}</span><span class="gt">${g.t}</span><span class="done" aria-hidden="true"></span></summary>
+    <div class="body"><ol class="steps">${g.steps.map(s=>`<li><span>${s}</span></li>`).join("")}</ol>
+    ${g.note?`<p class="note">${g.note}</p>`:""}${g.warn?`<p class="note warn">${g.warn}</p>`:""}
+    <button class="mark" data-id="${g.id}">${done[g.id]?u.markUndo:u.markDone}</button></div></details>`).join("");
+  (wasOpen.length?wasOpen:["g-setup"]).forEach(id=>{const d=document.getElementById(id); if(d) d.open=true});
+  // panel
+  document.querySelectorAll(".zone").forEach(b=>b.querySelector("b").textContent=T.zones[b.dataset.z][0]);
+  zone(document.querySelector('.zone[aria-pressed="true"]')?.dataset.z||"rf");
+  // routing
+  document.getElementById("routes").innerHTML=[1,2,3,4].map(n=>{const l=n%2===1;
+    return `<div class="route ${l?"l":"r"}"><b>${u.track} ${n}</b><span>BUSS ${l?"L":"R"} · PAN ${l?u.left:u.right}</span></div>`}).join("");
+  document.getElementById("rftable").innerHTML=rows(u.rfHead,T.rf.map(([a,b])=>[S(a),b]));
+  document.getElementById("combos").innerHTML=rows(u.combosHead,T.combos);
+  // cassette
+  const sp=document.querySelectorAll("#spd button"); sp[0].textContent=u.speedHigh; sp[1].textContent=u.speedNormal;
+  document.getElementById("tips").innerHTML=rows(u.tipsHead,T.tips);
+  document.getElementById("specs").innerHTML=rows(null,T.specs,[null,"num"]);
+  calc();
+  // trouble
+  document.getElementById("tlist").innerHTML=T.trouble.map(x=>`<details class="guide"><summary><span class="gt">${x.t}</span></summary><div class="body"><p style="margin:0">${x.a}</p></div></details>`).join("");
+  // metronome
+  document.getElementById("minus").setAttribute("aria-label",u.minus);
+  document.getElementById("plus").setAttribute("aria-label",u.plus);
+  playB.textContent=timer?u.stop:u.start;
+  document.getElementById("app").removeAttribute("aria-busy");
+}
+
+/* guides interactions */
 const glist=document.getElementById("glist");
-glist.innerHTML=GUIDES.map(g=>`<details class="guide${done[g.id]?" is-done":""}" id="g-${g.id}" data-kw="${(g.t+" "+g.kw+" "+g.tag).toLowerCase()}">
-  <summary><span class="tag">${g.tag}</span><span class="gt">${g.t}</span><span class="done" aria-hidden="true"></span></summary>
-  <div class="body"><ol class="steps">${g.steps.map(s=>`<li><span>${s}</span></li>`).join("")}</ol>
-  ${g.note?`<p class="note">${g.note}</p>`:""}${g.warn?`<p class="note warn">${g.warn}</p>`:""}
-  <button class="mark" data-id="${g.id}">${done[g.id]?"Marquer comme à refaire":"Marquer comme fait"}</button></div></details>`).join("");
 glist.addEventListener("click",e=>{const b=e.target.closest(".mark"); if(!b) return; const id=b.dataset.id;
   done[id]=!done[id]; store.set("p424-done",done);
   document.getElementById("g-"+id).classList.toggle("is-done",!!done[id]);
-  b.textContent=done[id]?"Marquer comme à refaire":"Marquer comme fait"});
+  b.textContent=done[id]?T.ui.markUndo:T.ui.markDone});
 document.getElementById("q").addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase(); let n=0;
   document.querySelectorAll("#glist .guide").forEach(d=>{const m=!q||d.dataset.kw.includes(q)||d.textContent.toLowerCase().includes(q); d.hidden=!m; if(m)n++; if(q&&m) d.open=true});
   document.getElementById("gempty").hidden=n>0});
-document.getElementById("g-setup").open=true;
 
+/* panel */
 const zd=document.getElementById("zdetail");
 function zone(z){document.querySelectorAll(".zone").forEach(b=>b.setAttribute("aria-pressed",b.dataset.z===z));
-  const [t,rows]=ZONES[z]; zd.innerHTML=`<h3>${t}</h3><dl class="ctl">${rows.map(([k,v])=>`<div><dt>${K(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`}
+  const [t,list]=T.zones[z]; zd.innerHTML=`<h3>${t}</h3><dl class="ctl">${list.map(([k,v])=>`<div><dt>${K(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`}
 document.getElementById("face").addEventListener("click",e=>{const b=e.target.closest(".zone"); if(b) zone(b.dataset.z)});
-zone("rf");
 
-document.getElementById("tlist").innerHTML=TROUBLE.map(x=>`<details class="guide"><summary><span class="gt">${x.t}</span></summary><div class="body"><p style="margin:0">${x.a}</p></div></details>`).join("");
-
-// Calcul durée (une face) : C-60 = 15 min HIGH / 30 min NORMAL
+/* tape length: one side, C-60 = 15 min at HIGH, 30 at NORMAL */
 let len=60,spd="high";
-function calc(){const m=(len/4)*(spd==="high"?1:2); document.getElementById("dur").textContent=(Number.isInteger(m)?m:m.toFixed(1).replace(".",","))+" min";
+function calc(){if(!T) return; const m=(len/4)*(spd==="high"?1:2);
+  document.getElementById("dur").textContent=(Number.isInteger(m)?String(m):m.toFixed(1).replace(".",T.ui.dec))+" min";
   document.getElementById("bw").textContent=spd==="high"?"40 Hz–16 kHz":"40 Hz–10 kHz"}
 function seg(id,set){const el=document.getElementById(id); el.addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return;
-  el.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b)); set(b.dataset.v); calc()});
-  el.querySelectorAll("button").forEach(x=>{if(!x.hasAttribute("aria-pressed")) x.setAttribute("aria-pressed","false")})}
-seg("len",v=>len=+v); seg("spd",v=>spd=v); calc();
+  el.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b)); set(b.dataset.v); calc()})}
+seg("len",v=>len=+v); seg("spd",v=>spd=v);
 
+/* metronome */
 const bpmI=document.getElementById("bpm"),beatI=document.getElementById("beat"),bpmV=document.getElementById("bpmv"),beatV=document.getElementById("beatv"),beatsEl=document.getElementById("beats"),playB=document.getElementById("play");
 let ctx=null,timer=null,next=0,count=0,taps=[];
 const saved=store.get("p424-metro",{bpm:96,beat:4}); bpmI.value=saved.bpm; beatI.value=saved.beat;
@@ -465,13 +379,23 @@ function click(t,acc){const o=ctx.createOscillator(),g=ctx.createGain(); o.frequ
   o.connect(g).connect(ctx.destination); o.start(t); o.stop(t+0.06)}
 function sched(){while(next<ctx.currentTime+0.1){const n=+beatI.value,b=count%n; click(next,b===0&&n>1);
   setTimeout(()=>drawBeats(b),Math.max(0,(next-ctx.currentTime)*1000)); next+=60/+bpmI.value; count++}}
-playB.onclick=()=>{if(timer){clearInterval(timer);timer=null;playB.textContent="Démarrer";playB.classList.remove("playing");drawBeats(-1);return}
-  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)(); ctx.resume()}catch(e){playB.textContent="Son indisponible";return}
-  count=0; next=ctx.currentTime+0.05; timer=setInterval(sched,25); playB.textContent="Arrêter"; playB.classList.add("playing")};
+playB.onclick=()=>{if(timer){clearInterval(timer);timer=null;playB.textContent=T.ui.start;playB.classList.remove("playing");drawBeats(-1);return}
+  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)(); ctx.resume()}catch(e){playB.textContent=T.ui.noSound;return}
+  count=0; next=ctx.currentTime+0.05; timer=setInterval(sched,25); playB.textContent=T.ui.stop; playB.classList.add("playing")};
 document.getElementById("tap").onclick=()=>{const now=performance.now(); taps=taps.filter(t=>now-t<2500); taps.push(now);
   if(taps.length>1){const d=(taps[taps.length-1]-taps[0])/(taps.length-1); bpmI.value=Math.min(250,Math.max(30,Math.round(60000/d))); sync()}};
 sync();
-</script>
 
+/* language picker */
+const sel=document.getElementById("lang");
+sel.innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+async function setLang(l,save){let d=await loadLang(l); if(!d){l="en"; d=await loadLang("en")}
+  LANG=l; T=d; sel.value=l; if(save){try{localStorage.setItem("mb-lang",l)}catch(e){}} render()}
+sel.addEventListener("change",()=>setLang(sel.value,true));
+
+const h0=location.hash.slice(1), t0=store.get("p424-tab","guides");
+show(valid.includes(h0)?h0:(valid.includes(t0)?t0:"guides"));
+setLang(LANG,false);
+</script>
 </body>
 </html>
