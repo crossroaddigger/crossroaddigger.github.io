@@ -223,29 +223,35 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
 .tape small{font-family:var(--f-type);font-size:12px;color:var(--ink-soft)}
 .tape[aria-current="true"]{outline:2px solid var(--gold)}
 @media (max-width:820px){.mixwrap{grid-template-columns:1fr}}
-/* ===== cassette années 70 (étiquette crème et bandes orange) ===== */
+/* ===== cassette années 70 (étiquette crème et bandes orange) =====
+   Proportions d'une vraie compact cassette : 100,4 × 63,8 mm ; tout est en unités de conteneur (cqw)
+   pour que l'objet garde ses proportions à toutes les tailles. */
 .jtop.cass{background:#1d1712;padding:22px clamp(10px,3vw,30px) 20px;border-bottom:2px solid var(--ink);display:block}
-.shell{position:relative;max-width:640px;margin:0 auto;background:linear-gradient(160deg,#3b3632,#24201d 55%,#1a1715);border-radius:14px;padding:clamp(18px,4vw,34px) clamp(18px,5vw,36px) clamp(52px,11vw,84px);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -2px 0 #0008,0 10px 24px #000a}
-.screw{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#cfc8bd,#6d6760 70%);box-shadow:0 1px 0 #0008}
-.screw:after{content:"";position:absolute;left:2px;right:2px;top:5px;height:2px;background:#3b3632;transform:rotate(35deg)}
-.s1{left:8px;top:8px}.s2{right:8px;top:8px}.s3{left:8px;bottom:8px}.s4{right:8px;bottom:8px}
-.clabel{position:relative;background:#efe4c9 var(--grain);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;color:#2a1d14}
-.ltop{display:flex;align-items:center;gap:10px;padding:3.2% 4% 0;font-family:var(--f-type);font-size:clamp(9px,1.6vw,12px);letter-spacing:.06em;text-transform:uppercase}
-.ltop .side{font-family:var(--f-poster);font-size:clamp(16px,3vw,24px);line-height:1;color:#c4501c}
-.ltop .eyebrow{flex:1;opacity:1;color:#5a4636}
-.ltop .ctype{color:#c4501c;font-weight:700}
-.cass h2{margin:0;padding:1% 4% 0;font-family:var(--f-brand);font-weight:400;font-size:clamp(20px,4vw,34px);line-height:1.1;color:#2a1d14;transform:rotate(-1deg);border-bottom:1.5px solid #2a1d1440;margin:0 4%;padding:1% 0 1.2%}
-.band{height:clamp(64px,14vw,104px);margin-top:3%;position:relative;background:linear-gradient(#f08a2c 0 18%,#efe4c9 18% 24%,#e8742a 24% 52%,#efe4c9 52% 58%,#c4501c 58% 100%);display:grid;place-items:center}
-.window{width:58%;height:64%;background:#1a1512cc;border-radius:999px;border:3px solid #efe4c9;display:flex;align-items:center;justify-content:space-between;padding:0 6%;box-shadow:inset 0 2px 6px #000c;position:relative}
-.window .mag{position:absolute;left:24%;right:24%;top:30%;bottom:30%;background:linear-gradient(90deg,#4a2c1c,#6b3f25 50%,#4a2c1c);opacity:.85;border-radius:3px}
-.reel{position:relative;z-index:1;width:clamp(30px,8vw,56px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#efe4c9 0 22%,transparent 23%),repeating-conic-gradient(#efe4c9 0 14deg,#3b3632 14deg 60deg);border:3px solid #efe4c9;animation:reel 4s linear infinite}
+.cwrap{max-width:600px;margin:0 auto;container-type:inline-size}
+.shell{position:relative;width:100cqw;height:63.5cqw;background:linear-gradient(160deg,#3b3632,#24201d 55%,#1a1715);border-radius:3.2cqw;box-shadow:inset 0 .3cqw 0 #ffffff1f,inset 0 -.4cqw 0 #0008,0 2cqw 4cqw #000a}
+.screw{position:absolute;width:2.4cqw;height:2.4cqw;border-radius:50%;background:radial-gradient(circle at 40% 35%,#cfc8bd,#6d6760 70%);box-shadow:0 .2cqw 0 #0008}
+.screw:after{content:"";position:absolute;left:18%;right:18%;top:44%;height:14%;background:#3b3632;transform:rotate(35deg)}
+.s1{left:2cqw;top:2cqw}.s2{right:2cqw;top:2cqw}.s3{left:2cqw;bottom:2cqw}.s4{right:2cqw;bottom:2cqw}
+.clabel{position:absolute;left:5.5cqw;right:5.5cqw;top:4.2cqw;height:40.5cqw;background:#efe4c9 var(--grain);border-radius:1.2cqw;overflow:hidden;color:#2a1d14}
+.ltop{position:absolute;left:3.5cqw;right:3.5cqw;top:2cqw;display:flex;align-items:baseline;gap:2cqw;font-family:var(--f-type);font-size:2.1cqw;letter-spacing:.06em;text-transform:uppercase}
+.ltop .side{font-family:var(--f-poster);font-size:4.4cqw;line-height:1;color:#c4501c}
+.ltop .eyebrow{font-size:inherit!important;flex:1;opacity:1;color:#5a4636;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltop .ctype{color:#c4501c;font-weight:700;white-space:nowrap}
+.cass h2{position:absolute;left:3.5cqw;right:3.5cqw;top:7.6cqw;margin:0;padding:0 0 .6cqw;font-family:var(--f-brand);font-weight:400;font-size:4.6cqw;line-height:1.15;color:#2a1d14;transform:rotate(-1deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:.25cqw solid #2a1d1440}
+.band{position:absolute;left:0;right:0;top:16cqw;height:19cqw;background:linear-gradient(#f08a2c 0 18%,#efe4c9 18% 24%,#e8742a 24% 52%,#efe4c9 52% 58%,#c4501c 58% 100%)}
+.window{position:absolute;left:50%;top:50%;width:56cqw;height:13cqw;transform:translate(-50%,-50%);background:#1a1512d9;border-radius:6.5cqw;border:.6cqw solid #efe4c9;box-shadow:inset 0 .4cqw 1cqw #000c}
+.window .mag{position:absolute;left:24%;right:24%;top:28%;bottom:28%;background:linear-gradient(90deg,#4a2c1c,#6b3f25 50%,#4a2c1c);opacity:.85;border-radius:.5cqw}
+/* centres des bobines à 42,6 mm l'un de l'autre, soit 42,4 % de la largeur */
+.reel{position:absolute;top:50%;width:10.5cqw;height:10.5cqw;margin-top:-5.25cqw;border-radius:50%;background:radial-gradient(circle,#efe4c9 0 20%,transparent 21%),repeating-conic-gradient(#efe4c9 0 14deg,#3b3632 14deg 60deg);border:.6cqw solid #efe4c9;box-sizing:border-box;animation:reel 4s linear infinite}
+.reel:first-child{left:calc(50% - 21.2cqw - 5.25cqw)}.reel:last-child{left:calc(50% + 21.2cqw - 5.25cqw)}
 @keyframes reel{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.reel{animation:none}}
-.lfoot{display:flex;justify-content:space-between;padding:1.8% 4%;font-family:var(--f-type);font-size:clamp(8px,1.4vw,11px);letter-spacing:.12em;background:#efe4c9;color:#5a4636}
+.lfoot{position:absolute;left:0;right:0;bottom:0;height:5.5cqw;display:flex;align-items:center;justify-content:space-between;padding:0 3.5cqw;font-family:var(--f-type);font-size:1.9cqw;letter-spacing:.12em;color:#5a4636}
 .lfoot span:first-child{font-family:var(--f-poster);letter-spacing:.08em;color:#2a1d14}
-.trap{position:absolute;left:18%;right:18%;bottom:0;height:clamp(40px,9vw,68px);background:linear-gradient(#2c2724,#1f1b18);clip-path:polygon(7% 0,93% 0,100% 100%,0 100%);display:flex;justify-content:space-evenly;align-items:center;border-top:1px solid #ffffff14}
-.trap span{width:9%;aspect-ratio:1;border-radius:50%;background:#0d0b0a;box-shadow:inset 0 1px 2px #000}
-.trap span:nth-child(2),.trap span:nth-child(3){border-radius:2px;width:7%}
+/* trapèze du bas : plus large en bas, avec les deux trous de guidage ronds et les deux fenêtres de cabestan */
+.trap{position:absolute;left:13cqw;right:13cqw;bottom:0;height:11.5cqw;background:linear-gradient(#2c2724,#1f1b18);clip-path:polygon(6% 0,94% 0,100% 100%,0 100%);display:flex;justify-content:space-evenly;align-items:center;border-top:1px solid #ffffff14}
+.trap span{width:4.2cqw;height:4.2cqw;border-radius:50%;background:#0d0b0a;box-shadow:inset 0 .2cqw .4cqw #000}
+.trap span:nth-child(2),.trap span:nth-child(3){border-radius:.4cqw;width:3.4cqw;height:3.4cqw}
 /* archive : petites cassettes */
 .tape{grid-template-columns:34px 1fr;background:#efe4c9 var(--grain);border-left:none;position:relative;overflow:hidden}
 .tape .c{background:linear-gradient(#f08a2c 0 30%,#efe4c9 30% 38%,#e8742a 38% 66%,#efe4c9 66% 72%,#c4501c 72%);border-radius:2px}
@@ -680,7 +686,7 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
   <div class="mixwrap">
     <div class="jcard" id="jcard">
       <div class="jtop cass">
-        <div class="shell" aria-hidden="false">
+        <div class="cwrap"><div class="shell">
           <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
           <div class="clabel">
             <div class="ltop"><span class="side">A</span><span class="eyebrow" id="mx-eyebrow"></span><span class="ctype">C90 · LOW NOISE</span></div>
@@ -689,7 +695,7 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
             <div class="lfoot"><span>MELLOW BOX</span><span>STEREO · 2×45 MIN</span></div>
           </div>
           <div class="trap" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-        </div>
+        </div></div>
         <p id="mx-intro" hidden></p>
       </div>
       <div class="namebox"><label for="mx-name">Nom du mix</label><input id="mx-name" type="text" maxlength="80"><button type="button" class="inkbtn" id="mx-rename">Renommer</button><span class="st" id="mx-st"></span></div>
