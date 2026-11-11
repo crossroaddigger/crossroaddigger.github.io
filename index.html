@@ -1245,7 +1245,8 @@ function mixCore(dateKey){
   const picks=th.p.filter(p=>!BANNED_SONGS.includes(p[2])).map(([a,t,s])=>({d:findAlb(a,t),s})).filter(x=>x.d&&!recent.has(artKey(x.d.a)));
   const anchors=picks.sort(()=>r()-.5).slice(0,3);
   const used=new Set(anchors.flatMap(x=>[x.d.id,x.d.twin].filter(Boolean)));
-  const pool=UNIQ.filter(d=>th.g.includes(d.g)&&isAlbum(d)&&!used.has(d.id)&&!recent.has(artKey(d.a))&&(d.s>=3||d.s===0)).sort(()=>r()-.5);
+  const offSeason=tk==="ete"||tk==="fete_musique"?/christmas|noël|noel|winter|hiver|snow|neige/i:/beach|plage|summer|été|sunshine|surf|holiday|vacances/i;
+  const pool=UNIQ.filter(d=>th.g.includes(d.g)&&isAlbum(d)&&!used.has(d.id)&&!recent.has(artKey(d.a))&&!offSeason.test(d.t)&&(d.s>=3||d.s===0)).sort(()=>r()-.5);
   const fill=[]; const arts=new Set(anchors.map(x=>artKey(x.d.a)));
   for(const d of pool){ if(fill.length>=14-anchors.length)break; const k=artKey(d.a); if(arts.has(k))continue; arts.add(k); fill.push({d,s:""}) }
   const items=[...anchors,...fill].sort(()=>r()-.5);
