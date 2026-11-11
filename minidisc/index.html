@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Web MiniDisc – transférer sa musique sur MiniDisc depuis le navigateur</title>
+<link rel="alternate" hreflang="fr" href="https://crossroaddigger.github.io/minidisc/?lang=fr">
+<link rel="alternate" hreflang="en" href="https://crossroaddigger.github.io/minidisc/?lang=en">
+<link rel="alternate" hreflang="nl" href="https://crossroaddigger.github.io/minidisc/?lang=nl">
+<link rel="alternate" hreflang="de" href="https://crossroaddigger.github.io/minidisc/?lang=de">
+<link rel="alternate" hreflang="es" href="https://crossroaddigger.github.io/minidisc/?lang=es">
+<link rel="alternate" hreflang="it" href="https://crossroaddigger.github.io/minidisc/?lang=it">
+<link rel="alternate" hreflang="pt" href="https://crossroaddigger.github.io/minidisc/?lang=pt">
+<link rel="alternate" hreflang="ja" href="https://crossroaddigger.github.io/minidisc/?lang=ja">
+<link rel="alternate" hreflang="x-default" href="https://crossroaddigger.github.io/minidisc/">
 <meta name="description" content="Branche ton lecteur MiniDisc NetMD en USB et transfère ta musique directement depuis Chrome ou Edge, sans logiciel à installer.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://crossroaddigger.github.io/minidisc/">
@@ -19,9 +28,11 @@
 :root{--bg:#0C0D14;--panel:#13141F;--line:#262838;--ink:#EDEBF5;--muted:#AEB0C2;--dim:#9496A8;--faint:#8C8FA3;--accent:#00E6FF;--accent2:#FF2E7A;--coffee:#FFD866}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
-body{font-family:'Space Grotesk',system-ui,sans-serif}
+body{font-family:'Space Grotesk','Noto Sans JP','Hiragino Sans','Yu Gothic',system-ui,sans-serif}
+:lang(ja) h1{line-height:1.2}
+.lang{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:2px;padding:8px 10px;font:inherit;font-size:13px;min-height:40px}
 a{color:var(--accent)}a:hover{color:#6FF2FF}
-.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.mono{font-family:'IBM Plex Mono','Noto Sans JP',ui-monospace,monospace}
 .wrap{max-width:1200px;margin:0 auto;padding:28px 16px 64px;display:flex;flex-direction:column;gap:56px}
 @media (min-width:700px){.wrap{padding-left:24px;padding-right:24px}}
 header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
@@ -76,6 +87,7 @@ footer{display:flex;flex-direction:column;gap:14px;padding-top:8px}
 .foot-links a{font-size:13px;text-decoration:none}
 .credit{margin:0;font-size:12px;color:#8C8FA3;line-height:1.6;max-width:80ch}
 .credit a{color:#C8C9D6}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -84,22 +96,23 @@ footer{display:flex;flex-direction:column;gap:14px;padding-top:8px}
   <header>
     <a class="brand mono" href="./"><span class="dot" aria-hidden="true"></span>WEB MINIDISC</a>
     <nav aria-label="Navigation principale">
-      <a class="lnk" href="#how">Comment ça marche</a>
-      <a class="lnk" href="#appareils">Appareils compatibles</a>
-      <a class="coffee" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener"><span aria-hidden="true">☕</span> <span>Offrir un café</span></a>
-      <a class="btn-ghost" href="https://web.minidisc.wiki/" target="_blank" rel="noopener">CONNECTER UN APPAREIL</a>
+      <a class="lnk" href="#how" data-t="nav_how">Comment ça marche</a>
+      <a class="lnk" href="#appareils" data-t="nav_dev">Appareils compatibles</a>
+      <a class="coffee" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener"><span aria-hidden="true">☕</span> <span data-t="coffee">Offrir un café</span></a>
+      <a class="btn-ghost" href="https://web.minidisc.wiki/" target="_blank" rel="noopener" data-t="connect">CONNECTER UN APPAREIL</a>
+      <label class="lang-wrap"><span class="sr" data-t="lang">Langue</span><select class="lang" id="lang"></select></label>
     </nav>
   </header>
 
   <main style="display:flex;flex-direction:column;gap:56px">
     <section class="hero">
       <div class="hero-txt">
-        <p class="kicker mono">Navigateur · USB · NetMD</p>
-        <h1>Ton MiniDisc<br>reprend vie<br><em>dans l'onglet.</em></h1>
-        <p class="lead">Branche ton lecteur NetMD en USB et transfère ta musique directement depuis Chrome ou Edge. Pas d'app à installer, pas de pilote à chercher.</p>
+        <p class="kicker mono" data-t="kicker">Navigateur · USB · NetMD</p>
+        <h1><span data-t="h1a">Ton MiniDisc</span><br><span data-t="h1b">reprend vie</span><br><em data-t="h1c">dans l'onglet.</em></h1>
+        <p class="lead" data-t="lead">Branche ton lecteur NetMD en USB et transfère ta musique directement depuis Chrome ou Edge. Pas d'app à installer, pas de pilote à chercher.</p>
         <div class="ctas">
-          <a class="btn" href="https://web.minidisc.wiki/" target="_blank" rel="noopener">Lancer Web MiniDisc</a>
-          <a class="sec" href="#appareils">Voir les appareils supportés</a>
+          <a class="btn" href="https://web.minidisc.wiki/" target="_blank" rel="noopener" data-t="launch">Lancer Web MiniDisc</a>
+          <a class="sec" href="#appareils" data-t="see_dev">Voir les appareils supportés</a>
         </div>
       </div>
 
@@ -113,39 +126,75 @@ footer{display:flex;flex-direction:column;gap:14px;padding-top:8px}
     </section>
 
     <section id="how" class="how">
-      <h2>Trois étapes, zéro logiciel</h2>
+      <h2 data-t="how_h">Trois étapes, zéro logiciel</h2>
       <div class="steps">
-        <div class="card"><span class="n mono">01</span><h3>Branche le câble USB</h3><p>Relie ton lecteur ou ta platine NetMD à ton ordinateur, comme pour SonicStage à l'époque.</p></div>
-        <div class="card"><span class="n mono">02</span><h3>Autorise l'appareil</h3><p>Le navigateur te demande de choisir le périphérique USB. Aucune extension requise.</p></div>
-        <div class="card"><span class="n mono">03</span><h3>Glisse tes pistes</h3><p>Dépose tes fichiers audio dans la page, le transfert vers le disque démarre aussitôt.</p></div>
+        <div class="card"><span class="n mono">01</span><h3 data-t="s1h">Branche le câble USB</h3><p data-t="s1p">Relie ton lecteur ou ta platine NetMD à ton ordinateur, comme pour SonicStage à l'époque.</p></div>
+        <div class="card"><span class="n mono">02</span><h3 data-t="s2h">Autorise l'appareil</h3><p data-t="s2p">Le navigateur te demande de choisir le périphérique USB. Aucune extension requise.</p></div>
+        <div class="card"><span class="n mono">03</span><h3 data-t="s3h">Glisse tes pistes</h3><p data-t="s3p">Dépose tes fichiers audio dans la page, le transfert vers le disque démarre aussitôt.</p></div>
       </div>
     </section>
 
     <section id="appareils" class="devices">
       <div class="row" style="flex-wrap:wrap;gap:10px">
-        <h2>Appareils testés</h2>
-        <span class="tag mono">● COMPATIBILITÉ NetMD</span>
+        <h2 data-t="dev_h">Appareils testés</h2>
+        <span class="tag mono" data-t="compat">● COMPATIBILITÉ NetMD</span>
       </div>
       <div class="dev mono">
-        <div><span>MZ-N710</span><span>Portable · enregistrement</span></div>
-        <div><span>MZ-RH1</span><span>Hi-MD · lecture seule</span></div>
-        <div><span>MDS-JB980</span><span>Platine de salon</span></div>
+        <div><span>MZ-N710</span><span data-t="d1">Portable · enregistrement</span></div>
+        <div><span>MZ-RH1</span><span data-t="d2">Hi-MD · lecture seule</span></div>
+        <div><span>MDS-JB980</span><span data-t="d3">Platine de salon</span></div>
       </div>
-      <p class="note">Fonctionne avec les navigateurs qui gèrent WebUSB : Chrome, Edge, Opera et autres navigateurs basés sur Chromium. Firefox et Safari ne sont pas pris en charge.</p>
+      <p class="note" data-t="note">Fonctionne avec les navigateurs qui gèrent WebUSB : Chrome, Edge, Opera et autres navigateurs basés sur Chromium. Firefox et Safari ne sont pas pris en charge.</p>
     </section>
   </main>
 
   <footer>
     <div class="foot-row">
-      <p class="mono" style="margin:0;font-size:11px;color:#8C8FA3">PROJET OPEN SOURCE — NON AFFILIÉ À SONY</p>
+      <p class="mono" style="margin:0;font-size:11px;color:#8C8FA3" data-t="oss">PROJET OPEN SOURCE — NON AFFILIÉ À SONY</p>
       <div class="foot-links">
-        <a class="coffee" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener"><span aria-hidden="true">☕</span> Offrir un café</a>
-        <a href="https://github.com/asivery/webminidisc" target="_blank" rel="noopener">Voir le code source →</a>
+        <a class="coffee" href="https://buymeacoffee.com/mellowbox" target="_blank" rel="noopener"><span aria-hidden="true">☕</span> <span data-t="coffee">Offrir un café</span></a>
+        <a href="https://github.com/asivery/webminidisc" target="_blank" rel="noopener" data-t="source">Voir le code source →</a>
       </div>
     </div>
-    <p class="credit">Page de présentation non officielle. L'application <a href="https://web.minidisc.wiki/" target="_blank" rel="noopener">Web MiniDisc Pro</a> est développée par asivery, à partir de <a href="https://stefano.brilli.me/blog/web-minidisc/" target="_blank" rel="noopener">Web MiniDisc</a> de Stefano Brilli.</p>
+    <p class="credit" data-t-html="credit">Page de présentation non officielle. L'application <a href="https://web.minidisc.wiki/" target="_blank" rel="noopener">Web MiniDisc Pro</a> est développée par asivery, à partir de <a href="https://stefano.brilli.me/blog/web-minidisc/" target="_blank" rel="noopener">Web MiniDisc</a> de Stefano Brilli.</p>
   </footer>
 
 </div>
+<script>
+/* Langues de Web MiniDisc : indépendantes de Mellow Box (clé de mémoire "wmd-lang", pas "mb-lang"). */
+const APP='<a href="https://web.minidisc.wiki/" target="_blank" rel="noopener">Web MiniDisc Pro</a>';
+const ORIG='<a href="https://stefano.brilli.me/blog/web-minidisc/" target="_blank" rel="noopener">Web MiniDisc</a>';
+const LANGS={fr:"Français",en:"English",nl:"Nederlands",de:"Deutsch",es:"Español",it:"Italiano",pt:"Português",ja:"日本語"};
+const T={
+fr:{title:"Web MiniDisc – transférer sa musique sur MiniDisc depuis le navigateur",desc:"Branche ton lecteur MiniDisc NetMD en USB et transfère ta musique directement depuis Chrome ou Edge, sans logiciel à installer.",lang:"Langue",nav_how:"Comment ça marche",nav_dev:"Appareils compatibles",coffee:"Offrir un café",connect:"CONNECTER UN APPAREIL",kicker:"Navigateur · USB · NetMD",h1a:"Ton MiniDisc",h1b:"reprend vie",h1c:"dans l'onglet.",lead:"Branche ton lecteur NetMD en USB et transfère ta musique directement depuis Chrome ou Edge. Pas d'app à installer, pas de pilote à chercher.",launch:"Lancer Web MiniDisc",see_dev:"Voir les appareils supportés",how_h:"Trois étapes, zéro logiciel",s1h:"Branche le câble USB",s1p:"Relie ton lecteur ou ta platine NetMD à ton ordinateur, comme pour SonicStage à l'époque.",s2h:"Autorise l'appareil",s2p:"Le navigateur te demande de choisir le périphérique USB. Aucune extension requise.",s3h:"Glisse tes pistes",s3p:"Dépose tes fichiers audio dans la page, le transfert vers le disque démarre aussitôt.",dev_h:"Appareils testés",compat:"● COMPATIBILITÉ NetMD",d1:"Portable · enregistrement",d2:"Hi-MD · lecture seule",d3:"Platine de salon",note:"Fonctionne avec les navigateurs qui gèrent WebUSB : Chrome, Edge, Opera et autres navigateurs basés sur Chromium. Firefox et Safari ne sont pas pris en charge.",oss:"PROJET OPEN SOURCE — NON AFFILIÉ À SONY",source:"Voir le code source →",credit:"Page de présentation non officielle. L'application {app} est développée par asivery, à partir de {orig} de Stefano Brilli."},
+en:{title:"Web MiniDisc – transfer music to MiniDisc from your browser",desc:"Plug your NetMD MiniDisc player in over USB and transfer music straight from Chrome or Edge, with no software to install.",lang:"Language",nav_how:"How it works",nav_dev:"Compatible devices",coffee:"Buy me a coffee",connect:"CONNECT A DEVICE",kicker:"Browser · USB · NetMD",h1a:"Your MiniDisc",h1b:"comes back to life",h1c:"in a browser tab.",lead:"Plug your NetMD player in over USB and transfer your music straight from Chrome or Edge. No app to install, no driver to hunt down.",launch:"Launch Web MiniDisc",see_dev:"See supported devices",how_h:"Three steps, zero software",s1h:"Plug in the USB cable",s1p:"Connect your NetMD portable or deck to your computer, just like with SonicStage back in the day.",s2h:"Allow the device",s2p:"Your browser asks you to pick the USB device. No extension needed.",s3h:"Drop in your tracks",s3p:"Drop your audio files onto the page and the transfer to the disc starts right away.",dev_h:"Tested devices",compat:"● NetMD COMPATIBILITY",d1:"Portable · recording",d2:"Hi-MD · read-only",d3:"Home deck",note:"Works in browsers that support WebUSB: Chrome, Edge, Opera and other Chromium-based browsers. Firefox and Safari are not supported.",oss:"OPEN-SOURCE PROJECT — NOT AFFILIATED WITH SONY",source:"View source code →",credit:"Unofficial presentation page. The {app} app is developed by asivery, based on Stefano Brilli's {orig}."},
+nl:{title:"Web MiniDisc – muziek naar MiniDisc zetten vanuit je browser",desc:"Sluit je NetMD-minidiscspeler via USB aan en zet je muziek erop rechtstreeks vanuit Chrome of Edge, zonder software te installeren.",lang:"Taal",nav_how:"Hoe het werkt",nav_dev:"Compatibele toestellen",coffee:"Trakteer op een koffie",connect:"TOESTEL VERBINDEN",kicker:"Browser · USB · NetMD",h1a:"Je MiniDisc",h1b:"komt weer tot leven",h1c:"in je browsertab.",lead:"Sluit je NetMD-speler via USB aan en zet je muziek erop rechtstreeks vanuit Chrome of Edge. Geen app te installeren, geen driver te zoeken.",launch:"Web MiniDisc starten",see_dev:"Bekijk de ondersteunde toestellen",how_h:"Drie stappen, geen software",s1h:"Sluit de USB-kabel aan",s1p:"Verbind je NetMD-speler of -deck met je computer, net als vroeger met SonicStage.",s2h:"Geef het toestel toegang",s2p:"Je browser vraagt je het USB-toestel te kiezen. Geen extensie nodig.",s3h:"Sleep je nummers erin",s3p:"Zet je audiobestanden op de pagina en de overdracht naar de disc begint meteen.",dev_h:"Geteste toestellen",compat:"● NetMD-COMPATIBILITEIT",d1:"Draagbaar · opname",d2:"Hi-MD · alleen lezen",d3:"Huiskamerdeck",note:"Werkt in browsers met WebUSB-ondersteuning: Chrome, Edge, Opera en andere browsers op basis van Chromium. Firefox en Safari worden niet ondersteund.",oss:"OPENSOURCEPROJECT — NIET GELIEERD AAN SONY",source:"Broncode bekijken →",credit:"Onofficiële presentatiepagina. De app {app} wordt ontwikkeld door asivery, op basis van {orig} van Stefano Brilli."},
+de:{title:"Web MiniDisc – Musik direkt aus dem Browser auf MiniDisc überspielen",desc:"Schließ deinen NetMD-MiniDisc-Player per USB an und überspiel Musik direkt aus Chrome oder Edge, ohne Software zu installieren.",lang:"Sprache",nav_how:"So funktioniert's",nav_dev:"Kompatible Geräte",coffee:"Spendier mir einen Kaffee",connect:"GERÄT VERBINDEN",kicker:"Browser · USB · NetMD",h1a:"Deine MiniDisc",h1b:"erwacht zu neuem Leben",h1c:"im Browser-Tab.",lead:"Schließ deinen NetMD-Player per USB an und überspiel deine Musik direkt aus Chrome oder Edge. Keine App zu installieren, kein Treiber zu suchen.",launch:"Web MiniDisc starten",see_dev:"Unterstützte Geräte ansehen",how_h:"Drei Schritte, null Software",s1h:"USB-Kabel anschließen",s1p:"Verbinde deinen NetMD-Player oder dein MD-Deck mit dem Computer, wie früher mit SonicStage.",s2h:"Gerät zulassen",s2p:"Der Browser fragt dich, welches USB-Gerät du verwenden willst. Keine Erweiterung nötig.",s3h:"Titel hineinziehen",s3p:"Leg deine Audiodateien auf der Seite ab, die Übertragung auf die Disc startet sofort.",dev_h:"Getestete Geräte",compat:"● NetMD-KOMPATIBILITÄT",d1:"Tragbar · Aufnahme",d2:"Hi-MD · nur lesen",d3:"HiFi-Deck",note:"Funktioniert in Browsern mit WebUSB-Unterstützung: Chrome, Edge, Opera und anderen Chromium-basierten Browsern. Firefox und Safari werden nicht unterstützt.",oss:"OPEN-SOURCE-PROJEKT — NICHT MIT SONY VERBUNDEN",source:"Quellcode ansehen →",credit:"Inoffizielle Vorstellungsseite. Die App {app} wird von asivery entwickelt und basiert auf {orig} von Stefano Brilli."},
+es:{title:"Web MiniDisc – pasa música al MiniDisc desde el navegador",desc:"Conecta tu reproductor MiniDisc NetMD por USB y transfiere música directamente desde Chrome o Edge, sin instalar nada.",lang:"Idioma",nav_how:"Cómo funciona",nav_dev:"Dispositivos compatibles",coffee:"Invítame a un café",connect:"CONECTAR UN DISPOSITIVO",kicker:"Navegador · USB · NetMD",h1a:"Tu MiniDisc",h1b:"vuelve a la vida",h1c:"en una pestaña.",lead:"Conecta tu reproductor NetMD por USB y transfiere tu música directamente desde Chrome o Edge. Sin aplicaciones que instalar ni controladores que buscar.",launch:"Abrir Web MiniDisc",see_dev:"Ver los dispositivos compatibles",how_h:"Tres pasos, cero programas",s1h:"Conecta el cable USB",s1p:"Conecta tu reproductor o pletina NetMD al ordenador, como con SonicStage en su día.",s2h:"Autoriza el dispositivo",s2p:"El navegador te pide que elijas el dispositivo USB. No hace falta ninguna extensión.",s3h:"Arrastra tus pistas",s3p:"Suelta tus archivos de audio en la página y la transferencia al disco empieza enseguida.",dev_h:"Dispositivos probados",compat:"● COMPATIBILIDAD NetMD",d1:"Portátil · grabación",d2:"Hi-MD · solo lectura",d3:"Pletina de sobremesa",note:"Funciona en los navegadores compatibles con WebUSB: Chrome, Edge, Opera y otros basados en Chromium. Firefox y Safari no son compatibles.",oss:"PROYECTO DE CÓDIGO ABIERTO — SIN VÍNCULO CON SONY",source:"Ver el código fuente →",credit:"Página de presentación no oficial. La aplicación {app} la desarrolla asivery, a partir de {orig} de Stefano Brilli."},
+it:{title:"Web MiniDisc – trasferisci musica sul MiniDisc dal browser",desc:"Collega il tuo lettore MiniDisc NetMD via USB e trasferisci musica direttamente da Chrome o Edge, senza installare nulla.",lang:"Lingua",nav_how:"Come funziona",nav_dev:"Dispositivi compatibili",coffee:"Offrimi un caffè",connect:"COLLEGA UN DISPOSITIVO",kicker:"Browser · USB · NetMD",h1a:"Il tuo MiniDisc",h1b:"torna a vivere",h1c:"in una scheda.",lead:"Collega il tuo lettore NetMD via USB e trasferisci la tua musica direttamente da Chrome o Edge. Nessuna app da installare, nessun driver da cercare.",launch:"Avvia Web MiniDisc",see_dev:"Vedi i dispositivi supportati",how_h:"Tre passaggi, zero software",s1h:"Collega il cavo USB",s1p:"Collega il tuo lettore o la tua piastra NetMD al computer, come ai tempi di SonicStage.",s2h:"Autorizza il dispositivo",s2p:"Il browser ti chiede di scegliere il dispositivo USB. Nessuna estensione richiesta.",s3h:"Trascina i tuoi brani",s3p:"Rilascia i tuoi file audio nella pagina e il trasferimento sul disco parte subito.",dev_h:"Dispositivi testati",compat:"● COMPATIBILITÀ NetMD",d1:"Portatile · registrazione",d2:"Hi-MD · sola lettura",d3:"Piastra da salotto",note:"Funziona nei browser che supportano WebUSB: Chrome, Edge, Opera e altri browser basati su Chromium. Firefox e Safari non sono supportati.",oss:"PROGETTO OPEN SOURCE — NON AFFILIATO A SONY",source:"Vedi il codice sorgente →",credit:"Pagina di presentazione non ufficiale. L'app {app} è sviluppata da asivery, a partire da {orig} di Stefano Brilli."},
+pt:{title:"Web MiniDisc – passa música para o MiniDisc a partir do browser",desc:"Liga o teu leitor MiniDisc NetMD por USB e transfere música diretamente do Chrome ou do Edge, sem instalar nada.",lang:"Idioma",nav_how:"Como funciona",nav_dev:"Dispositivos compatíveis",coffee:"Paga-me um café",connect:"LIGAR UM DISPOSITIVO",kicker:"Navegador · USB · NetMD",h1a:"O teu MiniDisc",h1b:"volta à vida",h1c:"num separador.",lead:"Liga o teu leitor NetMD por USB e transfere a tua música diretamente do Chrome ou do Edge. Sem aplicações para instalar nem controladores para procurar.",launch:"Abrir o Web MiniDisc",see_dev:"Ver os dispositivos suportados",how_h:"Três passos, zero software",s1h:"Liga o cabo USB",s1p:"Liga o teu leitor ou deck NetMD ao computador, como no tempo do SonicStage.",s2h:"Autoriza o dispositivo",s2p:"O browser pede-te para escolher o dispositivo USB. Não é preciso nenhuma extensão.",s3h:"Arrasta as tuas faixas",s3p:"Larga os teus ficheiros de áudio na página e a transferência para o disco começa logo.",dev_h:"Dispositivos testados",compat:"● COMPATIBILIDADE NetMD",d1:"Portátil · gravação",d2:"Hi-MD · só leitura",d3:"Deck de sala",note:"Funciona nos browsers compatíveis com WebUSB: Chrome, Edge, Opera e outros baseados em Chromium. O Firefox e o Safari não são suportados.",oss:"PROJETO DE CÓDIGO ABERTO — SEM LIGAÇÃO À SONY",source:"Ver o código-fonte →",credit:"Página de apresentação não oficial. A aplicação {app} é desenvolvida por asivery, a partir do {orig} de Stefano Brilli."},
+ja:{title:"Web MiniDisc – ブラウザからMiniDiscに音楽を転送",desc:"NetMD対応のMiniDiscプレーヤーをUSBでつなぎ、ChromeやEdgeから直接音楽を転送。ソフトのインストールは不要です。",lang:"言語",nav_how:"使い方",nav_dev:"対応機種",coffee:"コーヒーをおごる",connect:"機器を接続",kicker:"ブラウザ · USB · NetMD",h1a:"あなたのMiniDiscが",h1b:"ブラウザのタブで",h1c:"よみがえる。",lead:"NetMD対応のプレーヤーをUSBでつなげば、ChromeやEdgeから直接音楽を転送できます。アプリのインストールもドライバー探しも不要です。",launch:"Web MiniDiscを起動",see_dev:"対応機種を見る",how_h:"3ステップ、ソフト不要",s1h:"USBケーブルをつなぐ",s1p:"NetMD対応のポータブル機やデッキをパソコンにつなぎます。昔のSonicStageと同じ要領です。",s2h:"機器を許可する",s2p:"ブラウザがUSB機器の選択を求めてきます。拡張機能は必要ありません。",s3h:"曲をドロップする",s3p:"音声ファイルをページにドロップすると、ディスクへの転送がすぐに始まります。",dev_h:"動作確認済みの機種",compat:"● NetMD対応",d1:"ポータブル · 録音対応",d2:"Hi-MD · 読み取り専用",d3:"据え置き型デッキ",note:"WebUSBに対応したブラウザ（Chrome、Edge、OperaなどChromiumベースのブラウザ）で動作します。FirefoxとSafariには対応していません。",oss:"オープンソース・プロジェクト — ソニーとは無関係です",source:"ソースコードを見る →",credit:"非公式の紹介ページです。{app}はasiveryが、Stefano Brilliによる{orig}をもとに開発しています。"}
+};
+let LANG=(()=>{let q=null,s=null;
+  try{q=new URLSearchParams(location.search).get("lang")}catch(e){}
+  try{s=localStorage.getItem("wmd-lang")}catch(e){}
+  if(q&&T[q])return q; if(s&&T[s])return s;
+  for(const l of (navigator.languages||[navigator.language||""])){const k=String(l||"").slice(0,2).toLowerCase();if(T[k])return k}
+  return "en"})();
+let jaFont=false;
+function apply(){
+  const d=T[LANG];document.documentElement.lang=LANG;document.title=d.title;
+  document.querySelector('meta[name="description"]').setAttribute("content",d.desc);
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=d[el.dataset.t];if(v!=null)el.textContent=v});
+  document.querySelectorAll("[data-t-html]").forEach(el=>{el.innerHTML=d[el.dataset.tHtml].replace("{app}",APP).replace("{orig}",ORIG)});
+  if(LANG==="ja"&&!jaFont){jaFont=true;const l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap";document.head.appendChild(l)}
+}
+const sel=document.getElementById("lang");
+for(const k in LANGS){const o=document.createElement("option");o.value=k;o.textContent=LANGS[k];sel.appendChild(o)}
+sel.value=LANG;
+sel.addEventListener("change",()=>{LANG=sel.value;try{localStorage.setItem("wmd-lang",LANG)}catch(e){}
+  try{const u=new URL(location.href);u.searchParams.delete("lang");history.replaceState(null,"",u)}catch(e){}apply()});
+apply();
+</script>
 </body>
 </html>
