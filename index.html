@@ -223,6 +223,33 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
 .tape small{font-family:var(--f-type);font-size:12px;color:var(--ink-soft)}
 .tape[aria-current="true"]{outline:2px solid var(--gold)}
 @media (max-width:820px){.mixwrap{grid-template-columns:1fr}}
+/* ===== cassette années 70 (étiquette crème et bandes orange) ===== */
+.jtop.cass{background:#1d1712;padding:22px clamp(10px,3vw,30px) 20px;border-bottom:2px solid var(--ink);display:block}
+.shell{position:relative;max-width:640px;margin:0 auto;background:linear-gradient(160deg,#3b3632,#24201d 55%,#1a1715);border-radius:14px;padding:clamp(18px,4vw,34px) clamp(18px,5vw,36px) clamp(52px,11vw,84px);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -2px 0 #0008,0 10px 24px #000a}
+.screw{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#cfc8bd,#6d6760 70%);box-shadow:0 1px 0 #0008}
+.screw:after{content:"";position:absolute;left:2px;right:2px;top:5px;height:2px;background:#3b3632;transform:rotate(35deg)}
+.s1{left:8px;top:8px}.s2{right:8px;top:8px}.s3{left:8px;bottom:8px}.s4{right:8px;bottom:8px}
+.clabel{position:relative;background:#efe4c9 var(--grain);border-radius:6px;display:flex;flex-direction:column;overflow:hidden;color:#2a1d14}
+.ltop{display:flex;align-items:center;gap:10px;padding:3.2% 4% 0;font-family:var(--f-type);font-size:clamp(9px,1.6vw,12px);letter-spacing:.06em;text-transform:uppercase}
+.ltop .side{font-family:var(--f-poster);font-size:clamp(16px,3vw,24px);line-height:1;color:#c4501c}
+.ltop .eyebrow{flex:1;opacity:1;color:#5a4636}
+.ltop .ctype{color:#c4501c;font-weight:700}
+.cass h2{margin:0;padding:1% 4% 0;font-family:var(--f-brand);font-weight:400;font-size:clamp(20px,4vw,34px);line-height:1.1;color:#2a1d14;transform:rotate(-1deg);border-bottom:1.5px solid #2a1d1440;margin:0 4%;padding:1% 0 1.2%}
+.band{height:clamp(64px,14vw,104px);margin-top:3%;position:relative;background:linear-gradient(#f08a2c 0 18%,#efe4c9 18% 24%,#e8742a 24% 52%,#efe4c9 52% 58%,#c4501c 58% 100%);display:grid;place-items:center}
+.window{width:58%;height:64%;background:#1a1512cc;border-radius:999px;border:3px solid #efe4c9;display:flex;align-items:center;justify-content:space-between;padding:0 6%;box-shadow:inset 0 2px 6px #000c;position:relative}
+.window .mag{position:absolute;left:24%;right:24%;top:30%;bottom:30%;background:linear-gradient(90deg,#4a2c1c,#6b3f25 50%,#4a2c1c);opacity:.85;border-radius:3px}
+.reel{position:relative;z-index:1;width:clamp(30px,8vw,56px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#efe4c9 0 22%,transparent 23%),repeating-conic-gradient(#efe4c9 0 14deg,#3b3632 14deg 60deg);border:3px solid #efe4c9;animation:reel 4s linear infinite}
+@keyframes reel{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.reel{animation:none}}
+.lfoot{display:flex;justify-content:space-between;padding:1.8% 4%;font-family:var(--f-type);font-size:clamp(8px,1.4vw,11px);letter-spacing:.12em;background:#efe4c9;color:#5a4636}
+.lfoot span:first-child{font-family:var(--f-poster);letter-spacing:.08em;color:#2a1d14}
+.trap{position:absolute;left:18%;right:18%;bottom:0;height:clamp(40px,9vw,68px);background:linear-gradient(#2c2724,#1f1b18);clip-path:polygon(7% 0,93% 0,100% 100%,0 100%);display:flex;justify-content:space-evenly;align-items:center;border-top:1px solid #ffffff14}
+.trap span{width:9%;aspect-ratio:1;border-radius:50%;background:#0d0b0a;box-shadow:inset 0 1px 2px #000}
+.trap span:nth-child(2),.trap span:nth-child(3){border-radius:2px;width:7%}
+/* archive : petites cassettes */
+.tape{grid-template-columns:34px 1fr;background:#efe4c9 var(--grain);border-left:none;position:relative;overflow:hidden}
+.tape .c{background:linear-gradient(#f08a2c 0 30%,#efe4c9 30% 38%,#e8742a 38% 66%,#efe4c9 66% 72%,#c4501c 72%);border-radius:2px}
+
 @media (max-width:520px){ol.tracks li{grid-template-columns:30px minmax(0,1fr)}.lnk{grid-column:2}}
 
 
@@ -652,7 +679,19 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
 <section id="v-daily-mix" hidden>
   <div class="mixwrap">
     <div class="jcard" id="jcard">
-      <div class="jtop"><span class="eyebrow" id="mx-eyebrow"></span><h2 id="mx-title"></h2><p id="mx-intro" hidden></p></div>
+      <div class="jtop cass">
+        <div class="shell" aria-hidden="false">
+          <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
+          <div class="clabel">
+            <div class="ltop"><span class="side">A</span><span class="eyebrow" id="mx-eyebrow"></span><span class="ctype">C90 · LOW NOISE</span></div>
+            <h2 id="mx-title"></h2>
+            <div class="band"><div class="window" aria-hidden="true"><span class="reel"></span><span class="mag"></span><span class="reel"></span></div></div>
+            <div class="lfoot"><span>MELLOW BOX</span><span>STEREO · 2×45 MIN</span></div>
+          </div>
+          <div class="trap" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <p id="mx-intro" hidden></p>
+      </div>
       <div class="namebox"><label for="mx-name">Nom du mix</label><input id="mx-name" type="text" maxlength="80"><button type="button" class="inkbtn" id="mx-rename">Renommer</button><span class="st" id="mx-st"></span></div>
       <ol class="tracks" id="mx-tracks"></ol>
       <div class="jfoot"><span class="msg" id="mx-msg">Un nouveau mix chaque jour, accordé à la saison et aux fêtes. Chaque titre s'ouvre sur Spotify ou YouTube.</span><button type="button" class="inkbtn" id="mx-spotify">Créer la playlist Spotify</button></div>
