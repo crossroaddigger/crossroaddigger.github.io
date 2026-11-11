@@ -1135,15 +1135,15 @@ const THEMES = {
  ete:{name:"Vacances d'été",c:"#c96a1b",intro:"Fenêtres ouvertes, route des vacances et soirées sur la terrasse.",g:["Pop","Pop rock","Rock","Soul","Funk","Reggae","Jazz fusion"],
   p:[["Chris Rea","New Light","On the Beach"],["Sheryl Crow","C'mon","Soak Up the Sun"],["Sheryl Crow","Tuesday","All I Wanna Do"],["Doobie","Captain","Long Train Runnin'"],["Bob Marley","Legend","Is This Love"],["Santana","Abraxas","Oye Como Va"],["Red Hot","Californication","Scar Tissue"],["Beatles","Abbey","Here Comes the Sun"],["Tom Petty","Full Moon","Free Fallin'"],["Wham","Final","Club Tropicana"],["Grace Jones","Island","Pull Up to the Bumper"],["Al Di Meola","Elegant","Mediterranean Sundance"],["France Gall","Babacar","Babacar"],["Stevie Wonder","Hotter","Master Blaster (Jammin')"]]},
  fete_musique:{name:"Fête de la musique",c:"#b8372a",intro:"Le jour le plus long : place aux héros de la guitare.",g:["Blues rock","Blues","Rock","Jazz fusion"],
-  p:[["Jimi Hendrix Experience","Axis","Little Wing"],["Stevie Ray","Texas Flood","Pride and Joy"],["Jeff Beck","Blow by Blow","Cause We've Ended as Lovers"],["Eric Johnson","Ah Via","Cliffs of Dover"],["Derek","Layla","Layla"],["Santana","Abraxas","Samba Pa Ti"]]},
+  p:[["Jimi Hendrix Experience","Axis","Little Wing"],["Stevie Ray","Texas Flood","Pride and Joy"],["Jeff Beck","Blow by Blow","Cause We've Ended as Lovers"],["Eric Johnson","Ah Via","Cliffs of Dover"],["Gary Moore","Still Got","Still Got the Blues"],["Derek","Layla","Layla"],["Santana","Abraxas","Samba Pa Ti"]]},
  rentree:{name:"La rentrée",c:"#283a6b",intro:"Retour au bureau, réveil qui pique : de l'énergie.",g:["Rock","Rock alternatif","Punk rock","Électro","Ska","Blues rock"],
   p:[["Clash","Singles","Should I Stay or Should I Go"],["Sonic Youth","Goo","Kool Thing"],["Garbage","Garbage","Stupid Girl"],["New Order","Substance","Blue Monday"],["David Bowie","Changesbowie","Changes"],["Specials","Best of","Ghost Town"],["Rolling Stones","Tattoo","Start Me Up"],["Depeche","Violator","Personal Jesus"]]},
  automne:{name:"Feuilles mortes",c:"#8a4b1f",intro:"Jours qui raccourcissent, pluie sur les vitres : blues, jazz et ballades au coin du feu.",g:["Blues","Jazz","Jazz rock","Jazz fusion","Trip-hop","Folk rock","Chanson française"],
-  p:[["Eric Clapton","=Clapton","Autumn Leaves"],["Steely Dan","Aja","Deacon Blues"],["Donald Fagen","Nightfly","I.G.Y."],["Massive","Mezzanine","Teardrop"],["Portishead","Dummy","Roads"],["Tom Waits","Closing","Martha"],["Van Morrison","Astral","Sweet Thing"],["Alain Bashung","Fantaisie","La nuit je mens"],["Robert Cray","Afraid","Don't Be Afraid of the Dark"],["John Hiatt","Slow Turning","Drive South"]]},
+  p:[["Eric Clapton","=Clapton","Autumn Leaves"],["Gary Moore","Still Got","Still Got the Blues"],["Steely Dan","Aja","Deacon Blues"],["Donald Fagen","Nightfly","I.G.Y."],["Massive","Mezzanine","Teardrop"],["Portishead","Dummy","Roads"],["Tom Waits","Closing","Martha"],["Van Morrison","Astral","Sweet Thing"],["Alain Bashung","Fantaisie","La nuit je mens"],["Robert Cray","Afraid","Don't Be Afraid of the Dark"],["John Hiatt","Slow Turning","Drive South"]]},
  halloween:{name:"Nuit d'Halloween",c:"#3a2f4f",intro:"Ombres, vaudou et monstres sympathiques.",g:["Trip-hop","Rock alternatif","Krautrock","Rock","Électro"],
   p:[["David Bowie","Scary","Scary Monsters (and Super Creeps)"],["Massive","Mezzanine","Angel"],["Portishead","Dummy","Sour Times"],["Tricky","Maxinquaye","Overcome"],["Iggy Pop","Idiot","Nightclubbing"],["Rolling Stones","Jump Back","Sympathy for the Devil"],["Jimi Hendrix Experience","Electric Ladyland","Voodoo Child (Slight Return)"],["Curve","Horror","Horror Head"]]},
  toussaint:{name:"Toussaint",c:"#4a4a52",intro:"Un mix recueilli pour penser à ceux qui ne sont plus là.",g:["Folk rock","Chanson française","Blues","Classique","Country"],
-  p:[["Johnny Cash","American IV","Hurt"],["Bob Dylan","Time Out","Not Dark Yet"],["David Bowie","Blackstar","Lazarus"],["Eric Clapton","Unplugged","Tears in Heaven"],["Jacques Brel","Infiniment","Ne me quitte pas"]]},
+  p:[["Johnny Cash","American IV","Hurt"],["Bob Dylan","Time Out","Not Dark Yet"],["David Bowie","Blackstar","Lazarus"],["Eric Clapton","Unplugged","Tears in Heaven"],["Jacques Brel","Infiniment","Ne me quitte pas"],["Gary Moore","Still Got","Still Got the Blues"]]},
  saint_nicolas:{name:"Saint-Nicolas",c:"#b8372a",intro:"Pour les petits et les grands enfants, avant le passage du grand saint.",g:["Jeunesse","Pop","Classique","Chanson française"],
   p:[["Philippe Chatel","Émilie","Émilie Jolie"],["Prokofiev","Pierre","Pierre et le loup"],["Bourvil","Renart",""],["ABBA","Hits","Dancing Queen"],["Beatles","=1","Yellow Submarine"]]},
  noel:{name:"Noël au coin du feu",c:"#2f5d50",intro:"Guirlandes, route enneigée vers la famille et chocolat chaud.",g:["Soul","Pop","Jazz","Blues","Classique"],
@@ -1182,7 +1182,7 @@ function findAlb(a,t){const exact=t.startsWith("=");const tt=exact?t.slice(1):t;
 const isAlbum=d=>!/^Single|^EP|Disque d'interviews|Single \//.test(d.n);
 /* artistes déjà passés dans les mix des jours précédents (anti-répétition) */
 const artKey=a=>a.toLowerCase().replace(/^the /,"").replace(/ (&|and|with) .*$/,"").replace(/ (experience|double trouble|band|group)$/,"").trim();
-const BANNED_SONGS=["Still Got the Blues"];
+const BANNED_SONGS=[];
 const MIXCACHE={};
 const shiftKey=(k,n)=>{const dt=new Date(k+"T12:00:00");dt.setDate(dt.getDate()+n);return dt.toISOString().slice(0,10)};
 function recentArtists(dateKey,days){const out=new Set();
