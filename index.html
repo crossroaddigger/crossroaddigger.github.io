@@ -21,7 +21,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Mellow Box","description":"A personal collection of blues, rock, jazz fusion and French chanson CDs, LPs and music films, with hit parade, jukebox and seasonal daily mix.","author":{"@type":"Person","name":"Crossroad Digger"},"sameAs":["https://www.instagram.com/mellowbox.digger/"],"inLanguage":"en","availableLanguage":["en","fr","nl","de","es","it","pt"]}</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Special+Elite&family=Permanent+Marker&display=swap">
 <style>
 /* Layout : un disquaire de quartier. Le hit-parade imprimé sur papier journal ouvre la page, puis le juke-box chromé, puis l'étagère en noyer. Grain de papier partout, étiquettes tapées à la machine. Look unique, sombre et chaud. */
 :root{
@@ -227,7 +227,7 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
    Proportions d'une vraie compact cassette : 100,4 × 63,8 mm ; tout est en unités de conteneur (cqw)
    pour que l'objet garde ses proportions à toutes les tailles. */
 .jtop.cass{background:#1d1712;padding:22px clamp(10px,3vw,30px) 20px;border-bottom:2px solid var(--ink);display:block}
-.cwrap{max-width:600px;margin:0 auto;container-type:inline-size}
+.cwrap{max-width:600px;margin:0 auto;container-type:inline-size;transform:rotate(.4deg)}
 .shell{position:relative;width:100cqw;height:63.5cqw;background:linear-gradient(160deg,#3b3632,#24201d 55%,#1a1715);border-radius:3.2cqw;box-shadow:inset 0 .3cqw 0 #ffffff1f,inset 0 -.4cqw 0 #0008,0 2cqw 4cqw #000a}
 .screw{position:absolute;width:2.4cqw;height:2.4cqw;border-radius:50%;background:radial-gradient(circle at 40% 35%,#cfc8bd,#6d6760 70%);box-shadow:0 .2cqw 0 #0008}
 .screw:after{content:"";position:absolute;left:18%;right:18%;top:44%;height:14%;background:#3b3632;transform:rotate(35deg)}
@@ -237,8 +237,8 @@ ol.tracks li::before{content:counter(t,decimal-leading-zero);font-family:var(--f
 .ltop .side{font-family:var(--f-poster);font-size:4.4cqw;line-height:1;color:#c4501c}
 .ltop .eyebrow{font-size:inherit!important;flex:1;opacity:1;color:#5a4636;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ltop .ctype{color:#c4501c;font-weight:700;white-space:nowrap}
-.cass h2{position:absolute;left:3.5cqw;right:3.5cqw;top:7.6cqw;margin:0;padding:0 0 .6cqw;font-family:var(--f-brand);font-weight:400;font-size:4.6cqw;line-height:1.15;color:#2a1d14;transform:rotate(-1deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:.25cqw solid #2a1d1440}
-.band{position:absolute;left:0;right:0;top:16cqw;height:19cqw;background:linear-gradient(#f08a2c 0 18%,#efe4c9 18% 24%,#e8742a 24% 52%,#efe4c9 52% 58%,#c4501c 58% 100%)}
+.cass h2{position:absolute;left:3cqw;right:3cqw;top:6.6cqw;margin:0;padding:.9cqw 2cqw .7cqw;font-family:"Permanent Marker","Marker Felt","Comic Sans MS",cursive;font-weight:400;font-size:4.3cqw;line-height:1.15;letter-spacing:.02em;color:#1d2340;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#fbf7ec repeating-linear-gradient(transparent 0 calc(2.4cqw - 1px),#9fb6d433 calc(2.4cqw - 1px) 2.4cqw);border-radius:.4cqw;box-shadow:0 .25cqw .5cqw #3a2a1a40,inset 0 0 0 .15cqw #ffffff;transform:none}
+.band{position:absolute;left:0;right:0;top:16.4cqw;height:19cqw;background:linear-gradient(#f08a2c 0 18%,#efe4c9 18% 24%,#e8742a 24% 52%,#efe4c9 52% 58%,#c4501c 58% 100%)}
 .window{position:absolute;left:50%;top:50%;width:56cqw;height:13cqw;transform:translate(-50%,-50%);background:#1a1512d9;border-radius:6.5cqw;border:.6cqw solid #efe4c9;box-shadow:inset 0 .4cqw 1cqw #000c}
 .window .mag{position:absolute;left:24%;right:24%;top:28%;bottom:28%;background:linear-gradient(90deg,#4a2c1c,#6b3f25 50%,#4a2c1c);opacity:.85;border-radius:.5cqw}
 /* centres des bobines à 42,6 mm l'un de l'autre, soit 42,4 % de la largeur */
