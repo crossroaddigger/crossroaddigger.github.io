@@ -1180,14 +1180,29 @@ function rng(seed){let x=hsh(seed)||1;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;retu
 function findAlb(a,t){const exact=t.startsWith("=");const tt=exact?t.slice(1):t;
   return ALL.find(d=>d.a.toLowerCase().includes(a.toLowerCase())&&(exact?d.t===tt:d.t.toLowerCase().includes(tt.toLowerCase())))}
 const isAlbum=d=>!/^Single|^EP|Disque d'interviews|Single \//.test(d.n);
+/* artistes déjà passés dans les mix des jours précédents (anti-répétition) */
+const artKey=a=>a.toLowerCase().replace(/^the /,"").replace(/ (&|and|with) .*$/,"").replace(/ (experience|double trouble|band|group)$/,"").trim();
+const BANNED_SONGS=["Still Got the Blues"];
+const MIXCACHE={};
+const shiftKey=(k,n)=>{const dt=new Date(k+"T12:00:00");dt.setDate(dt.getDate()+n);return dt.toISOString().slice(0,10)};
+function recentArtists(dateKey,days){const out=new Set();
+  for(let i=1;i<=days;i++){const k=shiftKey(dateKey,-i);const m=MIXES[k]||MIXCACHE[k];if(!m)continue;
+    for(const it of (m.items||[])){const d=ALL.find(x=>x.id===it.id);if(d)out.add(artKey(d.a))}}
+  return out}
+/* le mix d'un jour dépend des 5 jours précédents : on déroule la chaîne depuis 14 jours avant */
 function buildMix(dateKey){
+  if(MIXCACHE[dateKey])return MIXCACHE[dateKey];
+  for(let i=14;i>=0;i--){const k=shiftKey(dateKey,-i); if(!MIXES[k]&&!MIXCACHE[k])MIXCACHE[k]=mixCore(k)}
+  return MIXCACHE[dateKey]}
+function mixCore(dateKey){
   const dt=new Date(dateKey+"T12:00:00"); const [tk,when]=themeFor(dt); const th=THEMES[tk]; const r=rng(dateKey);
-  const picks=th.p.map(([a,t,s])=>({d:findAlb(a,t),s})).filter(x=>x.d);
-  const anchors=picks.sort(()=>r()-.5).slice(0,7);
+  const recent=recentArtists(dateKey,5);
+  const picks=th.p.filter(p=>!BANNED_SONGS.includes(p[2])).map(([a,t,s])=>({d:findAlb(a,t),s})).filter(x=>x.d&&!recent.has(artKey(x.d.a)));
+  const anchors=picks.sort(()=>r()-.5).slice(0,3);
   const used=new Set(anchors.flatMap(x=>[x.d.id,x.d.twin].filter(Boolean)));
-  const pool=UNIQ.filter(d=>th.g.includes(d.g)&&isAlbum(d)&&!used.has(d.id)&&(d.s>=3||d.s===0)).sort(()=>r()-.5);
-  const fill=[]; const arts=new Set(anchors.map(x=>x.d.a));
-  for(const d of pool){ if(fill.length>=14-anchors.length)break; if(arts.has(d.a))continue; arts.add(d.a); fill.push({d,s:""}) }
+  const pool=UNIQ.filter(d=>th.g.includes(d.g)&&isAlbum(d)&&!used.has(d.id)&&!recent.has(artKey(d.a))&&(d.s>=3||d.s===0)).sort(()=>r()-.5);
+  const fill=[]; const arts=new Set(anchors.map(x=>artKey(x.d.a)));
+  for(const d of pool){ if(fill.length>=14-anchors.length)break; const k=artKey(d.a); if(arts.has(k))continue; arts.add(k); fill.push({d,s:""}) }
   const items=[...anchors,...fill].sort(()=>r()-.5);
   const label=dt.toLocaleDateString("fr-BE",{day:"numeric",month:"long",year:"numeric"});
   return {date:dateKey,theme:tk,when,name:`${th.name} · ${label}`,items:items.map(x=>({id:x.d.id,song:x.s}))};
