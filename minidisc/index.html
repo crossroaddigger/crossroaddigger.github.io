@@ -57,12 +57,7 @@ h1 em{font-style:normal;color:var(--blue)}
 .sec{font-weight:600;font-size:15px;color:var(--ink)}
 /* the disc */
 .disc-wrap{display:flex;flex-direction:column;align-items:center;gap:34px}
-.md{position:relative;width:min(300px,78vw);aspect-ratio:68/72;background:linear-gradient(135deg,#3D66FF,#2448D8);border-radius:10px 10px 14px 14px;box-shadow:0 22px 40px -18px #1E3FCC99,inset 0 0 0 2px #ffffff33;transform:rotate(-6deg)}
-.md .shutter{position:absolute;left:12%;top:0;width:52%;height:46%;background:linear-gradient(180deg,#DADDE3,#AEB3BC);border-radius:0 0 4px 4px;box-shadow:inset 0 -2px 0 #8F95A0}
-.md .shutter::after{content:"";position:absolute;left:18%;right:18%;top:22%;height:18%;background:#8F95A0;border-radius:2px}
-.md .hub{position:absolute;left:50%;top:68%;width:22%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#1A2C8A 28%,#ffffff40 30%,#ffffff20 60%,transparent 62%)}
-.md .label{position:absolute;right:8%;top:10%;width:22%;height:30%;background:var(--orange);border-radius:3px}
-.md .notch{position:absolute;left:6%;bottom:6%;width:9%;height:6%;background:#1A2C8A;border-radius:2px}
+.md{display:block;width:min(290px,76vw);height:auto;transform:rotate(-6deg);filter:drop-shadow(0 22px 22px #1E3FCC55)}
 .screen{background:var(--lcd);color:var(--lcd-ink);border-radius:6px;padding:10px 16px;box-shadow:inset 0 2px 6px #00000033;width:min(300px,78vw);display:flex;justify-content:space-between;font-size:24px}
 /* sections */
 .how{border-top:2px solid var(--ink);padding-top:28px}
@@ -117,7 +112,31 @@ footer{margin-top:48px;display:flex;flex-direction:column;gap:14px}
         </div>
       </div>
       <div class="disc-wrap" aria-hidden="true">
-        <div class="md"><div class="shutter"></div><div class="label"></div><div class="hub"></div><div class="notch"></div></div>
+        <svg class="md" viewBox="0 0 68 72" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B7BFF" stop-opacity=".92"/><stop offset="1" stop-color="#2242D0" stop-opacity=".92"/></linearGradient>
+            <radialGradient id="disc" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#F2F4FA"/><stop offset=".45" stop-color="#C9D0E6"/><stop offset=".7" stop-color="#E9D7F2"/><stop offset="1" stop-color="#AFC2E8"/></radialGradient>
+            <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9AA0AB"/><stop offset=".5" stop-color="#E4E7EC"/><stop offset="1" stop-color="#A3A9B4"/></linearGradient>
+            <clipPath id="body"><rect x="0" y="0" width="68" height="72" rx="3"/></clipPath>
+          </defs>
+          <rect x="0" y="0" width="68" height="72" rx="3" fill="url(#shell)"/>
+          <g clip-path="url(#body)">
+            <circle cx="34" cy="40" r="31" fill="url(#disc)" opacity=".55"/>
+            <circle cx="34" cy="40" r="5.5" fill="#1A2C8A" opacity=".6"/>
+          </g>
+          <rect x="0.6" y="0.6" width="66.8" height="70.8" rx="2.6" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="1.2"/>
+          <path d="M31 2.2 L34 0.2 L37 2.2 Z" fill="#fff" opacity=".85"/>
+          <rect x="6" y="5" width="56" height="27" rx="1.5" fill="#F7F7F2"/>
+          <rect x="6" y="5" width="56" height="6" rx="1.5" fill="#FF6A1A"/>
+          <rect x="6" y="9" width="56" height="2" fill="#FF6A1A"/>
+          <g stroke="#C5C8CF" stroke-width=".5"><line x1="10" y1="17" x2="58" y2="17"/><line x1="10" y1="22" x2="58" y2="22"/><line x1="10" y1="27" x2="58" y2="27"/></g>
+          <text x="9" y="9.6" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="3.6" fill="#fff">MD 74</text>
+          <text x="10" y="16" font-family="Archivo,Arial,sans-serif" font-size="3" fill="#4A4F5A">Side A</text>
+          <rect x="11" y="38" width="38" height="30" rx="1.2" fill="url(#metal)"/>
+          <rect x="24" y="42" width="12" height="22" rx="1" fill="#6E7480"/>
+          <rect x="25.2" y="43.2" width="9.6" height="19.6" rx=".6" fill="url(#disc)"/>
+          <path d="M53 52 l4 3 l-4 3 z" fill="#fff" opacity=".7"/>
+        </svg>
         <div class="screen lcdf"><span>TR 03</span><span>12:48</span><span>SP</span></div>
       </div>
     </section>
