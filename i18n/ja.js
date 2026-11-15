@@ -4,6 +4,7 @@ window.MB_EXTRA=window.MB_EXTRA||{};
 window.MB_EXTRA.ja={name:"日本語",loc:"ja-JP",t:{
 "La collection de Crossroad Digger": "Crossroad Diggerのコレクション",
 "Langue": "言語",
+"Studio radio": "ラジオスタジオ",
 "Écouter les playlists du jour sur Spotify": "Spotifyで毎日のプレイリストを聴く",
 "Une nouvelle playlist chaque matin, accordée à la saison.": "毎朝、季節に合わせた新しいプレイリスト。",
 "Estimation : environ 12 titres par album, 17 par compilation, 4 par single, 13 par CD de coffret": "推定：アルバム1枚あたり約12曲、コンピレーション17曲、シングル4曲、ボックスセットのCD1枚あたり13曲",

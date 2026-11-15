@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Mellow Box Radio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Oswald:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap">
+<style>
+/* Layout: late-night 1950s jazz radio booth. Header = station sign, studio clock, ON AIR lamp; body = enamel console (strips) left, booth tools right. Single dark look by choice. */
+:root{
+  --night:#0d0f13;      /* room */
+  --enamel:#2b2f33;     /* console face */
+  --enamel-hi:#3b4045;
+  --groove:#181b1f;
+  --cream:#ece3cf;      /* lettering */
+  --mute:#a79e8b;
+  --amber:#f2b85b;      /* dial glow, meters */
+  --onair:#e4332a;
+  --chrome:#c9ccd0;
+  --f-script:"Yellowtail","Brush Script MT",cursive;
+  --f-label:"Oswald","Arial Narrow",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --f-text:"Source Serif 4",Georgia,serif;
+  color-scheme:dark;
+}
+html,body{background:var(--night);color:var(--cream)}
+body{font:16px/1.5 var(--f-text);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;
+  background:radial-gradient(ellipse 70% 40% at 50% 0,#2a2418 0,#0d0f1300 70%),var(--night)}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* ---- header ---- */
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 28px}
+.station{display:flex;align-items:center;gap:16px}
+.mic{width:46px;height:96px;flex:none}
+.station h1{margin:0;font:400 clamp(40px,6vw,64px)/.9 var(--f-script);color:var(--amber);text-shadow:0 0 18px #f2b85b40;transform:rotate(-3deg)}
+.station p{margin:6px 0 0;font:500 13px var(--f-label);letter-spacing:.32em;text-transform:uppercase;color:var(--mute)}
+.right{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.clock{width:84px;height:84px;flex:none}
+.clock .face{fill:#ece3cf}.clock .tick{stroke:#2b2f33}.clock .h,.clock .m{stroke:#181b1f;stroke-linecap:round}.clock .s{stroke:var(--onair)}
+.onair{font:600 clamp(22px,3.4vw,30px) var(--f-label);letter-spacing:.18em;padding:10px 20px;border-radius:8px;border:2px solid #5a1d1a;color:#5a2522;background:#1c0d0c;transition:all .25s;white-space:nowrap}
+.onair.live{color:#fff3ef;background:var(--onair);border-color:#ff8a7f;box-shadow:0 0 28px 6px #e4332a88,inset 0 0 12px #fff4}
+.onair .dot{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:currentColor;margin-right:.45em;vertical-align:.1em}
+.onair.live .dot{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+.lang{display:flex;border:1px solid var(--enamel-hi);border-radius:6px;overflow:hidden}
+.lang button{background:none;border:0;padding:6px 10px;font:500 13px var(--f-label);letter-spacing:.12em;cursor:pointer;color:var(--mute)}
+.lang button[aria-pressed="true"]{background:var(--enamel-hi);color:var(--cream)}
+
+.note{margin:0;font:400 14px var(--f-mono);color:var(--mute)}
+.note b{color:var(--amber);font-weight:500}
+
+/* ---- main ---- */
+.main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+
+.console{background:linear-gradient(180deg,var(--enamel-hi),var(--enamel) 30%,#25292d);border-radius:14px;padding:18px;box-shadow:0 20px 40px #000a,inset 0 1px 0 #ffffff1a;border:1px solid #000}
+.plate{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:1px solid #ffffff1c;padding-bottom:10px;margin-bottom:14px}
+.plate b{font:600 15px var(--f-label);letter-spacing:.28em;text-transform:uppercase}
+.plate span{font:12px var(--f-mono);color:var(--mute)}
+.strips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media(max-width:560px){.strips{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.strip{background:var(--groove);border-radius:10px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:10px;border:1px solid #000;min-width:0}
+.strip.master{background:#1e1a14;border-color:#3d3220}
+.strip h3{margin:0;font:600 clamp(12px,1.2vw,14px) var(--f-label);letter-spacing:.1em;text-transform:uppercase;text-align:center;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.strip .sub{font:11px/1.3 var(--f-mono);color:var(--mute);text-align:center;height:2.6em;overflow:hidden;width:100%;overflow-wrap:anywhere}
+.fadebox{display:flex;gap:8px;align-items:stretch;height:170px}
+.meter{width:10px;background:#0a0b0d;border-radius:3px;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px #000}
+.meter i{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(0deg,#5bd17f 0 60%,var(--amber) 60% 85%,var(--onair) 85%)}
+input[type=range].fader{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.vf{position:relative;width:34px;height:170px;flex:none;touch-action:none;cursor:ns-resize;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.vf::before{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:6px;margin-left:-3px;background:#0a0b0d;border-radius:3px;box-shadow:inset 0 0 0 1px #000}
+.vf b{position:absolute;left:0;right:0;top:6px;height:24px;margin-top:-12px;border-radius:4px;background:linear-gradient(180deg,#e6e8ea,#9a9fa4 45%,#3a3e42 50%,#9a9fa4 55%,#e6e8ea);box-shadow:0 3px 5px #000a;pointer-events:none}
+.vf:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+html,body{overscroll-behavior:none}
+button,.pad,.key,.load,.lang button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+input[type=range]{touch-action:none}
+.console,.pads{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html,body{overflow-x:hidden;overflow-x:clip;touch-action:pan-y;overscroll-behavior-x:none}
+.db{font:12px var(--f-mono);color:var(--mute);font-variant-numeric:tabular-nums}
+.key{min-width:52px;padding:7px 8px;border-radius:6px;border:1px solid #000;background:linear-gradient(180deg,#4a4f55,#2f3337);font:600 12px var(--f-label);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 0 #000}
+.key:active{transform:translateY(1px);box-shadow:0 1px 0 #000}
+.key.on{background:linear-gradient(180deg,#ffd38a,var(--amber));color:#1b1408}
+.key.red.on{background:linear-gradient(180deg,#ff6d63,var(--onair));color:#fff}
+.key:disabled{opacity:.45;cursor:not-allowed}
+.load{font:12px var(--f-mono);color:var(--amber);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.load input{position:absolute;width:1px;height:1px;opacity:0}
+
+.bridge{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid #ffffff1c}
+.bridge label{display:flex;align-items:center;gap:10px;font:500 13px var(--f-label);letter-spacing:.12em;text-transform:uppercase}
+.bridge input[type=range]{width:120px;accent-color:var(--amber)}
+
+/* ---- side panels ---- */
+.side{display:flex;flex-direction:column;gap:22px;min-width:0}
+.panel{background:#16191d;border:1px solid #262a2f;border-radius:12px;padding:16px 18px}
+.panel h2{margin:0 0 12px;font:600 15px var(--f-label);letter-spacing:.26em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.panel h2 small{font:12px var(--f-mono);letter-spacing:0;text-transform:none;color:var(--mute)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.presets button{flex:1 1 90px}
+.chain{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}
+.chain span{font:11px var(--f-mono);color:var(--mute);text-align:center;padding:6px 2px;border:1px solid #262a2f;border-radius:5px;line-height:1.3}
+.chain span.lit{color:var(--amber);border-color:#5a4520}
+select{background:var(--groove);border:1px solid #2f3439;border-radius:6px;padding:7px 8px;max-width:100%;min-width:0;flex:1 1 160px}
+.msg{margin:10px 0 0;font:13px var(--f-mono);color:var(--mute);min-height:1.4em}
+.msg.err{color:#ff9a90}
+
+.pads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pad{aspect-ratio:1.6;max-width:100%;border-radius:8px;border:1px solid #000;background:linear-gradient(180deg,#30353a,#22262a);box-shadow:0 3px 0 #000;font:500 13px var(--f-label);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:flex;align-items:flex-end;padding:8px;text-align:left}
+.pad:active,.pad.on{background:linear-gradient(180deg,#ffd38a,var(--amber));color:#1b1408;transform:translateY(2px);box-shadow:0 1px 0 #000}
+
+.rec{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.recbtn{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:2px solid #5a1d1a;background:#1c0d0c;color:#ffd9d4;font:600 15px var(--f-label);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.recbtn i{width:14px;height:14px;border-radius:50%;background:var(--onair)}
+.recbtn.live{background:var(--onair);color:#fff;border-color:#ff8a7f}
+.recbtn.live i{border-radius:2px;background:#fff}
+.timer{font:500 28px var(--f-mono);font-variant-numeric:tabular-nums;color:var(--amber)}
+.take{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.take audio{width:100%}
+
+.run{list-style:none;margin:0;padding:0;counter-reset:r;display:flex;flex-direction:column}
+.run li{counter-increment:r;display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px dashed #2c3136;cursor:pointer}
+.run li::before{content:counter(r,decimal-leading-zero);font:12px var(--f-mono);color:var(--mute);flex:none}
+.run li span{min-width:0;overflow-wrap:anywhere}
+.run li.done span{color:var(--mute);text-decoration:line-through}
+.run li.talk span{font-style:italic;color:var(--amber)}
+textarea{width:100%;min-height:150px;background:var(--groove);border:1px solid #2f3439;border-radius:8px;padding:10px;font:13px/1.5 var(--f-mono);resize:vertical}
+.ex{font:12px var(--f-mono);color:var(--mute);margin:0 0 8px}
+.tip{font:15px/1.6 var(--f-text);color:var(--mute);max-width:65ch;margin:0}
+.form{display:grid;gap:6px 0}
+.form label{font:500 12px var(--f-label);letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-top:6px}
+.form input{background:var(--groove);border:1px solid #2f3439;border-radius:6px;padding:9px 10px;min-width:0;width:100%;box-sizing:border-box;font:15px var(--f-text)}
+.form textarea{min-height:90px;font:14px/1.5 var(--f-text)}
+.printbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+.printbtns .key{min-height:44px;line-height:1.2}
+.run li time{margin-left:auto;font:12px var(--f-mono);color:var(--amber);flex:none}
+.cta{margin:0 0 -12px;font:500 clamp(20px,2.6vw,26px)/1.25 var(--f-label);letter-spacing:.04em;color:var(--cream);max-width:40ch;text-wrap:balance}
+.tip em{color:var(--cream)}
+@media(prefers-reduced-motion:reduce){.onair.live .dot{animation:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="station">
+      <svg class="mic" viewBox="0 0 46 96" aria-hidden="true">
+        <rect x="9" y="2" width="28" height="50" rx="14" fill="#c9ccd0"/>
+        <g stroke="#6b7076" stroke-width="1.4">
+          <line x1="12" y1="12" x2="34" y2="12"/><line x1="11" y1="18" x2="35" y2="18"/><line x1="10" y1="24" x2="36" y2="24"/><line x1="10" y1="30" x2="36" y2="30"/><line x1="10" y1="36" x2="36" y2="36"/><line x1="11" y1="42" x2="35" y2="42"/>
+        </g>
+        <rect x="16" y="22" width="14" height="10" rx="2" fill="#181b1f"/>
+        <path d="M5 26 v14 a18 18 0 0 0 36 0 v-14" fill="none" stroke="#8b9096" stroke-width="3"/>
+        <rect x="21" y="58" width="4" height="30" fill="#8b9096"/><rect x="11" y="88" width="24" height="6" rx="2" fill="#5d6267"/>
+      </svg>
+      <div><h1>Mellow Box</h1><p data-t="sub">Radio · Studio de nuit</p></div>
+    </div>
+    <div class="right">
+      <svg class="clock" viewBox="-50 -50 100 100" role="img" aria-label="Horloge du studio" id="clock">
+        <circle class="face" r="46"/><circle r="46" fill="none" stroke="#8b9096" stroke-width="3"/>
+        <g id="ticks"></g>
+        <line class="h" id="ch" x2="0" y2="-24" stroke-width="5"/><line class="m" id="cm" x2="0" y2="-36" stroke-width="3.2"/><line class="s" id="cs" y1="8" x2="0" y2="-40" stroke-width="1.4"/><circle r="3" fill="#181b1f"/>
+      </svg>
+      <div class="onair" id="onair" role="status" aria-live="polite"><span class="dot"></span>ON AIR</div>
+      <div class="lang" role="group" aria-label="Langue / Language"><button type="button" id="l-fr" aria-pressed="true">FR</button><button type="button" id="l-en" aria-pressed="false">EN</button></div>
+    </div>
+  </header>
+
+  <p class="cta" data-t="cta">Allume la lampe ON AIR et lance ton show : la playlist est prête, il ne manque que ta voix.</p>
+  <p class="tip" data-t="tip">Je fais la playlist, <em>vous faites le show</em>. Chargez vos propres disques sur les platines, prenez le micro entre deux morceaux, et enregistrez votre émission.</p>
+
+  <div class="main">
+    <section class="console" aria-labelledby="c-title">
+      <div class="plate"><b id="c-title" data-t="console">Table de mixage</b><span>WMBX · 5 voies</span></div>
+      <div class="strips">
+        <div class="strip" id="s-mic"><h3>Micro</h3><div class="sub" id="mic-sub" data-t="micoff">coupé</div>
+          <div class="fadebox"><div class="meter"><i id="m-mic"></i></div><input class="fader" type="range" id="f-mic" min="0" max="1.4" step="0.01" value="1" aria-label="Micro"></div>
+          <span class="db" id="d-mic">0 dB</span><button type="button" class="key red" id="k-mic" aria-pressed="false" data-t="open">Ouvrir</button></div>
+        <div class="strip" id="s-a"><h3 data-t="deckA">Platine A</h3><div class="sub" id="a-sub">—</div>
+          <div class="fadebox"><div class="meter"><i id="m-a"></i></div><input class="fader" type="range" id="f-a" min="0" max="1.4" step="0.01" value="1" aria-label="Platine A"></div>
+          <span class="db" id="d-a">0 dB</span><label class="load"><span data-t="load">Charger</span><input type="file" accept="audio/*" id="file-a"></label><button type="button" class="key" id="k-a" disabled data-t="play">Lecture</button></div>
+        <div class="strip" id="s-b"><h3 data-t="deckB">Platine B</h3><div class="sub" id="b-sub">—</div>
+          <div class="fadebox"><div class="meter"><i id="m-b"></i></div><input class="fader" type="range" id="f-b" min="0" max="1.4" step="0.01" value="1" aria-label="Platine B"></div>
+          <span class="db" id="d-b">0 dB</span><label class="load"><span data-t="load">Charger</span><input type="file" accept="audio/*" id="file-b"></label><button type="button" class="key" id="k-b" disabled data-t="play">Lecture</button></div>
+        <div class="strip" id="s-j"><h3>Jingles</h3><div class="sub" data-t="jsub">pads et tapis</div>
+          <div class="fadebox"><div class="meter"><i id="m-j"></i></div><input class="fader" type="range" id="f-j" min="0" max="1.4" step="0.01" value="0.8" aria-label="Jingles"></div>
+          <span class="db" id="d-j">-2 dB</span></div>
+        <div class="strip master"><h3>Master</h3><div class="sub" data-t="msub">sortie émission</div>
+          <div class="fadebox"><div class="meter"><i id="m-m"></i></div><input class="fader" type="range" id="f-m" min="0" max="1.4" step="0.01" value="1" aria-label="Master"></div>
+          <span class="db" id="d-m">0 dB</span></div>
+      </div>
+      <div class="bridge">
+        <label><input type="checkbox" id="duck" checked> <span data-t="duck">Baisse auto de la musique quand je parle</span></label>
+        <label><span data-t="depth">Profondeur</span> <input type="range" id="duckamt" min="0.05" max="0.7" step="0.01" value="0.25" aria-label="Profondeur"></label>
+        <label><input type="checkbox" id="monitor"> <span data-t="mon">Retour micro (casque)</span></label>
+      </div>
+    </section>
+
+    <div class="side">
+      <section class="panel" aria-labelledby="p-mic">
+        <h2 id="p-mic"><span data-t="micpro">Micro · son pro</span><small id="preset-name">Studio</small></h2>
+        <div class="row presets" role="group" aria-label="Préréglages">
+          <button type="button" class="key" data-p="raw" data-t="raw">Brut</button>
+          <button type="button" class="key on" data-p="studio">Studio</button>
+          <button type="button" class="key" data-p="night" data-t="night">Nuit</button>
+          <button type="button" class="key" data-p="am">AM 1958</button>
+        </div>
+        <div class="chain" aria-hidden="true"><span id="ch1">HPF<br>90 Hz</span><span id="ch2">EQ<br>chaud</span><span id="ch3">Présence<br>3,5 kHz</span><span id="ch4">Comp<br>4:1</span><span id="ch5">Gate</span></div>
+        <div class="row" style="margin-top:12px"><select id="dev" aria-label="Entrée micro"><option value="" data-t="defdev">Entrée par défaut</option></select></div>
+        <p class="msg" id="mic-msg" data-t="micmsg">Appuyez sur « Ouvrir » pour brancher le micro.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="p-rec">
+        <h2 id="p-rec"><span data-t="recording">Enregistrement</span><small id="fmt"></small></h2>
+        <div class="rec"><button type="button" class="recbtn" id="rec"><i></i><span data-t="recgo">Lancer l'émission</span></button><span class="timer" id="timer">00:00</span></div>
+        <div class="take" id="take" hidden><audio id="player" controls></audio><div class="row"><button type="button" class="key" id="save" data-t="save">Enregistrer le fichier</button><a class="key" id="mixcloud" href="https://www.mixcloud.com/upload/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" data-t="mcbtn">Publier sur Mixcloud ↗</a></div><p class="note" data-t="mcnote">Mixcloud reconnaît les morceaux et paie lui-même les artistes : votre émission reste en règle.</p></div>
+        <p class="msg" id="rec-msg"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="p-j">
+        <h2 id="p-j"><span>Jingles</span><small data-t="jhint">touches 1 à 6</small></h2>
+        <div class="pads" id="pads"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="p-run">
+        <h2 id="p-run"><span data-t="rundown">Conducteur</span><button type="button" class="key" id="edit" data-t="edit">Modifier</button></h2>
+        <p class="ex" data-t="ex">Exemple : collez la liste du Daily Mix du jour. Une ligne qui commence par « > » est une prise de parole.</p>
+        <ol class="run" id="run"></ol>
+        <textarea id="runtxt" hidden aria-label="Conducteur"></textarea>
+      </section>
+
+      <section class="panel" aria-labelledby="p-print">
+        <h2 id="p-print"><span data-t="printh">Imprimer et étiqueter</span></h2>
+        <div class="form">
+          <label for="sh-title"><span data-t="ftitle">Titre de l'émission</span></label><input id="sh-title" type="text" data-ph="titleph" placeholder="Nocturne n°1">
+          <label for="sh-host"><span data-t="fhost">Animateur</span></label><input id="sh-host" type="text" data-ph="hostph" placeholder="Votre nom d'antenne">
+          <label for="sh-date"><span data-t="fdate">Date</span></label><input id="sh-date" type="date">
+          <label for="sh-notes"><span data-t="fnotes">Notes de production</span></label><textarea id="sh-notes" data-ph="notesph" placeholder="Invités, matériel, réglages, idées pour la prochaine fois…"></textarea>
+        </div>
+        <div class="printbtns">
+          <button type="button" class="key" id="b-sheet" data-t="bsheet">Feuille de production</button>
+          <button type="button" class="key" id="b-jcard" data-t="bjcard">Jaquette et étiquettes K7</button>
+          <button type="button" class="key" id="b-cover" data-t="bcover">Pochette du fichier</button>
+          <button type="button" class="key" id="b-copy" data-t="bcopy">Copier la tracklist</button>
+        </div>
+        <p class="ex" data-t="stamphint">Pendant l'enregistrement, touchez chaque ligne du conducteur au moment où elle passe : l'heure de passage s'inscrit sur la feuille et dans la tracklist.</p>
+        <p class="msg" id="pr-msg" aria-live="polite"></p>
+        <textarea id="copybox" hidden readonly aria-label="Tracklist"></textarea>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const T={
+ fr:{printh:"Imprimer et étiqueter",ftitle:"Titre de l'émission",fhost:"Animateur",fdate:"Date",fnotes:"Notes de production",titleph:"Nocturne n°1",hostph:"Votre nom d'antenne",notesph:"Invités, matériel, réglages, idées pour la prochaine fois…",bsheet:"Feuille de production",bjcard:"Jaquette et étiquettes K7",bcover:"Pochette du fichier",bcopy:"Copier la tracklist",stamphint:"Pendant l'enregistrement, touchez chaque ligne du conducteur au moment où elle passe : l'heure de passage s'inscrit sur la feuille et dans la tracklist.",copied:"Tracklist copiée : collez-la dans Mixcloud, rubrique Tracklist.",copyfail:"Copie automatique impossible ici : la tracklist est affichée juste en dessous, sélectionnez-la et copiez-la.",savedfile:"Fichier enregistré : ouvrez-le dans votre navigateur et imprimez à l'échelle 100 %.",printing:"Impression lancée : réglez l'échelle sur 100 % pour que la jaquette ait la bonne taille.",coversaved:"Pochette enregistrée (1400 × 1400 px) : utilisez-la sur Mixcloud ou comme image du MP3.",S:{sheet:"Feuille de production",station:"Mellow Box Radio",show:"Émission",host:"Animation",date:"Date",dur:"Durée enregistrée",preset:"Traitement micro",duck:"Baisse auto de la musique",on:"oui",off:"non",time:"Passage",item:"Élément",type:"Type",talk:"Parole",track:"Disque",notes:"Notes de production",sign:"Réalisation",check:"Vérifié avant diffusion",sideA:"Face A",sideB:"Face B",fold:"Découpez sur le trait plein, pliez sur les tirets. Imprimez à l'échelle 100 %, sans « ajuster à la page ».",made:"Enregistré au Studio radio Mellow Box",tape:"Type I · Normal · C90",jcard:"Jaquette",labels:"Étiquettes de cassette",untitled:"Sans titre"}},
+ frBase:{cta:"Allume la lampe ON AIR et lance ton show : la playlist est prête, il ne manque que ta voix.",sub:"Radio · Studio de nuit",tip:"Je fais la playlist, <em>vous faites le show</em>. Chargez vos propres disques sur les platines, prenez le micro entre deux morceaux, et enregistrez votre émission.",console:"Table de mixage",micoff:"coupé",micon:"ouvert",open:"Ouvrir",close:"Fermer",deckA:"Platine A",deckB:"Platine B",load:"Charger",play:"Lecture",stop:"Stop",jsub:"pads et tapis",msub:"sortie émission",duck:"Baisse auto de la musique quand je parle",depth:"Profondeur",mon:"Retour micro (casque)",micpro:"Micro · son pro",raw:"Brut",night:"Nuit",defdev:"Entrée par défaut",micmsg:"Appuyez sur « Ouvrir » pour brancher le micro.",micok:"Micro branché. Parlez : le vumètre bouge.",micno:"Le micro est refusé ou indisponible ici. Dans l'aperçu Claude il est bloqué : ouvrez le studio sur le site Mellow Box et autorisez le micro.",recording:"Enregistrement",recgo:"Lancer l'émission",recstop:"Fin de l'émission",save:"Enregistrer le fichier",saved:"Fichier enregistré.",declined:"Enregistrement du fichier annulé.",norec:"Ce navigateur ne sait pas enregistrer l'audio.",took:"Émission enregistrée : écoutez-la, gardez le fichier, puis publiez-le sur Mixcloud si vous voulez la partager.",mcbtn:"Publier sur Mixcloud ↗",mcnote:"Mixcloud reconnaît les morceaux et paie lui-même les artistes : votre émission reste en règle.",jhint:"touches 1 à 6",rundown:"Conducteur",edit:"Modifier",done:"Terminé",ex:"Exemple : collez la liste du Daily Mix du jour. Une ligne qui commence par « > » est une prise de parole.",pads:["Indicatif","Top horaire","Gong","Whoosh","Applaudis","Tapis jazz"],presets:{raw:"Brut",studio:"Studio",night:"Nuit",am:"AM 1958"}},
+ en:{cta:"Light up the ON AIR sign and start your show: the playlist's ready, all it needs is your voice.",sub:"Radio · Late-night studio",tip:"I make the playlist, <em>you make the show</em>. Load your own records on the decks, grab the mic between songs, and record your show.",console:"Mixing desk",micoff:"off",micon:"live",open:"Open",close:"Close",deckA:"Deck A",deckB:"Deck B",load:"Load",play:"Play",stop:"Stop",jsub:"pads and bed",msub:"program out",duck:"Auto-duck the music when I talk",depth:"Depth",mon:"Mic monitor (headphones)",micpro:"Mic · pro sound",raw:"Raw",night:"Late night",defdev:"Default input",micmsg:"Press “Open” to plug in the mic.",micok:"Mic is live. Talk: the meter moves.",micno:"The mic is blocked or unavailable here. Claude's preview blocks it: open the studio on the Mellow Box site and allow the mic.",recording:"Recording",recgo:"Go on air",recstop:"End the show",save:"Save the file",saved:"File saved.",declined:"File save canceled.",norec:"This browser can't record audio.",took:"Show recorded: play it back, keep the file, then post it on Mixcloud if you want to share it.",mcbtn:"Post on Mixcloud ↗",mcnote:"Mixcloud recognizes the tracks and pays the artists itself: your show stays above board.",jhint:"keys 1 to 6",rundown:"Rundown",edit:"Edit",done:"Done",ex:"Example: paste today's Daily Mix list. A line starting with “>” is a talk break.",pads:["Station ID","Time pips","Gong","Whoosh","Applause","Jazz bed"],presets:{raw:"Raw",studio:"Studio",night:"Late night",am:"AM 1958"}}
+};
+T.fr=Object.assign({},T.frBase,T.fr);delete T.frBase;
+Object.assign(T.en,{printh:"Print and label",ftitle:"Show title",fhost:"Host",fdate:"Date",fnotes:"Production notes",titleph:"Late Night No. 1",hostph:"Your on-air name",notesph:"Guests, gear, settings, ideas for next time…",bsheet:"Production sheet",bjcard:"Tape J-card and labels",bcover:"File cover art",bcopy:"Copy the tracklist",stamphint:"While recording, tap each rundown line as it airs: its time goes on the sheet and into the tracklist.",copied:"Tracklist copied: paste it into Mixcloud's Tracklist section.",copyfail:"Can't copy automatically here: the tracklist is shown just below, select it and copy it.",savedfile:"File saved: open it in your browser and print at 100% scale.",printing:"Printing: set the scale to 100% so the J-card comes out the right size.",coversaved:"Cover art saved (1400 × 1400 px): use it on Mixcloud or as the MP3's artwork.",S:{sheet:"Production sheet",station:"Mellow Box Radio",show:"Show",host:"Host",date:"Date",dur:"Recorded length",preset:"Mic processing",duck:"Auto-duck",on:"on",off:"off",time:"Time",item:"Item",type:"Type",talk:"Talk",track:"Record",notes:"Production notes",sign:"Produced by",check:"Checked before airing",sideA:"Side A",sideB:"Side B",fold:"Cut on the solid line, fold on the dashes. Print at 100% scale, not “fit to page”.",made:"Recorded at the Mellow Box Radio Studio",tape:"Type I · Normal · C90",jcard:"J-card",labels:"Cassette labels",untitled:"Untitled"}});
+let L="fr"; try{const s=localStorage.getItem("mbr-lang");if(s==="en"||s==="fr")L=s;}catch(e){}
+
+const t=k=>T[L][k];
+function applyLang(){
+ document.documentElement.lang=L;
+ document.querySelectorAll("[data-t]").forEach(el=>{const v=T[L][el.dataset.t];if(typeof v==="string"){if(el.dataset.t==="tip")el.innerHTML=v;else el.textContent=v;}});
+ document.querySelectorAll("[data-ph]").forEach(el=>{const v=T[L][el.dataset.ph];if(v)el.placeholder=v;});
+ $("l-fr").setAttribute("aria-pressed",L==="fr");$("l-en").setAttribute("aria-pressed",L==="en");
+ $("mic-sub").textContent=micOn?t("micon"):t("micoff");$("k-mic").textContent=micOn?t("close"):t("open");
+ ["a","b"].forEach(d=>{$("k-"+d).textContent=deck[d].src?t("stop"):t("play");});
+ $("rec").querySelector("span").textContent=recording?t("recstop"):t("recgo");
+ $("preset-name").textContent=T[L].presets[preset];
+ buildPads();renderRun();
+}
+$("l-fr").onclick=()=>{L="fr";try{localStorage.setItem("mbr-lang",L)}catch(e){}applyLang()};
+$("l-en").onclick=()=>{L="en";try{localStorage.setItem("mbr-lang",L)}catch(e){}applyLang()};
+
+/* clock */
+const tk=$("ticks");for(let i=0;i<12;i++){const a=i*30*Math.PI/180;const l=document.createElementNS("http://www.w3.org/2000/svg","line");l.setAttribute("x1",40*Math.sin(a));l.setAttribute("y1",-40*Math.cos(a));l.setAttribute("x2",(i%3?36:32)*Math.sin(a));l.setAttribute("y2",-(i%3?36:32)*Math.cos(a));l.setAttribute("class","tick");l.setAttribute("stroke-width",i%3?1.5:3);tk.appendChild(l);}
+function clock(){const d=new Date(),s=d.getSeconds(),m=d.getMinutes()+s/60,h=d.getHours()%12+m/60;$("ch").setAttribute("transform",`rotate(${h*30})`);$("cm").setAttribute("transform",`rotate(${m*6})`);$("cs").setAttribute("transform",`rotate(${s*6})`);}
+clock();setInterval(clock,1000);
+
+/* ---- audio graph ---- */
+let ctx=null,N={};
+function audio(){
+ if(ctx){ctx.resume();return ctx;}
+ ctx=new (window.AudioContext||window.webkitAudioContext)();
+ const g=v=>{const n=ctx.createGain();n.gain.value=v;return n;};
+ const an=()=>{const a=ctx.createAnalyser();a.fftSize=1024;return a;};
+ N.recOut=ctx.createMediaStreamDestination();
+ N.mRec=g(1);N.mSpk=g(1);N.mAn=an();
+ N.mRec.connect(N.mAn);N.mAn.connect(N.recOut);N.mSpk.connect(ctx.destination);
+ N.noMic=g(1);N.noMic.connect(N.mRec);N.noMic.connect(N.mSpk);
+ N.duck=g(1);N.duck.connect(N.noMic);
+ ["a","b"].forEach(d=>{N["f"+d]=g(+$("f-"+d).value);N["an"+d]=an();N["f"+d].connect(N["an"+d]);N["an"+d].connect(N.duck);});
+ N.fj=g(+$("f-j").value);N.anj=an();N.fj.connect(N.anj);N.anj.connect(N.noMic);
+ N.fmic=g(0);N.anmic=an();N.fmic.connect(N.anmic);N.anmic.connect(N.mRec);
+ N.mon=g(0);N.fmic.connect(N.mon);N.mon.connect(N.mSpk);
+ setMaster();return ctx;
+}
+function setMaster(){if(!ctx)return;const v=+$("f-m").value;N.mRec.gain.value=v;N.mSpk.gain.value=v;}
+/* touch-safe vertical faders (iPhone: no page scroll while dragging) */
+document.querySelectorAll("input.fader").forEach(inp=>{
+ inp.tabIndex=-1;inp.setAttribute("aria-hidden","true");
+ const vf=document.createElement("div");vf.className="vf";vf.tabIndex=0;vf.setAttribute("role","slider");vf.setAttribute("aria-label",inp.getAttribute("aria-label"));vf.setAttribute("aria-orientation","vertical");
+ const th=document.createElement("b");vf.appendChild(th);inp.after(vf);
+ const min=+inp.min,max=+inp.max,step=+inp.step||0.01;
+ const draw=()=>{const v=+inp.value,p=(v-min)/(max-min),h=vf.clientHeight||170;th.style.top=(6+(1-p)*(h-12))+"px";vf.setAttribute("aria-valuemin",min);vf.setAttribute("aria-valuemax",max);vf.setAttribute("aria-valuenow",v.toFixed(2));vf.setAttribute("aria-valuetext",toDb(v));};
+ const setV=v=>{v=Math.min(max,Math.max(min,Math.round(v/step)*step));if(+inp.value!==v){inp.value=v;inp.dispatchEvent(new Event("input"));}draw();};
+ const fromY=y=>{const r=vf.getBoundingClientRect();return min+(1-(y-r.top-6)/(r.height-12))*(max-min);};
+ vf.addEventListener("pointerdown",e=>{e.preventDefault();try{vf.setPointerCapture(e.pointerId)}catch(_){}if(e.pointerType==="mouse")vf.focus({preventScroll:true});setV(fromY(e.clientY));});
+ vf.addEventListener("pointermove",e=>{if(e.buttons||e.pointerType==="touch"){if(vf.hasPointerCapture&&!vf.hasPointerCapture(e.pointerId))return;setV(fromY(e.clientY));}});
+ vf.addEventListener("touchstart",e=>e.preventDefault(),{passive:false});
+ vf.addEventListener("touchmove",e=>e.preventDefault(),{passive:false});
+ vf.addEventListener("dblclick",()=>setV(1));
+ vf.addEventListener("keydown",e=>{const d={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:5,PageDown:-5}[e.key];if(d){e.preventDefault();setV(+inp.value+d*0.02);}else if(e.key==="Home"){e.preventDefault();setV(min);}else if(e.key==="End"){e.preventDefault();setV(max);}});
+ inp.addEventListener("input",draw);requestAnimationFrame(draw);
+});
+/* iPhone: only the faders and sliders hold the page still; everything else scrolls normally */
+const LOCK=".vf,input[type=range]";
+document.addEventListener("touchmove",e=>{if(e.target.closest&&e.target.closest(LOCK))e.preventDefault();},{passive:false});
+document.addEventListener("gesturestart",e=>e.preventDefault());
+/* iPhone: a swipe that is mostly sideways never pans the page left or right */
+let tx=0,ty=0;
+document.addEventListener("touchstart",e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY;},{passive:true});
+document.addEventListener("touchmove",e=>{if(e.touches.length!==1||(e.target.closest&&e.target.closest("textarea,select")))return;const t=e.touches[0];if(Math.abs(t.clientX-tx)>Math.abs(t.clientY-ty))e.preventDefault();},{passive:false});
+const toDb=v=>v<=0.001?"−∞":(20*Math.log10(v)).toFixed(0).replace("-","−")+" dB";
+[["mic","fmic"],["a","fa"],["b","fb"],["j","fj"],["m",null]].forEach(([k,n])=>{const f=$("f-"+k);const upd=()=>{$("d-"+k).textContent=toDb(+f.value);if(!ctx)return;if(k==="m")setMaster();else if(k==="mic")N.fmic.gain.setTargetAtTime(micOn?+f.value:0,ctx.currentTime,.03);else N[n].gain.setTargetAtTime(+f.value,ctx.currentTime,.03);};f.addEventListener("input",upd);upd();});
+$("monitor").onchange=()=>{if(ctx)N.mon.gain.value=$("monitor").checked?1:0;};
+
+/* ---- mic chain ---- */
+let micOn=false,micStream=null,micSrc=null,preset="studio";
+const P={
+ raw:{hp:20,warm:0,mud:0,pres:0,air:0,thr:0,ratio:1,make:1,gate:false},
+ studio:{hp:90,warm:1.5,mud:-3,pres:4,air:2,thr:-24,ratio:4,make:1.8,gate:true},
+ night:{hp:70,warm:4,mud:-2,pres:2,air:-1,thr:-28,ratio:5,make:2,gate:true},
+ am:{hp:350,warm:0,mud:2,pres:6,air:-18,thr:-30,ratio:8,make:2.4,gate:true}
+};
+function buildChain(){
+ const c=ctx;
+ N.hp=c.createBiquadFilter();N.hp.type="highpass";N.hp.Q.value=.7;
+ N.warm=c.createBiquadFilter();N.warm.type="lowshelf";N.warm.frequency.value=160;
+ N.mud=c.createBiquadFilter();N.mud.type="peaking";N.mud.frequency.value=320;N.mud.Q.value=1;
+ N.pres=c.createBiquadFilter();N.pres.type="peaking";N.pres.frequency.value=3500;N.pres.Q.value=.9;
+ N.air=c.createBiquadFilter();N.air.type="highshelf";N.air.frequency.value=10000;
+ N.comp=c.createDynamicsCompressor();N.comp.knee.value=6;N.comp.attack.value=.005;N.comp.release.value=.15;
+ N.make=c.createGain();N.gate=c.createGain();N.det=c.createAnalyser();N.det.fftSize=1024;
+ N.lim=c.createDynamicsCompressor();N.lim.threshold.value=-3;N.lim.ratio.value=20;N.lim.attack.value=.001;N.lim.release.value=.08;
+ N.hp.connect(N.warm);N.warm.connect(N.mud);N.mud.connect(N.pres);N.pres.connect(N.air);N.air.connect(N.comp);N.comp.connect(N.make);N.make.connect(N.det);N.make.connect(N.gate);N.gate.connect(N.lim);N.lim.connect(N.fmic);
+ setPreset(preset);
+}
+function setPreset(p){
+ preset=p;document.querySelectorAll("[data-p]").forEach(b=>b.classList.toggle("on",b.dataset.p===p));$("preset-name").textContent=T[L].presets[p];
+ const s=P[p];["ch1","ch2","ch3","ch4","ch5"].forEach((id,i)=>$(id).classList.toggle("lit",p!=="raw"&&(i<4||s.gate)));
+ if(!N.hp)return;const now=ctx.currentTime;
+ N.hp.frequency.setTargetAtTime(s.hp,now,.02);N.warm.gain.setTargetAtTime(s.warm,now,.02);N.mud.gain.setTargetAtTime(s.mud,now,.02);N.pres.gain.setTargetAtTime(s.pres,now,.02);N.air.gain.setTargetAtTime(s.air,now,.02);
+ N.comp.threshold.setTargetAtTime(s.thr,now,.02);N.comp.ratio.setTargetAtTime(s.ratio,now,.02);N.make.gain.setTargetAtTime(s.make,now,.02);
+ if(!s.gate)N.gate.gain.setTargetAtTime(1,now,.02);
+}
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>setPreset(b.dataset.p));
+setPreset("studio");
+
+async function listDevices(){try{const ds=await navigator.mediaDevices.enumerateDevices();const sel=$("dev"),cur=sel.value;[...sel.options].slice(1).forEach(o=>o.remove());ds.filter(d=>d.kind==="audioinput").forEach((d,i)=>{const o=document.createElement("option");o.value=d.deviceId;o.textContent=d.label||("Micro "+(i+1));sel.appendChild(o);});sel.value=cur;}catch(e){}}
+async function openMic(){
+ audio();if(!N.hp)buildChain();
+ try{
+  const dev=$("dev").value;
+  micStream=await navigator.mediaDevices.getUserMedia({audio:{deviceId:dev?{exact:dev}:undefined,echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+  if(micSrc)micSrc.disconnect();micSrc=ctx.createMediaStreamSource(micStream);micSrc.connect(N.hp);
+  micOn=true;N.fmic.gain.setTargetAtTime(+$("f-mic").value,ctx.currentTime,.03);
+  $("mic-msg").className="msg";$("mic-msg").textContent=t("micok");listDevices();
+ }catch(e){micOn=false;$("mic-msg").className="msg err";$("mic-msg").textContent=t("micno");}
+ micUI();
+}
+function closeMic(){micOn=false;if(ctx)N.fmic.gain.setTargetAtTime(0,ctx.currentTime,.03);if(micStream)micStream.getTracks().forEach(x=>x.stop());micStream=null;micUI();}
+function micUI(){$("k-mic").classList.toggle("on",micOn);$("k-mic").setAttribute("aria-pressed",micOn);$("k-mic").textContent=micOn?t("close"):t("open");$("mic-sub").textContent=micOn?t("micon"):t("micoff");}
+$("k-mic").onclick=()=>micOn?closeMic():openMic();
+$("dev").onchange=()=>{if(micOn)openMic();};
+
+/* ---- decks ---- */
+const deck={a:{buf:null,src:null,name:""},b:{buf:null,src:null,name:""}};
+["a","b"].forEach(d=>{
+ $("file-"+d).onchange=async e=>{const f=e.target.files[0];if(!f)return;audio();stopDeck(d);$(d+"-sub").textContent="…";
+  try{deck[d].buf=await ctx.decodeAudioData(await f.arrayBuffer());deck[d].name=f.name.replace(/\.[^.]+$/,"");$(d+"-sub").textContent=deck[d].name;$("k-"+d).disabled=false;}
+  catch(err){$(d+"-sub").textContent="?";}};
+ $("k-"+d).onclick=()=>deck[d].src?stopDeck(d):playDeck(d);
+});
+function playDeck(d){audio();const s=ctx.createBufferSource();s.buffer=deck[d].buf;s.connect(N["f"+d]);s.onended=()=>{if(deck[d].src===s)stopDeck(d);};s.start();deck[d].src=s;$("k-"+d).classList.add("on");$("k-"+d).textContent=t("stop");}
+function stopDeck(d){const s=deck[d].src;deck[d].src=null;if(s){try{s.stop()}catch(e){}}$("k-"+d).classList.remove("on");$("k-"+d).textContent=t("play");}
+
+/* ---- jingles ---- */
+let bed=null;
+function osc(f,type,t0,dur,vol,dest,f2){const o=ctx.createOscillator(),gn=ctx.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t0+dur);gn.gain.setValueAtTime(0,t0);gn.gain.linearRampToValueAtTime(vol,t0+.01);gn.gain.exponentialRampToValueAtTime(.0001,t0+dur);o.connect(gn);gn.connect(dest||N.fj);o.start(t0);o.stop(t0+dur+.05);}
+function noise(t0,dur,vol,type,f0,f1){const n=Math.floor(ctx.sampleRate*dur),b=ctx.createBuffer(1,n,ctx.sampleRate),x=b.getChannelData(0);for(let i=0;i<n;i++)x[i]=Math.random()*2-1;const s=ctx.createBufferSource(),fl=ctx.createBiquadFilter(),gn=ctx.createGain();s.buffer=b;fl.type=type;fl.frequency.setValueAtTime(f0,t0);if(f1)fl.frequency.exponentialRampToValueAtTime(f1,t0+dur);gn.gain.setValueAtTime(vol,t0);gn.gain.exponentialRampToValueAtTime(.0001,t0+dur);s.connect(fl);fl.connect(gn);gn.connect(N.fj);s.start(t0);}
+const J=[
+ ()=>{const c=ctx.currentTime;[523.25,659.25,783.99,987.77,1046.5].forEach((f,i)=>{osc(f,"sine",c+i*.16,1.8,.22);osc(f*2.01,"sine",c+i*.16,.6,.05);});},
+ ()=>{const c=ctx.currentTime;for(let i=0;i<5;i++)osc(1000,"sine",c+i,.1,.3);osc(1000,"sine",c+5,.5,.3);},
+ ()=>{const c=ctx.currentTime;[110,162,231,297,412].forEach((f,i)=>osc(f,"sine",c,4-i*.5,.2-i*.03));},
+ ()=>{noise(ctx.currentTime,1.2,.5,"bandpass",300,6000);},
+ ()=>{const c=ctx.currentTime;for(let i=0;i<70;i++)noise(c+Math.random()*2.4,.06,.25*Math.random()+.05,"bandpass",900+Math.random()*1800);},
+ ()=>{ if(bed){bed.forEach(o=>{try{o.stop(ctx.currentTime+.6)}catch(e){}});bed.g.gain.setTargetAtTime(0,ctx.currentTime,.2);bed=null;return false;}
+   const g=ctx.createGain();g.gain.value=0;g.gain.setTargetAtTime(.09,ctx.currentTime,.6);const lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=1400;lp.connect(g);g.connect(N.duck);
+   const arr=[146.83,174.61,220,261.63,329.63].map((f,i)=>{const o=ctx.createOscillator();o.type=i?"triangle":"sine";o.frequency.value=f;o.detune.value=(i%2?4:-4);o.connect(lp);o.start();return o;});
+   const lfo=ctx.createOscillator(),lg=ctx.createGain();lfo.frequency.value=.18;lg.gain.value=400;lfo.connect(lg);lg.connect(lp.frequency);lfo.start();arr.push(lfo);
+   bed=arr;bed.g=g;return true;}
+];
+function buildPads(){const box=$("pads");box.innerHTML="";T[L].pads.forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.className="pad"+(i===5&&bed?" on":"");b.id="pad"+i;b.textContent=(i+1)+" · "+name;b.onclick=()=>firePad(i);box.appendChild(b);});}
+function firePad(i){audio();const r=J[i]();const b=$("pad"+i);if(i===5){b.classList.toggle("on",!!r);return;}b.classList.add("on");setTimeout(()=>b.classList.remove("on"),220);}
+document.addEventListener("keydown",e=>{if(e.target.closest("input,textarea,select"))return;const n=+e.key;if(n>=1&&n<=6&&!e.repeat){firePad(n-1);}});
+
+/* ---- metering + ducking + gate ---- */
+const buf=new Float32Array(1024);
+function rms(a){a.getFloatTimeDomainData(buf);let s=0;for(let i=0;i<buf.length;i++)s+=buf[i]*buf[i];return Math.sqrt(s/buf.length);}
+const lvl=r=>Math.max(0,Math.min(1,(20*Math.log10(r+1e-6)+54)/54));
+let ducked=false;
+function loop(){
+ if(ctx){
+  [["mic","anmic"],["a","ana"],["b","anb"],["j","anj"],["m","mAn"]].forEach(([k,n])=>{$("m-"+k).style.height=(lvl(rms(N[n]))*100).toFixed(1)+"%";});
+  if(N.det){const r=micOn?rms(N.det):0;const now=ctx.currentTime;
+   if(P[preset].gate){N.gate.gain.setTargetAtTime(r>0.012?1:0.12,now,r>0.012?.01:.25);}
+   const want=$("duck").checked&&micOn&&r>0.03;
+   if(want!==ducked){ducked=want;N.duck.gain.setTargetAtTime(want?+$("duckamt").value:1,now,want?.08:.6);}
+  }
+ }
+ requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+$("duckamt").oninput=()=>{if(ctx&&ducked)N.duck.gain.setTargetAtTime(+$("duckamt").value,ctx.currentTime,.05);};
+$("duck").onchange=()=>{if(ctx&&!$("duck").checked){ducked=false;N.duck.gain.setTargetAtTime(1,ctx.currentTime,.3);}};
+
+/* ---- recording ---- */
+let rec=null,chunks=[],recording=false,t0=0,tick=null,lastBlob=null,ext="webm";
+const mime=["audio/webm;codecs=opus","audio/webm","audio/mp4"].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m));
+if(mime){ext=mime.includes("mp4")?"mp4":"webm";$("fmt").textContent="."+ext;}
+$("rec").onclick=()=>recording?stopRec():startRec();
+function startRec(){
+ if(!window.MediaRecorder||!mime){$("rec-msg").textContent=t("norec");return;}
+ audio();chunks=[];rec=new MediaRecorder(N.recOut.stream,{mimeType:mime});
+ rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+ rec.onstop=()=>{lastBlob=new Blob(chunks,{type:mime});$("player").src=URL.createObjectURL(lastBlob);$("take").hidden=false;$("rec-msg").textContent=t("took");};
+ rec.start(1000);recording=true;t0=Date.now();$("take").hidden=true;$("rec-msg").textContent="";
+ $("onair").classList.add("live");$("rec").classList.add("live");$("rec").querySelector("span").textContent=t("recstop");
+ tick=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);$("timer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");},250);
+}
+let lastDur=0;
+function stopRec(){recording=false;lastDur=Math.floor((Date.now()-t0)/1000);clearInterval(tick);if(rec&&rec.state!=="inactive")rec.stop();$("onair").classList.remove("live");$("rec").classList.remove("live");$("rec").querySelector("span").textContent=t("recgo");}
+$("save").onclick=async()=>{
+ if(!lastBlob)return;const d=new Date(),name=`mellowbox-radio-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}.${ext}`;
+ let dl=null;try{if(window.claude&&window.claude.use)dl=await window.claude.use("downloads");}catch(e){}
+ if(dl){try{await dl.save({filename:name,data:lastBlob});$("rec-msg").textContent=t("saved");}catch(e){$("rec-msg").textContent=e&&e.code==="declined"?t("declined"):(e&&e.message||"");}return;}
+ const a=document.createElement("a");a.href=URL.createObjectURL(lastBlob);a.download=name;document.body.appendChild(a);a.click();a.remove();
+};
+
+/* ---- rundown ---- */
+let RUN=["Fleetwood Mac · Sugar Mama (Blues Jam in Chicago, 1969)","> Bonsoir, ici Mellow Box. On part de Chicago, 1969.","Miles Davis · So What (Kind of Blue, 1959)","Elvis Costello · Still (North, 2003)","> Le disque du mois, et pourquoi la démo de « Quicksand ».","David Bowie · Quicksand (Hunky Dory, 1971)","Tom Petty & the Heartbreakers · American Girl (1976)","> Fin de l'émission. Bonne nuit."];
+let doneSet=new Set(),stamps={};
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+try{const s=localStorage.getItem("mbr-run");if(s)RUN=JSON.parse(s);}catch(e){}
+function renderRun(){const ol=$("run");ol.innerHTML="";RUN.forEach((line,i)=>{if(!line.trim())return;const li=document.createElement("li");const talk=line.trim().startsWith(">");li.className=(talk?"talk":"")+(doneSet.has(i)?" done":"");li.tabIndex=0;const sp=document.createElement("span");sp.textContent=talk?line.trim().slice(1).trim():line;li.appendChild(sp);if(stamps[i]!=null){const tm=document.createElement("time");tm.textContent=mmss(stamps[i]);li.appendChild(tm);}
+ const tog=()=>{if(doneSet.has(i)){doneSet.delete(i);delete stamps[i];}else{doneSet.add(i);if(recording)stamps[i]=Math.floor((Date.now()-t0)/1000);}renderRun();};li.onclick=tog;li.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();tog();}};ol.appendChild(li);});}
+$("edit").onclick=()=>{const ta=$("runtxt");if(ta.hidden){ta.value=RUN.join("\n");ta.hidden=false;$("run").hidden=true;$("edit").textContent=t("done");ta.focus();}
+ else{RUN=ta.value.split("\n");doneSet.clear();stamps={};try{localStorage.setItem("mbr-run",JSON.stringify(RUN))}catch(e){}ta.hidden=true;$("run").hidden=false;$("edit").textContent=t("edit");renderRun();}};
+
+/* ---- print and label ---- */
+(function(){const d=new Date();$("sh-date").value=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pmsg=(m)=>{$("pr-msg").textContent=m;};
+function show(){const S=T[L].S,ds=$("sh-date").value;let dt=ds;try{if(ds){const [y,m,dd]=ds.split("-");dt=new Date(+y,+m-1,+dd).toLocaleDateString(L==="fr"?"fr-BE":"en-US",{day:"numeric",month:"long",year:"numeric"});}}catch(e){}
+ return {title:$("sh-title").value.trim()||$("sh-title").placeholder||S.untitled,host:$("sh-host").value.trim(),date:dt,notes:$("sh-notes").value.trim(),
+  items:RUN.map((l,i)=>({l:l.trim(),i})).filter(x=>x.l).map(x=>{const talk=x.l.startsWith(">");return {text:talk?x.l.slice(1).trim():x.l,talk,stamp:stamps[x.i]};})};}
+const slug=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"").toLowerCase()||"emission";
+const FONTS='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Oswald:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap">';
+function doc(title,css,body){return `<!doctype html><html lang="${L}"><head><meta charset="utf-8"><title>${esc(title)}</title>${FONTS}<style>*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#16181b}body{font:10.5pt/1.45 "Source Serif 4",Georgia,serif}.script{font-family:Yellowtail,cursive;font-weight:400}.lab{font-family:Oswald,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.14em}.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}${css}</style></head><body>${body}</body></html>`;}
+async function out(name,data,okMsg){
+ let dl=null;try{if(window.claude&&window.claude.use)dl=await window.claude.use("downloads");}catch(e){}
+ if(dl){try{await dl.save({filename:name,data});pmsg(okMsg);}catch(e){pmsg(e&&e.code==="declined"?t("declined"):(e&&e.message)||"");}return;}
+ const blob=data instanceof Blob?data:new Blob([data],{type:"text/html"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();pmsg(okMsg);
+}
+function printDoc(html,name){
+ if(window.claude&&window.claude.use){out(name,html,t("savedfile"));return;}
+ const f=document.createElement("iframe");f.setAttribute("aria-hidden","true");f.style.cssText="position:fixed;right:0;bottom:0;width:0;height:0;border:0";f.srcdoc=html;
+ f.onload=()=>{const w=f.contentWindow;const go=()=>{try{w.focus();w.print();pmsg(t("printing"));}catch(e){out(name,html,t("savedfile"));}setTimeout(()=>f.remove(),60000);};(w.document.fonts&&w.document.fonts.ready?w.document.fonts.ready:Promise.resolve()).then(()=>setTimeout(go,150));};
+ document.body.appendChild(f);
+}
+
+$("b-sheet").onclick=()=>{const S=T[L].S,s=show();
+ const rows=s.items.map((x,n)=>`<tr class="${x.talk?"talk":""}"><td class="mono n">${String(n+1).padStart(2,"0")}</td><td class="mono">${x.stamp!=null?mmss(x.stamp):"__:__"}</td><td>${esc(x.text)}</td><td class="lab t">${x.talk?S.talk:S.track}</td><td class="box"></td></tr>`).join("");
+ const css=`@page{size:A4;margin:14mm}
+ .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5pt solid #16181b;padding-bottom:6pt}
+ .head .script{font-size:34pt;line-height:.9;color:#b0281f}.head .lab{font-size:9pt;color:#555}
+ .head .air{border:1.5pt solid #b0281f;color:#b0281f;padding:3pt 8pt;font:600 11pt Oswald,sans-serif;letter-spacing:.2em}
+ h1{font:600 20pt/1.1 Oswald,sans-serif;letter-spacing:.04em;margin:14pt 0 6pt}
+ .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:4pt 16pt;margin:0 0 12pt;padding:8pt 0;border-bottom:.6pt solid #999}
+ .meta div{display:flex;flex-direction:column}.meta .lab{font-size:7.5pt;color:#666}.meta b{font-weight:400;font-size:11pt}
+ table{width:100%;border-collapse:collapse;font-size:10pt}th{text-align:left;font:500 7.5pt Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#666;border-bottom:1pt solid #16181b;padding:4pt}
+ td{padding:5pt 4pt;border-bottom:.5pt solid #ccc;vertical-align:top}td.n{color:#888;width:8mm}td.t{font-size:7.5pt;color:#555;width:16mm}td.box{width:8mm}td.box::after{content:"";display:inline-block;width:9pt;height:9pt;border:.8pt solid #16181b}
+ tr.talk td:nth-child(3){font-style:italic;color:#b0281f}
+ .notes{margin-top:14pt;border:.8pt solid #16181b;padding:8pt 10pt;min-height:40mm;white-space:pre-wrap}.notes .lab{display:block;font-size:7.5pt;color:#666;margin-bottom:4pt}
+ .sign{display:flex;gap:24pt;margin-top:16pt}.sign div{flex:1;border-top:.8pt solid #16181b;padding-top:3pt;font-size:7.5pt}
+ .foot{margin-top:14pt;font-size:7.5pt;color:#777}`;
+ const P=T[L].presets[preset],du=lastDur?mmss(lastDur):"__:__",dk=$("duck").checked?S.on+" ("+Math.round(20*Math.log10(+$("duckamt").value))+" dB)":S.off;
+ const body=`<div class="head"><div><div class="script">Mellow Box</div><div class="lab">${S.station} · ${S.sheet}</div></div><div class="air">ON AIR</div></div>
+ <h1>${esc(s.title)}</h1>
+ <div class="meta"><div><span class="lab">${S.host}</span><b>${esc(s.host)||"&nbsp;"}</b></div><div><span class="lab">${S.date}</span><b>${esc(s.date)}</b></div><div><span class="lab">${S.dur}</span><b class="mono">${du}</b></div><div><span class="lab">${S.preset}</span><b>${esc(P)}</b></div><div><span class="lab">${S.duck}</span><b>${dk}</b></div><div><span class="lab">Format</span><b>${ext.toUpperCase()}</b></div></div>
+ <table><thead><tr><th>#</th><th>${S.time}</th><th>${S.item}</th><th>${S.type}</th><th>✓</th></tr></thead><tbody>${rows}</tbody></table>
+ <div class="notes"><span class="lab">${S.notes}</span>${esc(s.notes)}</div>
+ <div class="sign"><div class="lab">${S.sign}</div><div class="lab">${S.check}</div></div>
+ <div class="foot">${S.made} · crossroaddigger.github.io</div>`;
+ printDoc(doc(S.sheet+" · "+s.title,css,body),"mellowbox-"+slug(s.title)+"-feuille.html");};
+
+$("b-jcard").onclick=()=>{const S=T[L].S,s=show();const tr=s.items.filter(x=>!x.talk);const half=Math.ceil(tr.length/2);
+ const list=(arr,start)=>arr.map((x,k)=>`<li><span class="mono">${String(start+k).padStart(2,"0")}</span>${esc(x.text)}</li>`).join("");
+ const css=`@page{size:A4;margin:12mm}
+ h2{font:500 8pt Oswald,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#666;margin:0 0 4mm}
+ .jcard{width:101.6mm;border:.4mm solid #16181b;display:flex;flex-direction:column;margin-bottom:8mm;break-inside:avoid}
+ .front{height:63.5mm;padding:4mm 4.5mm;display:grid;grid-template-columns:38mm 1fr;gap:4mm;position:relative;overflow:hidden}
+ .brand .script{font-size:22pt;line-height:.95;color:#b0281f;display:block;white-space:nowrap}.brand .lab{font-size:6.5pt;color:#444;display:block;margin-top:1mm}
+ .brand h3{font:600 12pt/1.1 Oswald,sans-serif;margin:4mm 0 1.5mm;letter-spacing:.02em;overflow-wrap:anywhere}.brand p{margin:0;font-size:7.5pt;color:#333}
+ .rings{position:absolute;left:-12mm;bottom:-22mm;width:46mm;height:46mm;border-radius:50%;background:repeating-radial-gradient(circle,#16181b 0 .35mm,#fff .35mm 1.3mm);opacity:.12}
+ .tl{font-size:6.6pt;line-height:1.32;overflow:hidden}.tl b{font:600 6.5pt Oswald,sans-serif;letter-spacing:.18em;color:#b0281f;display:block;margin:0 0 .8mm}
+ .tl ol{list-style:none;margin:0 0 2mm;padding:0}.tl li{display:flex;gap:1.5mm}.tl li span{color:#888;flex:none}
+ .spine{height:12.7mm;border-top:.3mm dashed #777;border-bottom:.3mm dashed #777;display:flex;align-items:center;justify-content:space-between;padding:0 4mm;gap:3mm;background:#16181b;color:#fff}
+ .spine .script{font-size:13pt;color:#f2b85b;white-space:nowrap;flex:none}.spine .lab{font-size:7pt;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .flap{height:25.4mm;padding:3mm 4.5mm;display:flex;justify-content:space-between;align-items:flex-end;font-size:6.5pt;color:#444}
+ .flap .air{border:.3mm solid #b0281f;color:#b0281f;padding:.6mm 2mm;font:600 7pt Oswald,sans-serif;letter-spacing:.2em}
+ .labels{display:flex;flex-wrap:wrap;gap:6mm}
+ .shell{width:89mm;height:54mm;border:.4mm solid #16181b;border-radius:3mm;padding:3mm 4mm;display:flex;flex-direction:column;justify-content:space-between;break-inside:avoid}
+ .shell .top{display:flex;justify-content:space-between;align-items:baseline;gap:3mm}.shell .side{font:600 20pt Oswald,sans-serif;color:#b0281f;line-height:1}
+ .shell .title{font:600 10pt/1.15 Oswald,sans-serif;overflow:hidden;max-height:2.4em;flex:1}
+ .shell .win{height:15mm;margin:0 10mm;border:.3mm dashed #999;border-radius:7mm}
+ .shell .bot{display:flex;justify-content:space-between;font-size:6.5pt;color:#444}.shell .script{font-size:12pt;color:#b0281f}
+ .fold{font-size:7.5pt;color:#666;margin:0 0 6mm}`;
+ const shell=side=>`<div class="shell"><div class="top"><span class="side">${side==="A"?"A":"B"}</span><span class="title">${esc(s.title)}</span><span class="script">Mellow Box</span></div><div class="win"></div><div class="bot"><span>${esc(s.host)}</span><span>${esc(s.date)}</span><span>${side==="A"?S.sideA:S.sideB} · 45 min</span></div></div>`;
+ const body=`<h2>${S.jcard}</h2><p class="fold">${S.fold}</p>
+ <div class="jcard"><div class="front"><div class="brand"><span class="script">Mellow Box</span><span class="lab">Radio · WMBX</span><h3>${esc(s.title)}</h3><p>${esc(s.host)}</p><p>${esc(s.date)}</p></div>
+ <div class="tl"><b>${S.sideA}</b><ol>${list(tr.slice(0,half),1)}</ol><b>${S.sideB}</b><ol>${list(tr.slice(half),half+1)}</ol></div><div class="rings"></div></div>
+ <div class="spine"><span class="script">Mellow Box</span><span class="lab">${esc(s.title)}${s.host?" · "+esc(s.host):""}</span><span class="lab">${esc(s.date)}</span></div>
+ <div class="flap"><span>${S.made}<br>crossroaddigger.github.io</span><span>${S.tape}</span><span class="air">ON AIR</span></div></div>
+ <h2>${S.labels}</h2><div class="labels">${shell("A")}${shell("B")}</div>`;
+ printDoc(doc(S.jcard+" · "+s.title,css,body),"mellowbox-"+slug(s.title)+"-jaquette.html");};
+
+$("b-cover").onclick=async()=>{const s=show();const c=document.createElement("canvas");c.width=c.height=1400;const g=c.getContext("2d");
+ try{await document.fonts.ready;}catch(e){}
+ const bg=g.createLinearGradient(0,0,0,1400);bg.addColorStop(0,"#1d1910");bg.addColorStop(.45,"#11141a");bg.addColorStop(1,"#0b0d11");g.fillStyle=bg;g.fillRect(0,0,1400,1400);
+ g.save();g.translate(1080,1120);for(let r=120;r<560;r+=9){g.beginPath();g.arc(0,0,r,0,Math.PI*2);g.strokeStyle=r%27?"#ffffff0d":"#ffffff1a";g.lineWidth=2;g.stroke();}
+ g.beginPath();g.arc(0,0,118,0,Math.PI*2);g.fillStyle="#f2b85b";g.fill();g.beginPath();g.arc(0,0,10,0,Math.PI*2);g.fillStyle="#0b0d11";g.fill();
+ g.fillStyle="#1b1408";g.font="600 34px Oswald, sans-serif";g.textAlign="center";g.fillText("WMBX",0,-30);g.font="500 24px Oswald, sans-serif";g.fillText("RADIO",0,52);g.restore();
+ g.save();g.translate(110,300);g.rotate(-.06);g.fillStyle="#f2b85b";g.shadowColor="#f2b85b66";g.shadowBlur=30;g.font="200px Yellowtail, cursive";g.fillText("Mellow Box",0,0);g.restore();
+ g.fillStyle="#a79e8b";g.font="500 40px Oswald, sans-serif";const sp=(txt,x,y,ls)=>{let cx=x;for(const ch of txt){g.fillText(ch,cx,y);cx+=g.measureText(ch).width+ls;}};sp("RADIO · STUDIO DE NUIT".replace("STUDIO DE NUIT",L==="fr"?"STUDIO DE NUIT":"LATE-NIGHT STUDIO"),120,390,10);
+ g.fillStyle="#ece3cf";g.font="600 96px Oswald, sans-serif";const words=s.title.toUpperCase().split(/\s+/);let line="",y=620;const lines=[];for(const w of words){const tt=line?line+" "+w:w;if(g.measureText(tt).width>1000&&line){lines.push(line);line=w;}else line=tt;}lines.push(line);lines.slice(0,3).forEach(l=>{g.fillText(l,120,y);y+=108;});
+ g.fillStyle="#a79e8b";g.font="44px 'IBM Plex Mono', monospace";g.fillText([s.host,s.date].filter(Boolean).join("  ·  "),120,y+20);
+ g.strokeStyle="#e4332a";g.lineWidth=5;g.fillStyle="#e4332a";const bx=120,by=1180;g.strokeRect(bx,by,300,92);g.font="600 52px Oswald, sans-serif";g.beginPath();g.arc(bx+44,by+46,13,0,Math.PI*2);g.fill();g.fillText("ON AIR",bx+74,by+66);
+ c.toBlob(b=>{if(b)out("mellowbox-"+slug(s.title)+"-pochette.png",b,t("coversaved"));},"image/png");};
+
+$("b-copy").onclick=()=>{const s=show();const txt=[s.title+(s.host?" — "+s.host:"")+(s.date?" — "+s.date:""),""].concat(s.items.filter(x=>!x.talk).map(x=>(x.stamp!=null?mmss(x.stamp)+"  ":"")+x.text)).join("\n");
+ const fail=()=>{pmsg(t("copyfail"));const ta=$("copybox");ta.value=txt;ta.hidden=false;ta.focus();ta.select();};
+ try{navigator.clipboard.writeText(txt).then(()=>pmsg(t("copied")),fail);}catch(e){fail();}};
+
+applyLang();
+})();
+</script>
+
+<script data-goatcounter="https://mellowbox.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
